@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 class ViewClubhouseBookings extends StatefulWidget {
   final int villaNum;
-  DateTime selected_date;
+  final DateTime selected_date;
   ViewClubhouseBookings(
       {super.key, required this.villaNum, required this.selected_date});
 
@@ -32,7 +32,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
       lastDate: DateTime(DateTime.now().year + 1),
       builder: (BuildContext context, Widget? child) {
         // Theme customization for the date picker
