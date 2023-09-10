@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
       lastDate: DateTime(DateTime.now().year + 1),
       builder: (BuildContext context, Widget? child) {
         // Theme customization for the date picker
