@@ -5,6 +5,7 @@ import 'package:booking_app/pages/homepage.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
+import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -96,8 +97,8 @@ class _SignInPageState extends State<SignInPage> {
               title: Text('Invalid Credentials'),
               content: Text('The villa number or password is incorrect.'),
               actions: [
-                TextButton(
-                  child: Text('OK'),
+                PrimaryTextButton(
+                  text: 'OK',
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ],

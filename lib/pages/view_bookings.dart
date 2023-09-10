@@ -1,6 +1,8 @@
 import 'package:booking_app/constants.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
+import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
 import 'package:booking_app/widgets/buttons/delete_button.dart';
+import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -147,21 +149,20 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 15),
-                              backgroundColor: Colors.white70,
-                              disabledBackgroundColor: Colors.white54,
-                              padding: EdgeInsets.all(10)
-                            ),
+                                textStyle: const TextStyle(fontSize: 15),
+                                backgroundColor: Colors.white70,
+                                disabledBackgroundColor: Colors.white54,
+                                padding: EdgeInsets.all(10)),
                             child: Row(
                               children: [
                                 Table(
                                   columnWidths: const {
-                                    0: FixedColumnWidth(170), // Adjusts width based on content
+                                    0: FixedColumnWidth(
+                                        170), // Adjusts width based on content
                                     1: FixedColumnWidth(170),
                                   },
                                   children: [
-                                    TableRow(
-                                      children: [
+                                    TableRow(children: [
                                       TableCell(
                                         child: Padding(
                                           padding: EdgeInsets.all(tablePadding),
@@ -178,7 +179,8 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             data['villa_no'].toString(),
-                                            style: const TextStyle(color: Colors.black),
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
                                         ),
                                       )
@@ -200,7 +202,8 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             data['occupants'].toString(),
-                                            style: const TextStyle(color: Colors.black),
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
                                         ),
                                       )
@@ -222,7 +225,8 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             data['reason'],
-                                            style: const TextStyle(color: Colors.black),
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
                                         ),
                                       )
@@ -244,7 +248,8 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             '${DateFormat('h:mm a').format(DateTime.parse(data['start_datetime']))} to ${DateFormat('h:mm a').format(DateTime.parse(data['end_datetime']))}',
-                                            style: const TextStyle(color: Colors.black),
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
                                         ),
                                       )
@@ -252,7 +257,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                   ],
                                 ),
                                 // DeleteButton(text: '', isActive: widget.villaNum == data['villa_no'], onPressed: () {
-                                    
+
                                 //   }
                                 // )
                               ],
@@ -302,13 +307,8 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
           title: const Text('Confirm delete'),
           content: const Text('Do you want to delete the booking?'),
           actions: [
-            TextButton(
-              child: const Text('Yes'),
-              style: const ButtonStyle(
-                  foregroundColor:
-                      MaterialStatePropertyAll<Color>(Colors.green),
-                  overlayColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 201, 243, 203))),
+            AcceptTextButton(
+              text: 'Yes',
               onPressed: () async {
                 try {
                   await bookingRef.delete();
@@ -324,12 +324,8 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 }
               },
             ),
-            TextButton(
-              child: const Text('No'),
-              style: const ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll<Color>(Colors.red),
-                  overlayColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 236, 206, 204))),
+            RejectTextButton(
+              text: 'No',
               onPressed: () {
                 Navigator.of(context).pop();
               },

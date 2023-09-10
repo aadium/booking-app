@@ -2,6 +2,7 @@ import 'package:booking_app/constants.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
+import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
@@ -140,8 +141,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                     title: const Text('Booking Conflict'),
                     content: Text(conflict),
                     actions: [
-                      TextButton(
-                        child: const Text('OK'),
+                      PrimaryTextButton(
+                        text: 'OK',
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -176,8 +177,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                       title: const Text('Record added'),
                       content: const Text('Your record has been added'),
                       actions: [
-                        TextButton(
-                          child: const Text('OK'),
+                        PrimaryTextButton(
+                          text: 'OK',
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
@@ -195,8 +196,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                       title: const Text('Error'),
                       content: const Text('An error occured. Try again.'),
                       actions: [
-                        TextButton(
-                          child: const Text('OK'),
+                        PrimaryTextButton(
+                          text: 'OK',
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
@@ -217,8 +218,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                 content:
                     const Text('Please select a time atleast 4 hours from now'),
                 actions: [
-                  TextButton(
-                    child: const Text('OK'),
+                  PrimaryTextButton(
+                    text: 'OK',
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -241,8 +242,8 @@ class _BookClubHouse extends State<BookClubHouse> {
             title: const Text('Empty field'),
             content: const Text('One of the required fields is empty'),
             actions: [
-              TextButton(
-                child: const Text('OK'),
+              PrimaryTextButton(
+                text: 'OK',
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
