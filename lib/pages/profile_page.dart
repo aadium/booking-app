@@ -28,7 +28,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  void AddUser() {
+
+  bool isNumeric(String s) {
+    if(s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
+  void addUser() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
     TextEditingController newEmailController = TextEditingController();
@@ -65,38 +73,29 @@ class _ProfilePageState extends State<ProfilePage> {
                 String newName = newNameController.text;
                 String newPhoneNumber = newPhoneNumberController.text;
                 String newEmail = newEmailController.text;
-
-                Map<String, dynamic> userData = {
-                  'name': newName,
-                  'phoneNum': newPhoneNumber,
-                  'email': newEmail,
-                };
-
-                QuerySnapshot<Map<String, dynamic>> snapshot =
-                    await FirebaseFirestore.instance
-                        .collection(firestoreVillaUsersCollection)
-                        .where('Villa_num', isEqualTo: widget.villaNumber)
-                        .get();
-
-                if (snapshot.docs.isNotEmpty) {
-                  DocumentSnapshot<Map<String, dynamic>> userDoc =
-                      snapshot.docs.first;
-
-                  String documentId = userDoc.id;
-
-                  await _firestore
-                      .collection(firestoreVillaUsersCollection)
-                      .doc(documentId)
-                      .update({
-                    'userMaps': FieldValue.arrayUnion([userData])
-                  });
-                  Navigator.of(context).pop();
+                if (!isNumeric(newPhoneNumber)) {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Success'),
-                        content: Text('$newName had been added.'),
+                        title: Text('Non-numeric phone number'),
+                        content: Text('Please provide a numeric input for the phone number'),
+                        actions: [
+                          PrimaryTextButton(
+                            text: 'OK',
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else if (newName == '' || newPhoneNumber == '' || newEmail == '') {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Empty field'),
+                        content: Text('One or more of the required fields is empty'),
                         actions: [
                           PrimaryTextButton(
                             text: 'OK',
@@ -107,22 +106,64 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   );
                 } else {
-                  Navigator.of(context).pop();
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Failure to add user'),
-                        content: Text('$newName could not be added.'),
-                        actions: [
-                          PrimaryTextButton(
-                            text: 'OK',
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  Map<String, dynamic> userData = {
+                    'name': newName,
+                    'phoneNum': newPhoneNumber,
+                    'email': newEmail,
+                  };
+
+                  QuerySnapshot<Map<String, dynamic>> snapshot =
+                      await FirebaseFirestore.instance
+                          .collection(firestoreVillaUsersCollection)
+                          .where('Villa_num', isEqualTo: widget.villaNumber)
+                          .get();
+
+                  if (snapshot.docs.isNotEmpty) {
+                    DocumentSnapshot<Map<String, dynamic>> userDoc =
+                        snapshot.docs.first;
+
+                    String documentId = userDoc.id;
+
+                    await _firestore
+                        .collection(firestoreVillaUsersCollection)
+                        .doc(documentId)
+                        .update({
+                      'userMaps': FieldValue.arrayUnion([userData])
+                    });
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Success'),
+                          content: Text('$newName had been added.'),
+                          actions: [
+                            PrimaryTextButton(
+                              text: 'OK',
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Failure to add user'),
+                          content: Text('$newName could not be added.'),
+                          actions: [
+                            PrimaryTextButton(
+                              text: 'OK',
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 }
               },
             ),
@@ -281,7 +322,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 20),
-            SecondaryButton(text: 'Add User', onPressed: () => AddUser())
+            SecondaryButton(text: 'Add User', onPressed: () => addUser())
           ],
         ),
       ),

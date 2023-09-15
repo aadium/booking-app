@@ -240,7 +240,7 @@ class _BookClubHouse extends State<BookClubHouse> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Empty field'),
-            content: const Text('One of the required fields is empty'),
+            content: const Text('One or more of the required fields is empty'),
             actions: [
               PrimaryTextButton(
                 text: 'OK',
