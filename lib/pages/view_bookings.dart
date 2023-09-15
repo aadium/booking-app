@@ -256,10 +256,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                     ]),
                                   ],
                                 ),
-                                // DeleteButton(text: '', isActive: widget.villaNum == data['villa_no'], onPressed: () {
-
-                                //   }
-                                // )
                               ],
                             ),
                           ),
