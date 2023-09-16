@@ -7,16 +7,3 @@ For the frontend, I am using Flutter. Flutter offers several benefits that caugh
 I have used minimalism in the UI/UX design of this app. This is to ensure that the users will not face any difficulty or discomfort in using the application. Additionally, Flutter's highly customizable UI design allowed me to create customized widgets, like text boxes, buttons, etc. which matched my intended theme.
 
 For the backend, I have used Google Firestore, a NoSQL document database. This is very effective for small to medium scale mobile applications, which is a perfect match for the application being developed.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
