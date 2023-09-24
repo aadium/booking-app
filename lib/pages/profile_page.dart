@@ -1,4 +1,5 @@
 import 'package:booking_app/constants.dart';
+import 'package:booking_app/widgets/buttons/primary_icon_button.dart';
 import 'package:booking_app/widgets/labels/dialog_box_notice.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
@@ -154,6 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  void removeUser() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -299,7 +302,16 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 20),
-            SecondaryButton(text: 'Add User', onPressed: () => addUser())
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PrimaryIconButton(iconData: Icons.person_add_alt_1, onPressed: () => addUser()),
+                const SizedBox(width: 10,),
+                PrimaryIconButton(iconData: Icons.person_remove, onPressed: () => removeUser()),
+                const SizedBox(width: 10,),
+                PrimaryIconButton(iconData: Icons.manage_accounts, onPressed: () => removeUser())
+              ],
+            ),
           ],
         ),
       ),
