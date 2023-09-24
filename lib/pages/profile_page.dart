@@ -29,13 +29,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  bool isNumeric(String s) {
-    if(s == null) {
-      return false;
-    }
-    return double.tryParse(s) != null;
-  }
-
   void addUser() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
@@ -71,25 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Add user',
               onPressed: () async {
                 String newName = newNameController.text;
-                String newPhoneNumber = newPhoneNumberController.text;
+                int newPhoneNumber = int.parse(newPhoneNumberController.text);
                 String newEmail = newEmailController.text;
-                if (!isNumeric(newPhoneNumber)) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Non-numeric phone number'),
-                        content: Text('Please provide a numeric input for the phone number'),
-                        actions: [
-                          PrimaryTextButton(
-                            text: 'OK',
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } else if (newName == '' || newPhoneNumber == '' || newEmail == '') {
+                if (newName == '' || newPhoneNumber == '' || newEmail == '') {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
