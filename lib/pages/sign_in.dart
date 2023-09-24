@@ -50,7 +50,7 @@ class _SignInPageState extends State<SignInPage> {
               FractionallySizedBox(
                 widthFactor: 1,
                 child: PrimaryButton(
-                  onPressed: () => _signIn(context),
+                  onPressed: () => signIn(context),
                   text: 'Sign In',
                   isLoading: _isLoading,
                 ),
@@ -62,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Future<void> _signIn(BuildContext context) async {
+  Future<void> signIn(BuildContext context) async {
     int villaNumber = int.tryParse(_villaNumberController.text.trim()) ?? 0;
     String password = _passwordController.text.trim();
 
@@ -80,8 +80,7 @@ class _SignInPageState extends State<SignInPage> {
           .get();
 
       if (snapshot.docs.isNotEmpty) {
-        List<dynamic> userMaps =
-          snapshot.docs.first.data()['userMaps'];
+        List<dynamic> userMaps = snapshot.docs.first.data()['userMaps'];
         Navigator.push(
             context,
             MaterialPageRoute(
