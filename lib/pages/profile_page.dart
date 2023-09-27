@@ -29,7 +29,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   void addUser() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
@@ -55,8 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   labelText: 'Enter email ID',
                   controller: newEmailController,
                 ),
-                const SizedBox(height: 20,),
-                DialogBoxNotice(labelText: 'Changes will be reflected the next time you login')
+                const SizedBox(
+                  height: 20,
+                ),
+                DialogBoxNotice(
+                    labelText:
+                        'Changes will be reflected the next time you login')
               ],
             ),
           ),
@@ -65,15 +68,21 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Add user',
               onPressed: () async {
                 String newName = newNameController.text;
-                int newPhoneNumber = int.parse(newPhoneNumberController.text);
+                debugPrint(newName);
+                String newPhoneNumberStr = newPhoneNumberController.text;
+                debugPrint(newPhoneNumberStr.toString());
                 String newEmail = newEmailController.text;
-                if (newName == '' || newPhoneNumber == '' || newEmail == '') {
+                debugPrint(newEmail);
+                if (newName == '' ||
+                    newPhoneNumberStr == '' ||
+                    newEmail == '') {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text('Empty field'),
-                        content: Text('One or more of the required fields is empty'),
+                        content:
+                            Text('One or more of the required fields is empty'),
                         actions: [
                           PrimaryTextButton(
                             text: 'OK',
@@ -84,6 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   );
                 } else {
+                  int newPhoneNumber = int.parse(newPhoneNumberStr);
                   Map<String, dynamic> userData = {
                     'name': newName,
                     'phoneNum': newPhoneNumber,
@@ -305,11 +315,21 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PrimaryIconButton(iconData: Icons.person_add_alt_1, onPressed: () => addUser()),
-                const SizedBox(width: 10,),
-                PrimaryIconButton(iconData: Icons.person_remove, onPressed: () => removeUser()),
-                const SizedBox(width: 10,),
-                PrimaryIconButton(iconData: Icons.manage_accounts, onPressed: () => removeUser())
+                PrimaryIconButton(
+                    iconData: Icons.person_add_alt_1,
+                    onPressed: () => addUser()),
+                const SizedBox(
+                  width: 10,
+                ),
+                PrimaryIconButton(
+                    iconData: Icons.person_remove,
+                    onPressed: () => removeUser()),
+                const SizedBox(
+                  width: 10,
+                ),
+                PrimaryIconButton(
+                    iconData: Icons.manage_accounts,
+                    onPressed: () => removeUser())
               ],
             ),
           ],
