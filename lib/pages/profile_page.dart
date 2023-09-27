@@ -1,12 +1,11 @@
 import 'package:booking_app/constants.dart';
-import 'package:booking_app/widgets/buttons/primary_icon_button.dart';
+import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/labels/dialog_box_notice.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
-import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +164,51 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void removeUser() {}
+  void removeUser(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Remove User'),
+          content: Text('Are you sure you want to remove this user?'),
+          actions: [
+            PrimaryTextButton(
+              text: 'Cancel',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            PrimaryTextButton(
+              text: 'Remove',
+              onPressed: () async {
+                Navigator.of(context).pop();
+
+                setState(() {
+                  widget.userDataList.removeAt(index);
+                });
+
+                await _firestore
+                    .collection(firestoreVillaUsersCollection)
+                    .where('Villa_num', isEqualTo: widget.villaNumber)
+                    .get()
+                    .then((snapshot) {
+                  if (snapshot.docs.isNotEmpty) {
+                    DocumentSnapshot<Map<String, dynamic>> userDoc =
+                        snapshot.docs.first;
+
+                    String documentId = userDoc.id;
+
+                    _firestore
+                        .collection(firestoreVillaUsersCollection)
+                        .doc(documentId)
+                        .update({'userMaps': widget.userDataList});
+                  }
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,15 +248,32 @@ class _ProfilePageState extends State<ProfilePage> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal, // Enable horizontal scrolling
               child: Table(
+                border: TableBorder.all(color: Colors.black12, width: 1),
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 columnWidths: {
                   0: IntrinsicColumnWidth(), // Adjusts width based on content
                   1: IntrinsicColumnWidth(),
                   2: IntrinsicColumnWidth(),
+                  3: IntrinsicColumnWidth(),
                 },
                 children: [
                   TableRow(
                     children: [
+                      TableCell(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(8.0), // Add cell padding
+                          child: Center(
+                            child: Text(
+                              '',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       TableCell(
                         child: Padding(
                           padding:
@@ -269,6 +329,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             padding:
                                 const EdgeInsets.all(8.0), // Add cell padding
                             child: Center(
+                              child: IconButton(
+                                  icon: Icon(Icons.remove_circle_outline, color: Colors.red),
+                                  onPressed: () => removeUser(widget.userDataList.indexOf(userData))),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.all(8.0), // Add cell padding
+                            child: Center(
                               child: Text(
                                 userData['name'],
                                 style: const TextStyle(
@@ -315,21 +386,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PrimaryIconButton(
-                    iconData: Icons.person_add_alt_1,
+                PrimaryButton(
+                    text: 'Add User',
                     onPressed: () => addUser()),
-                const SizedBox(
-                  width: 10,
-                ),
-                PrimaryIconButton(
-                    iconData: Icons.person_remove,
-                    onPressed: () => removeUser()),
-                const SizedBox(
-                  width: 10,
-                ),
-                PrimaryIconButton(
-                    iconData: Icons.manage_accounts,
-                    onPressed: () => removeUser())
               ],
             ),
           ],
