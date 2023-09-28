@@ -190,29 +190,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                         child: Padding(
                                           padding: EdgeInsets.all(tablePadding),
                                           child: const Text(
-                                            'Occupants',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['occupants'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
                                             'Reason',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -248,6 +225,29 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             '${DateFormat('h:mm a').format(DateTime.parse(data['start_datetime']))} to ${DateFormat('h:mm a').format(DateTime.parse(data['end_datetime']))}',
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                                    TableRow(children: [
+                                      TableCell(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(tablePadding),
+                                          child: const Text(
+                                            'Occupants',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      ),
+                                      TableCell(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(tablePadding),
+                                          child: Text(
+                                            data['occupants'].toString(),
                                             style: const TextStyle(
                                                 color: Colors.black),
                                           ),
@@ -337,6 +337,24 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+                onPressed: () {
+                  if (widget.villa_number == widget.data['villa_no']) {
+                    deleteBooking(widget.bookingRef);
+                  }
+                  ;
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: widget.villa_number == widget.data['villa_no']
+                      ? Colors.white
+                      : Colors.grey,
+                )),
+          ],
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -475,13 +493,6 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 20),
-              DeleteButton(
-                  text: 'Delete Booking',
-                  isActive: widget.villa_number == widget.data['villa_no'],
-                  onPressed: () {
-                    deleteBooking(widget.bookingRef);
-                  })
             ],
           ),
         ),
