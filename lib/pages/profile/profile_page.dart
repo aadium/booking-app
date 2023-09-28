@@ -1,4 +1,5 @@
 import 'package:booking_app/constants.dart';
+import 'package:booking_app/pages/profile/profile_statistics.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
@@ -216,6 +217,19 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileStatsPage()),
+                );
+              },
+              icon: Icon(Icons.stacked_bar_chart)),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -333,7 +347,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: IconButton(
                                 icon: Icon(
                                   Icons.remove_circle_outline,
-                                  color: widget.userDataList.length != 1 ? Colors.red : Color.fromARGB(255, 226, 193, 191), // Change the color here
+                                  color: widget.userDataList.length != 1 ? Colors.red : Colors.grey,
                                 ),
                                 onPressed: () {
                                   if (widget.userDataList.length != 1) {

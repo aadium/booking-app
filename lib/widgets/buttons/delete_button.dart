@@ -19,7 +19,7 @@ class DeleteButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         textStyle: const TextStyle(fontSize: 19),
         backgroundColor: Colors.red,
-        disabledBackgroundColor: Color.fromARGB(255, 252, 163, 156),
+        disabledBackgroundColor: Colors.grey,
         padding: const EdgeInsets.all(20.0),
       ),
       

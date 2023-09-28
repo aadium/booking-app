@@ -1,4 +1,4 @@
-import 'package:booking_app/pages/profile_page.dart';
+import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
 import 'package:booking_app/pages/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
