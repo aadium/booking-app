@@ -1,6 +1,5 @@
 import 'package:booking_app/constants.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
-import 'package:booking_app/widgets/labels/dialog_box_notice.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
@@ -37,29 +36,27 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Add another user'),
-          content: SizedBox(
-            height: 230,
-            child: Column(
-              children: [
-                CustomTextFieldWController(
-                  labelText: 'Enter name',
-                  controller: newNameController,
-                ),
-                CustomNumericTextFieldWController(
-                  labelText: 'Enter phone number',
-                  controller: newPhoneNumberController,
-                ),
-                CustomTextFieldWController(
-                  labelText: 'Enter email ID',
-                  controller: newEmailController,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                DialogBoxNotice(
-                    labelText:
-                        'Changes will be reflected the next time you login')
-              ],
+          content: SingleChildScrollView(
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  CustomTextFieldWController(
+                    labelText: 'Enter name',
+                    controller: newNameController,
+                  ),
+                  CustomNumericTextFieldWController(
+                    labelText: 'Enter phone number',
+                    controller: newPhoneNumberController,
+                  ),
+                  CustomTextFieldWController(
+                    labelText: 'Enter email ID',
+                    controller: newEmailController,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -98,6 +95,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     'phoneNum': newPhoneNumber,
                     'email': newEmail,
                   };
+
+                  setState(() {
+                    widget.userDataList.add(userData);
+                  });
 
                   QuerySnapshot<Map<String, dynamic>> snapshot =
                       await FirebaseFirestore.instance
@@ -172,11 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Text('Remove User'),
           content: Text('Are you sure you want to remove this user?'),
           actions: [
-            PrimaryTextButton(
-              text: 'Cancel',
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            PrimaryTextButton(
+            AcceptTextButton(
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -203,6 +200,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 });
               },
+            ),
+            RejectTextButton(
+              text: 'Cancel',
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         );
@@ -330,8 +331,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const EdgeInsets.all(8.0), // Add cell padding
                             child: Center(
                               child: IconButton(
-                                  icon: Icon(Icons.remove_circle_outline, color: Colors.red),
-                                  onPressed: () => removeUser(widget.userDataList.indexOf(userData))),
+                                icon: Icon(
+                                  Icons.remove_circle_outline,
+                                  color: widget.userDataList.length != 1 ? Colors.red : Color.fromARGB(255, 226, 193, 191), // Change the color here
+                                ),
+                                onPressed: () {
+                                  if (widget.userDataList.length != 1) {
+                                    removeUser(widget.userDataList.indexOf(userData));
+                                  }
+                                },)
                             ),
                           ),
                         ),

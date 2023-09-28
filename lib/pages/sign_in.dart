@@ -5,6 +5,7 @@ import 'package:booking_app/pages/homepage.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
+import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -35,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               FractionallySizedBox(
                 widthFactor: 1,
-                child: CustomTextFieldWController(
+                child: CustomNumericTextFieldWController(
                   controller: _villaNumberController,
                   labelText: 'Villa Number',
                 ),
