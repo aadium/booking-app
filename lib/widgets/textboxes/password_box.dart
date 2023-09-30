@@ -13,9 +13,9 @@ class CustomPasswordField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black87),
+          borderSide: BorderSide(color: Colors.black),
         ),
-        labelStyle: TextStyle(color: Colors.black87),
+        labelStyle: TextStyle(color: Colors.black),
       ),
     );
   }

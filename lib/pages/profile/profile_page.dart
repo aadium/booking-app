@@ -216,18 +216,18 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileStatsPage()),
-                );
-              },
-              icon: Icon(Icons.stacked_bar_chart)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfileStatsPage()),
+                  );
+                },
+                icon: Icon(Icons.stacked_bar_chart)),
           ],
         ),
       ),
@@ -240,7 +240,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 5),
@@ -256,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 15),
@@ -266,10 +266,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 scrollDirection: Axis.horizontal, // Enable horizontal scrolling
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0), // Set the border radius here
+                    borderRadius: BorderRadius.circular(
+                        12.0), // Set the border radius here
                     border: Border.all(
                       color: Colors.black12, // Border color
-                      width: 2,          // Border width
+                      width: 2, // Border width
                     ),
                   ),
                   child: Table(
@@ -350,26 +351,29 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             TableCell(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.all(8.0), // Add cell padding
+                                padding: const EdgeInsets.all(
+                                    8.0), // Add cell padding
                                 child: Center(
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.remove_circle_outline,
-                                      color: widget.userDataList.length != 1 ? Colors.red : Colors.grey,
-                                    ),
-                                    onPressed: () {
-                                      if (widget.userDataList.length != 1) {
-                                        removeUser(widget.userDataList.indexOf(userData));
-                                      }
-                                    },)
-                                ),
+                                    child: IconButton(
+                                  icon: Icon(
+                                    Icons.remove_circle_outline,
+                                    color: widget.userDataList.length != 1
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    if (widget.userDataList.length != 1) {
+                                      removeUser(widget.userDataList
+                                          .indexOf(userData));
+                                    }
+                                  },
+                                )),
                               ),
                             ),
                             TableCell(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.all(8.0), // Add cell padding
+                                padding: const EdgeInsets.all(
+                                    8.0), // Add cell padding
                                 child: Center(
                                   child: Text(
                                     userData['name'],
@@ -382,8 +386,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             TableCell(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.all(8.0), // Add cell padding
+                                padding: const EdgeInsets.all(
+                                    8.0), // Add cell padding
                                 child: Center(
                                   child: Text(
                                     userData['phoneNum'].toString(),
@@ -396,8 +400,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             TableCell(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.all(8.0), // Add cell padding
+                                padding: const EdgeInsets.all(
+                                    8.0), // Add cell padding
                                 child: Center(
                                   child: Text(
                                     userData['email'],
@@ -418,10 +422,8 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 20),
             FractionallySizedBox(
               widthFactor: 0.95,
-              child: SecondaryButton(
-                text: 'Add User',
-                onPressed: () => addUser()
-              ),
+              child:
+                  SecondaryButton(text: 'Add User', onPressed: () => addUser()),
             ),
           ],
         ),

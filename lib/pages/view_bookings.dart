@@ -42,12 +42,12 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
         return Theme(
           data: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black87,
+              primary: Colors.black,
               onPrimary: Colors.white,
             ),
             textTheme: theme.textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Colors.black87,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -67,7 +67,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
       ),
       body: Column(
         children: [
@@ -77,7 +77,9 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                 text: DateFormat('d MMMM yyyy').format(selectedDate),
                 onPressed: () => _selectDate(context)),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: firestore
@@ -92,7 +94,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: Colors.black87,
+                      color: Colors.black,
                     ),
                   );
                 }
@@ -316,7 +318,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -346,7 +348,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -362,7 +364,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -378,7 +380,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -394,7 +396,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -410,7 +412,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -426,7 +428,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -442,7 +444,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),
@@ -463,7 +465,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 5),

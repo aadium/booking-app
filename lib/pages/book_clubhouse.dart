@@ -29,9 +29,11 @@ class _BookClubHouse extends State<BookClubHouse> {
   late List<dynamic> _names;
   late List<dynamic> _phoneNumbers;
   final String firstElementOfNameList = 'Select Name';
-  final String firstElementOfTimeList = 'Select Time';
+  final String firstElementOfStartTimeList = 'Start Time';
+  final String firstElementOfEndTimeList = 'End Time';
   final int firstElementOfPhoneList = 0;
-  List<String> TimeList = timeList;
+  List<String> startTimeList = timeList;
+  List<String> endTimeList = timeList;
 
   TextEditingController reason = TextEditingController();
   TextEditingController occupants = TextEditingController();
@@ -53,7 +55,8 @@ class _BookClubHouse extends State<BookClubHouse> {
         .toList();
     _names = [firstElementOfNameList, ..._names];
     _phoneNumbers = [firstElementOfPhoneList, ..._phoneNumbers];
-    TimeList = [firstElementOfTimeList, ...timeList];
+    startTimeList = [firstElementOfStartTimeList, ...timeList];
+    endTimeList = [firstElementOfEndTimeList, ...timeList];
   }
 
   String checkBookingConflicts(DateTime selectedStartingTime,
@@ -268,12 +271,12 @@ class _BookClubHouse extends State<BookClubHouse> {
         return Theme(
           data: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black87,
+              primary: Colors.black,
               onPrimary: Colors.white,
             ),
             textTheme: theme.textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Colors.black87,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -309,7 +312,7 @@ class _BookClubHouse extends State<BookClubHouse> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -341,9 +344,9 @@ class _BookClubHouse extends State<BookClubHouse> {
                   decoration: const InputDecoration(
                     labelText: 'Name',
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: Colors.black),
                     ),
-                    labelStyle: TextStyle(color: Colors.black87),
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -370,49 +373,41 @@ class _BookClubHouse extends State<BookClubHouse> {
                 TableRow(children: [
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      value: TimeList[0],
+                    child: DropdownButtonFormField<dynamic>( // Start Time
+                      value: startTimeList[0],
                       onChanged: (value) {
                         setState(() {
                           selectedStartingTime = parseTimeOfDay(value!);
                         });
                       },
-                      items: TimeList.map((time) {
+                      items: startTimeList.map((time) {
                         return DropdownMenuItem<dynamic>(
                           value: time,
                           child: Text(time),
                         );
                       }).toList(),
-                      decoration: const InputDecoration(
-                        labelText: 'Start time',
-                        labelStyle: TextStyle(color: Colors.black87),
-                      ),
                     ),
                   ),
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      value: TimeList[0],
+                    child: DropdownButtonFormField<dynamic>( // End Time
+                      value: endTimeList[0],
                       onChanged: (value) {
                         setState(() {
                           selectedEndingTime = parseTimeOfDay(value!);
                         });
                       },
-                      items: TimeList.map((time) {
+                      items: endTimeList.map((time) {
                         return DropdownMenuItem<dynamic>(
                           value: time,
                           child: Text(time),
                         );
                       }).toList(),
-                      decoration: const InputDecoration(
-                        labelText: 'End time',
-                        labelStyle: TextStyle(color: Colors.black87),
-                      ),
                     ),
                   ),
                 ])
               ]),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: FractionallySizedBox(
@@ -429,7 +424,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                       }),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: PrimaryButton(

@@ -25,7 +25,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         title: const Center(child: Text('Sign In')),
       ),
       body: Padding(

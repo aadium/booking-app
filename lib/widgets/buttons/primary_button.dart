@@ -15,20 +15,22 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 0,
         textStyle: const TextStyle(fontSize: 20),
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         disabledBackgroundColor: Colors.black54,
         padding: const EdgeInsets.all(20.0),
       ),
-      onPressed: isLoading ? null : onPressed, // Disable button when isLoading is true
+      onPressed:
+          isLoading ? null : onPressed, // Disable button when isLoading is true
       child: Stack(
         alignment: Alignment.center,
         children: [
           if (isLoading)
-            CircularProgressIndicator(color: Colors.white) // Show CircularProgressIndicator when isLoading is true
+            CircularProgressIndicator(
+                color: Colors
+                    .white) // Show CircularProgressIndicator when isLoading is true
           else
             Text(
               text,

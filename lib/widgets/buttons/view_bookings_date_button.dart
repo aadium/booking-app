@@ -17,25 +17,25 @@ class ViewBookingsDateButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: ContinuousRectangleBorder(),
         backgroundColor: Colors.white,
-        side: BorderSide(
-          width: 2,
-          color: Colors.black87
-        ),
-        textStyle: const TextStyle(fontSize: 17, color: Colors.black87),
+        side: BorderSide(width: 2, color: Colors.black),
+        textStyle: const TextStyle(fontSize: 17, color: Colors.black),
         disabledBackgroundColor: Colors.black12,
         padding: const EdgeInsets.all(17.0),
       ),
-      onPressed: isLoading ? null : onPressed, // Disable button when isLoading is true
+      onPressed:
+          isLoading ? null : onPressed, // Disable button when isLoading is true
       child: Stack(
         alignment: Alignment.center,
         children: [
           if (isLoading)
-            CircularProgressIndicator(color: Colors.black87) // Show CircularProgressIndicator when isLoading is true
+            CircularProgressIndicator(
+                color: Colors
+                    .black) // Show CircularProgressIndicator when isLoading is true
           else
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black87),
+              style: TextStyle(color: Colors.black),
             ),
         ],
       ),

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.black87,
+          cursorColor: Colors.black,
         ),
       ),
       home: SignInPage(),

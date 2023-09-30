@@ -8,14 +8,14 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onTapOutside: (event) {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                },
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       decoration: InputDecoration(
         labelText: labelText,
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black87),
+          borderSide: BorderSide(color: Colors.black),
         ),
-        labelStyle: TextStyle(color: Colors.black87),
+        labelStyle: TextStyle(color: Colors.black),
       ),
     );
   }
