@@ -16,12 +16,12 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(17.5)
+          borderRadius: BorderRadius.circular(15)
         ),
-        textStyle: const TextStyle(fontSize: 25),
+        textStyle: const TextStyle(fontSize: 20),
         backgroundColor: Colors.black87,
         disabledBackgroundColor: Colors.black54,
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.all(20.0),
       ),
       onPressed: isLoading ? null : onPressed, // Disable button when isLoading is true
       child: Stack(

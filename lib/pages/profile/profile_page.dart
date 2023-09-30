@@ -260,158 +260,168 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 15),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal, // Enable horizontal scrolling
-              child: Table(
-                border: TableBorder.all(color: Colors.black12, width: 1),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: {
-                  0: IntrinsicColumnWidth(), // Adjusts width based on content
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                  3: IntrinsicColumnWidth(),
-                },
-                children: [
-                  TableRow(
+            FractionallySizedBox(
+              widthFactor: 0.95,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0), // Set the border radius here
+                    border: Border.all(
+                      color: Colors.black12, // Border color
+                      width: 2,          // Border width
+                    ),
+                  ),
+                  child: Table(
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    columnWidths: {
+                      0: IntrinsicColumnWidth(), // Adjusts width based on content
+                      1: IntrinsicColumnWidth(),
+                      2: IntrinsicColumnWidth(),
+                      3: IntrinsicColumnWidth(),
+                    },
                     children: [
-                      TableCell(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(8.0), // Add cell padding
-                          child: Center(
-                            child: Text(
-                              '',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.all(8.0), // Add cell padding
+                              child: Center(
+                                child: Text(
+                                  '',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(8.0), // Add cell padding
-                          child: Center(
-                            child: Text(
-                              'Name',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          TableCell(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.all(8.0), // Add cell padding
+                              child: Center(
+                                child: Text(
+                                  'Name',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(8.0), // Add cell padding
-                          child: Center(
-                            child: Text(
-                              'Phone Number',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          TableCell(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.all(8.0), // Add cell padding
+                              child: Center(
+                                child: Text(
+                                  'Phone Number',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(8.0), // Add cell padding
-                          child: Center(
-                            child: Text(
-                              'Email',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          TableCell(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.all(8.0), // Add cell padding
+                              child: Center(
+                                child: Text(
+                                  'Email',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      for (final userData in widget.userDataList)
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(8.0), // Add cell padding
+                                child: Center(
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: widget.userDataList.length != 1 ? Colors.red : Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      if (widget.userDataList.length != 1) {
+                                        removeUser(widget.userDataList.indexOf(userData));
+                                      }
+                                    },)
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(8.0), // Add cell padding
+                                child: Center(
+                                  child: Text(
+                                    userData['name'],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(8.0), // Add cell padding
+                                child: Center(
+                                  child: Text(
+                                    userData['phoneNum'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(8.0), // Add cell padding
+                                child: Center(
+                                  child: Text(
+                                    userData['email'],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
-                  for (final userData in widget.userDataList)
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0), // Add cell padding
-                            child: Center(
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.remove_circle_outline,
-                                  color: widget.userDataList.length != 1 ? Colors.red : Colors.grey,
-                                ),
-                                onPressed: () {
-                                  if (widget.userDataList.length != 1) {
-                                    removeUser(widget.userDataList.indexOf(userData));
-                                  }
-                                },)
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0), // Add cell padding
-                            child: Center(
-                              child: Text(
-                                userData['name'],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0), // Add cell padding
-                            child: Center(
-                              child: Text(
-                                userData['phoneNum'].toString(),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.all(8.0), // Add cell padding
-                            child: Center(
-                              child: Text(
-                                userData['email'],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SecondaryButton(
-                    text: 'Add User',
-                    onPressed: () => addUser()),
-              ],
+            FractionallySizedBox(
+              widthFactor: 0.95,
+              child: SecondaryButton(
+                text: 'Add User',
+                onPressed: () => addUser()
+              ),
             ),
           ],
         ),

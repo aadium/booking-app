@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SecondaryButton extends StatelessWidget {
+class ViewBookingsDateButton extends StatelessWidget {
   final String text;
   final bool isLoading;
   final VoidCallback onPressed;
 
-  const SecondaryButton({
+  const ViewBookingsDateButton({
     required this.text,
     this.isLoading = false,
     required this.onPressed,
@@ -15,9 +15,7 @@ class SecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
+        shape: ContinuousRectangleBorder(),
         backgroundColor: Colors.white,
         side: BorderSide(
           width: 2,

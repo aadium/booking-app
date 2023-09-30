@@ -1,5 +1,7 @@
 import 'package:booking_app/constants.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
+import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
+import 'package:booking_app/widgets/buttons/view_bookings_option_button.dart';
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
 import 'package:booking_app/widgets/buttons/delete_button.dart';
 import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
@@ -69,30 +71,13 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
       ),
       body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.only(bottom: 5),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black26),
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Column(
-              children: [
-                FractionallySizedBox(
-                  widthFactor: 1,
-                  child: SecondaryButton(
-                      text: 'Select Date',
-                      onPressed: () => _selectDate(context)),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  DateFormat('d MMMM yyyy').format(selectedDate),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ],
-            ),
+          FractionallySizedBox(
+            widthFactor: 1,
+            child: ViewBookingsDateButton(
+                text: DateFormat('d MMMM yyyy').format(selectedDate),
+                onPressed: () => _selectDate(context)),
           ),
+          const SizedBox(height: 20,),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: firestore
@@ -134,8 +119,8 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                     return Column(
                       children: [
                         FractionallySizedBox(
-                          widthFactor: 0.9,
-                          child: ElevatedButton(
+                          widthFactor: 0.95,
+                          child: ViewBookingsOptionButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -148,11 +133,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                         )),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 15),
-                                backgroundColor: Colors.white70,
-                                disabledBackgroundColor: Colors.white54,
-                                padding: EdgeInsets.all(10)),
                             child: Row(
                               children: [
                                 Table(

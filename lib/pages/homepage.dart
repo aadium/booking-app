@@ -1,6 +1,7 @@
 import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
 import 'package:booking_app/pages/view_bookings.dart';
+import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               FractionallySizedBox(
                 widthFactor: 0.9,
-                child: PrimaryButton(
+                child: HomepageOptionButton(
                   text: 'Book Clubhouse',
                   onPressed: () {
                     Navigator.push(
@@ -108,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 5),
               FractionallySizedBox(
                 widthFactor: 0.9,
-                child: PrimaryButton(
+                child: HomepageOptionButton(
                   text: 'View Bookings',
                   onPressed: () async {
                     _selectDate(context);
