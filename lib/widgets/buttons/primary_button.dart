@@ -15,10 +15,13 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 19),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(17.5)
+        ),
+        textStyle: const TextStyle(fontSize: 25),
         backgroundColor: Colors.black87,
         disabledBackgroundColor: Colors.black54,
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(25.0),
       ),
       onPressed: isLoading ? null : onPressed, // Disable button when isLoading is true
       child: Stack(
@@ -30,10 +33,7 @@ class PrimaryButton extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.white),
+              style: TextStyle(color: Colors.white),
             ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:booking_app/constants.dart';
 import 'package:booking_app/pages/profile/profile_statistics.dart';
-import 'package:booking_app/widgets/buttons/primary_button.dart';
+import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
@@ -408,7 +408,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PrimaryButton(
+                SecondaryButton(
                     text: 'Add User',
                     onPressed: () => addUser()),
               ],

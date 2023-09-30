@@ -23,6 +23,7 @@ class BookClubHouse extends StatefulWidget {
 }
 
 class _BookClubHouse extends State<BookClubHouse> {
+  bool isDateSelectionDone = false;
   String selectedName = '';
   int selectedPhoneNumber = 0;
   late List<dynamic> _names;
@@ -365,102 +366,69 @@ class _BookClubHouse extends State<BookClubHouse> {
                     maxLines: 3,
                   )),
               const SizedBox(height: 20),
-              FractionallySizedBox(
-                widthFactor: 0.9,
-                child: Container(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black26),
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Column(
-                    children: [
-                      FractionallySizedBox(
-                        widthFactor: 1,
-                        child: SecondaryButton(
-                            text: 'Select Date',
-                            onPressed: () => _selectDate(context)),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        DateFormat('d MMMM yyyy').format(selectedDate),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
               Table(children: [
                 TableRow(children: [
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black26),
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: DropdownButtonFormField<dynamic>(
-                          value: TimeList[0],
-                          onChanged: (value) {
-                            setState(() {
-                              selectedStartingTime = parseTimeOfDay(value!);
-                            });
-                          },
-                          items: TimeList.map((time) {
-                            return DropdownMenuItem<dynamic>(
-                              value: time,
-                              child: Text(time),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            labelText: 'Start time',
-                            labelStyle: TextStyle(color: Colors.black87),
-                          ),
-                        ),
+                    child: DropdownButtonFormField<dynamic>(
+                      value: TimeList[0],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedStartingTime = parseTimeOfDay(value!);
+                        });
+                      },
+                      items: TimeList.map((time) {
+                        return DropdownMenuItem<dynamic>(
+                          value: time,
+                          child: Text(time),
+                        );
+                      }).toList(),
+                      decoration: const InputDecoration(
+                        labelText: 'Start time',
+                        labelStyle: TextStyle(color: Colors.black87),
                       ),
                     ),
                   ),
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black26),
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: DropdownButtonFormField<dynamic>(
-                          value: TimeList[0],
-                          onChanged: (value) {
-                            setState(() {
-                              selectedEndingTime = parseTimeOfDay(value!);
-                            });
-                          },
-                          items: TimeList.map((time) {
-                            return DropdownMenuItem<dynamic>(
-                              value: time,
-                              child: Text(time),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            labelText: 'End time',
-                            labelStyle: TextStyle(color: Colors.black87),
-                          ),
-                        ),
+                    child: DropdownButtonFormField<dynamic>(
+                      value: TimeList[0],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedEndingTime = parseTimeOfDay(value!);
+                        });
+                      },
+                      items: TimeList.map((time) {
+                        return DropdownMenuItem<dynamic>(
+                          value: time,
+                          child: Text(time),
+                        );
+                      }).toList(),
+                      decoration: const InputDecoration(
+                        labelText: 'End time',
+                        labelStyle: TextStyle(color: Colors.black87),
                       ),
                     ),
                   ),
                 ])
               ]),
+              const SizedBox(height: 20),
+              FractionallySizedBox(
+                widthFactor: 0.9,
+                child: FractionallySizedBox(
+                  widthFactor: 1,
+                  child: SecondaryButton(
+                      text: isDateSelectionDone
+                          ? DateFormat('d MMMM yyyy').format(selectedDate)
+                          : 'Select Date',
+                      onPressed: () {
+                        _selectDate(context);
+                        setState(() {
+                          isDateSelectionDone = true;
+                        });
+                      }),
+                ),
+              ),
               const SizedBox(height: 20),
               FractionallySizedBox(
                 widthFactor: 0.9,

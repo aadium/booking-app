@@ -5,29 +5,45 @@ class SecondaryButton extends StatelessWidget {
   final bool isLoading;
   final VoidCallback onPressed;
 
-  SecondaryButton(
-      {required this.text, this.isLoading = false, required this.onPressed});
+  const SecondaryButton({
+    required this.text,
+    this.isLoading = false,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 15),
-        backgroundColor: Colors.white70,
-        disabledBackgroundColor: Colors.white54,
-        padding: const EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.5)
+        ),
+        backgroundColor: Colors.white,
+        side: BorderSide(
+          width: 2,
+          color: Colors.black87
+        ),
+        textStyle: const TextStyle(
+          fontSize: 17, color: Colors.black87, fontWeight: FontWeight.bold
+        ),
+        disabledBackgroundColor: Colors.black12,
+        disabledForegroundColor: Colors.black45,
+        padding: const EdgeInsets.all(18.0),
       ),
-      onPressed: onPressed,
-      child: isLoading
-          ? const CircularProgressIndicator(color: Colors.black87,)
-          : Text(
+      onPressed: isLoading ? null : onPressed, // Disable button when isLoading is true
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          if (isLoading)
+            CircularProgressIndicator(color: Colors.black87) // Show CircularProgressIndicator when isLoading is true
+          else
+            Text(
               text,
               textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Colors.black87),
+              style: TextStyle(color: Colors.black87),
             ),
+        ],
+      ),
     );
   }
 }
