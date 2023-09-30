@@ -29,9 +29,16 @@ class SecondaryButton extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           if (isLoading)
-            CircularProgressIndicator(
-                color: Colors
-                    .black) // Show CircularProgressIndicator when isLoading is true
+            Center(
+              child: SizedBox(
+                width: 17,
+                height: 17,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                    color: Colors
+                        .black),
+              ),
+            )// Show CircularProgressIndicator when isLoading is true
           else
             Text(
               text,

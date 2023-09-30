@@ -28,9 +28,16 @@ class PrimaryButton extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           if (isLoading)
-            CircularProgressIndicator(
-                color: Colors
-                    .white) // Show CircularProgressIndicator when isLoading is true
+            Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                    color: Colors
+                        .white),
+              ),
+            )
           else
             Text(
               text,

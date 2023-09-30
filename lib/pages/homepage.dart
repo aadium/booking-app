@@ -28,12 +28,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return Theme(
           data: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black,
+              primary: Colors.black87,
               onPrimary: Colors.white,
             ),
             textTheme: theme.textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Colors.black,
+                color: Colors.black87,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               villaNumber: widget.villa_num,
                               userDataList: widget.userData,
                             ))),
-                icon: Icon(Icons.person)),
+                icon: Icon(Icons.house_rounded)),
           ],
         ),
       ),
