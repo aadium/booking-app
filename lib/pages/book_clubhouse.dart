@@ -1,15 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:booking_app/constants.dart';
+import 'package:booking_app/functions/booking_functions.dart';
+import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class BookClubHouse extends StatefulWidget {
   final int villaNum;
@@ -40,8 +41,13 @@ class _BookClubHouse extends State<BookClubHouse> {
   TextEditingController additionalRequests = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
+  dynamic asyncDate;
   TimeOfDay selectedStartingTime = TimeOfDay.now();
   TimeOfDay selectedEndingTime = TimeOfDay.now();
+
+  final customDatePicker = CustomDatePicker();
+  final bookingMinorFunctions = BookingMinorFunctions();
+  final bookingMainFunctions = BookingMainFunctions();
 
   bool loading = false;
 
@@ -57,255 +63,6 @@ class _BookClubHouse extends State<BookClubHouse> {
     _phoneNumbers = [firstElementOfPhoneList, ..._phoneNumbers];
     startTimeList = [firstElementOfStartTimeList, ...timeList];
     endTimeList = [firstElementOfEndTimeList, ...timeList];
-  }
-
-  String checkBookingConflicts(DateTime selectedStartingTime,
-      DateTime selectedEndingTime, List<dynamic> existingBookings) {
-    for (var booking in existingBookings) {
-      DateTime existingStartingTime = DateTime.parse(booking['start_datetime']);
-      DateTime existingEndingTime = DateTime.parse(booking['end_datetime']);
-
-      if ((existingStartingTime.isBefore(selectedEndingTime) &&
-              existingEndingTime.isAfter(selectedStartingTime)) ||
-          (existingStartingTime.isAfter(selectedStartingTime) &&
-              existingEndingTime.isBefore(selectedEndingTime)) ||
-          (existingStartingTime.isBefore(selectedStartingTime) &&
-              existingEndingTime.isAfter(selectedEndingTime))) {
-        return 'Clubhouse is booked from ${DateFormat('h:mm a').format(existingStartingTime)} to ${DateFormat('h:mm a').format(existingEndingTime)} on ${DateFormat('dd MMMM yyyy').format(existingStartingTime)}. Please choose another time range'; // Conflict detected
-      }
-    }
-    return ''; // No conflict
-  }
-
-  bool checkTimeDiffValid(DateTime selectedStartingDateTime) {
-    Duration timeDifference =
-        selectedStartingDateTime.difference(DateTime.now());
-    int hourDifference = timeDifference.inHours;
-
-    if (hourDifference < 4) {
-      return false;
-    }
-
-    return true;
-  }
-
-  bool checkNullRecords(
-      TextEditingController reason, int occupants, BuildContext context) {
-    if (reason.text == '' || occupants == 0) {
-      return false;
-    }
-    return true;
-  }
-
-  void addEntry(
-      String name,
-      int phoneNumber,
-      int villano,
-      TextEditingController reason,
-      int occupants,
-      TextEditingController additionalRequests,
-      DateTime selectedDate,
-      TimeOfDay selectedStartingTime,
-      TimeOfDay selectedEndingTime,
-      BuildContext context) async {
-    if (checkNullRecords(reason, occupants, context)) {
-      setState(() {
-        loading = true;
-      });
-      try {
-        DateTime startingDateTime = DateTime(
-          selectedDate.year,
-          selectedDate.month,
-          selectedDate.day,
-          selectedStartingTime.hour,
-          selectedStartingTime.minute,
-        );
-        DateTime endingDateTime = DateTime(
-          selectedDate.year,
-          selectedDate.month,
-          selectedDate.day,
-          selectedEndingTime.hour,
-          selectedEndingTime.minute,
-        );
-
-        if (checkTimeDiffValid(startingDateTime)) {
-          final existingBookings = [];
-          firestore
-              .collection(firestoreBookClubhouseCollection)
-              .get()
-              .then((snapshot) {
-            existingBookings.addAll(snapshot.docs.map((doc) => doc.data()));
-            String conflict = checkBookingConflicts(
-                startingDateTime, endingDateTime, existingBookings);
-            if (conflict != '') {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Booking Conflict'),
-                    content: Text(conflict),
-                    actions: [
-                      PrimaryTextButton(
-                        text: 'OK',
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else {
-              // No conflict, proceed to add the booking
-              Map<String, dynamic> entryData = {
-                'name': name,
-                'villa_no': villano,
-                'phone_number': phoneNumber,
-                'reason': reason.text,
-                'occupants': occupants,
-                'additionalRequests': additionalRequests.text,
-                'start_datetime': startingDateTime.toString(),
-                'end_datetime': endingDateTime.toString(),
-              };
-
-              firestore
-                  .collection(firestoreBookClubhouseCollection)
-                  .add(entryData)
-                  .then((value) {
-                debugPrint('Document added to Firestore: $entryData');
-                debugPrint('Value ID = ${value.id}');
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Record added'),
-                      content: const Text('Your record has been added'),
-                      actions: [
-                        PrimaryTextButton(
-                          text: 'OK',
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }).catchError((error) {
-                debugPrint('Error adding document to Firestore: $error');
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text('An error occured. Try again.'),
-                      actions: [
-                        PrimaryTextButton(
-                          text: 'OK',
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              });
-            }
-          });
-        } else {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Date too early'),
-                content:
-                    const Text('Please select a time atleast 4 hours from now'),
-                actions: [
-                  PrimaryTextButton(
-                    text: 'OK',
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      } finally {
-        setState(() {
-          loading = false;
-        });
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Empty field'),
-            content: const Text('One or more of the required fields is empty'),
-            actions: [
-              PrimaryTextButton(
-                text: 'OK',
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  void _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year + 1),
-      builder: (BuildContext context, Widget? child) {
-        // Theme customization for the date picker
-        final ThemeData theme = Theme.of(context);
-        return Theme(
-          data: theme.copyWith(
-            colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black,
-              onPrimary: Colors.white,
-            ),
-            textTheme: theme.textTheme.copyWith(
-              titleMedium: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (pickedDate != null) {
-      setState(() {
-        selectedDate = pickedDate;
-      });
-    }
-  }
-
-  TimeOfDay parseTimeOfDay(String timeString) {
-    List<String> parts = timeString.split(' ');
-    List<String> timeParts = parts[0].split(':');
-
-    int hour = int.parse(timeParts[0]);
-    int minute = int.parse(timeParts[1]);
-
-    if (parts[1].toLowerCase() == 'pm' && hour != 12) {
-      hour += 12;
-    } else if (parts[1].toLowerCase() == 'am' && hour == 12) {
-      hour = 0;
-    }
-
-    return TimeOfDay(hour: hour, minute: minute);
   }
 
   @override
@@ -373,11 +130,12 @@ class _BookClubHouse extends State<BookClubHouse> {
                 TableRow(children: [
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>( // Start Time
+                    child: DropdownButtonFormField<dynamic>(
+                      // Start Time
                       value: startTimeList[0],
                       onChanged: (value) {
                         setState(() {
-                          selectedStartingTime = parseTimeOfDay(value!);
+                          selectedStartingTime = bookingMinorFunctions.parseTimeOfDay(value!);
                         });
                       },
                       items: startTimeList.map((time) {
@@ -390,11 +148,12 @@ class _BookClubHouse extends State<BookClubHouse> {
                   ),
                   FractionallySizedBox(
                     widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>( // End Time
+                    child: DropdownButtonFormField<dynamic>(
+                      // End Time
                       value: endTimeList[0],
                       onChanged: (value) {
                         setState(() {
-                          selectedEndingTime = parseTimeOfDay(value!);
+                          selectedEndingTime = bookingMinorFunctions.parseTimeOfDay(value!);
                         });
                       },
                       items: endTimeList.map((time) {
@@ -416,10 +175,13 @@ class _BookClubHouse extends State<BookClubHouse> {
                       text: isDateSelectionDone
                           ? DateFormat('d MMMM yyyy').format(selectedDate)
                           : 'Select Date',
-                      onPressed: () {
-                        _selectDate(context);
+                      onPressed: () async {
+                        asyncDate = await customDatePicker
+                            .selectDateFromCurrentDate(context);
                         setState(() {
                           isDateSelectionDone = true;
+                          selectedDate =
+                              asyncDate == null ? selectedDate : asyncDate;
                         });
                       }),
                 ),
@@ -430,9 +192,9 @@ class _BookClubHouse extends State<BookClubHouse> {
                 child: PrimaryButton(
                   text: 'Book Clubhouse',
                   isLoading: loading,
-                  onPressed: () {
+                  onPressed: () async {
                     int occupantsInteger = int.tryParse(occupants.text) ?? 0;
-                    addEntry(
+                    var bookingStatus = await bookingMainFunctions.addEntry(
                         selectedName,
                         selectedPhoneNumber,
                         widget.villaNum,
@@ -443,6 +205,80 @@ class _BookClubHouse extends State<BookClubHouse> {
                         selectedStartingTime,
                         selectedEndingTime,
                         context);
+                    if (bookingStatus[0] == 1) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Booking Conflict'),
+                            content: Text(bookingStatus[1]),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (bookingStatus[0] == 0) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Record added'),
+                            content: const Text('Your record has been added'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (bookingStatus[0] == 2) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text('An error occured. Try again.'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (bookingStatus[0] == 3) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Date too early'),
+                            content:
+                                const Text('Please select a time atleast 4 hours from now'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
               ),
