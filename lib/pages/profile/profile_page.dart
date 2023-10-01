@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:booking_app/constants.dart';
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/profile_statistics.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
@@ -150,10 +149,8 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
-                await profileFunctions.removeUser(widget.villaNumber, widget.userDataList);
-                setState(() {
-                  widget.userDataList.removeAt(index);
-                });
+                profileFunctions.removeUser(widget.villaNumber, widget.userDataList, index);
+                Navigator.of(context).pop();
               },
             ),
             RejectTextButton(

@@ -49,7 +49,7 @@ class ProfileFunctions {
     }
   }
 
-  Future<void> removeUser(int villaNum, dynamic userDataList) async {
+  Future<void> removeUser(int villaNum, dynamic userDataList, int index) async {
     await _firestore
         .collection(firestoreVillaUsersCollection)
         .where('Villa_num', isEqualTo: villaNum)
@@ -57,6 +57,7 @@ class ProfileFunctions {
         .then((snapshot) {
       if (snapshot.docs.isNotEmpty) {
         DocumentSnapshot<Map<String, dynamic>> userDoc = snapshot.docs.first;
+        userDataList.removeAt(index);
         String documentId = userDoc.id;
 
         _firestore
