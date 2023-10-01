@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:booking_app/constants.dart';
+import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/profile_statistics.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
@@ -28,7 +31,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  void addUser() {
+  final profileFunctions = ProfileFunctions();
+  void addUserDialog() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
     TextEditingController newEmailController = TextEditingController();
@@ -62,70 +66,37 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           actions: [
             AcceptTextButton(
-              text: 'Add user',
-              onPressed: () async {
-                String newName = newNameController.text;
-                debugPrint(newName);
-                String newPhoneNumberStr = newPhoneNumberController.text;
-                debugPrint(newPhoneNumberStr.toString());
-                String newEmail = newEmailController.text;
-                debugPrint(newEmail);
-                if (newName == '' ||
-                    newPhoneNumberStr == '' ||
-                    newEmail == '') {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Empty field'),
-                        content:
-                            Text('One or more of the required fields is empty'),
-                        actions: [
-                          PrimaryTextButton(
-                            text: 'OK',
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } else {
-                  int newPhoneNumber = int.parse(newPhoneNumberStr);
-                  Map<String, dynamic> userData = {
-                    'name': newName,
-                    'phoneNum': newPhoneNumber,
-                    'email': newEmail,
-                  };
-
-                  setState(() {
-                    widget.userDataList.add(userData);
-                  });
-
-                  QuerySnapshot<Map<String, dynamic>> snapshot =
-                      await FirebaseFirestore.instance
-                          .collection(firestoreVillaUsersCollection)
-                          .where('Villa_num', isEqualTo: widget.villaNumber)
-                          .get();
-
-                  if (snapshot.docs.isNotEmpty) {
-                    DocumentSnapshot<Map<String, dynamic>> userDoc =
-                        snapshot.docs.first;
-
-                    String documentId = userDoc.id;
-
-                    await _firestore
-                        .collection(firestoreVillaUsersCollection)
-                        .doc(documentId)
-                        .update({
-                      'userMaps': FieldValue.arrayUnion([userData])
-                    });
+                text: 'Add user',
+                onPressed: () async {
+                  var addUserResult = await profileFunctions.addUser(
+                      newNameController,
+                      newPhoneNumberController,
+                      newEmailController, widget.villaNumber);
+                  if (addUserResult[0] == 1) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Empty field'),
+                          content:
+                              Text('One or more of the required fields is empty'),
+                          actions: [
+                            PrimaryTextButton(
+                              text: 'OK',
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else if (addUserResult[0] == 0) {
                     Navigator.of(context).pop();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Success'),
-                          content: Text('$newName had been added.'),
+                          content: Text('${addUserResult[1]} had been added.'),
                           actions: [
                             PrimaryTextButton(
                               text: 'OK',
@@ -135,27 +106,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       },
                     );
-                  } else {
+                    setState(() {
+                      widget.userDataList.add(addUserResult[2]);
+                    });
+                  } else if (addUserResult[0] == 2) {
                     Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Failure to add user'),
-                          content: Text('$newName could not be added.'),
-                          actions: [
-                            PrimaryTextButton(
-                              text: 'OK',
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Failure to add user'),
+                            content: Text('${addUserResult[1]} could not be added.'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () => Navigator.of(context).pop(),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                   }
-                }
-              },
-            ),
+                }),
             RejectTextButton(
               text: 'Cancel',
               onPressed: () => Navigator.of(context).pop(),
@@ -166,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void removeUser(int index) {
+  void removeUserDialog(int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -178,27 +150,9 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
-
+                await profileFunctions.removeUser(widget.villaNumber, widget.userDataList);
                 setState(() {
                   widget.userDataList.removeAt(index);
-                });
-
-                await _firestore
-                    .collection(firestoreVillaUsersCollection)
-                    .where('Villa_num', isEqualTo: widget.villaNumber)
-                    .get()
-                    .then((snapshot) {
-                  if (snapshot.docs.isNotEmpty) {
-                    DocumentSnapshot<Map<String, dynamic>> userDoc =
-                        snapshot.docs.first;
-
-                    String documentId = userDoc.id;
-
-                    _firestore
-                        .collection(firestoreVillaUsersCollection)
-                        .doc(documentId)
-                        .update({'userMaps': widget.userDataList});
-                  }
                 });
               },
             ),
@@ -363,7 +317,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   onPressed: () {
                                     if (widget.userDataList.length != 1) {
-                                      removeUser(widget.userDataList
+                                      removeUserDialog(widget.userDataList
                                           .indexOf(userData));
                                     }
                                   },
@@ -422,8 +376,8 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 20),
             FractionallySizedBox(
               widthFactor: 0.95,
-              child:
-                  SecondaryButton(text: 'Add User', onPressed: () => addUser()),
+              child: SecondaryButton(
+                  text: 'Add User', onPressed: () => addUserDialog()),
             ),
           ],
         ),
