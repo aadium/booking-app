@@ -3,6 +3,7 @@ import 'package:booking_app/pages/book_clubhouse.dart';
 import 'package:booking_app/pages/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
+import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,46 +17,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   DateTime selectedDate = DateTime.now();
-  void _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year - 1),
-      lastDate: DateTime(DateTime.now().year + 1),
-      builder: (BuildContext context, Widget? child) {
-        // Theme customization for the date picker
-        final ThemeData theme = Theme.of(context);
-        return Theme(
-          data: theme.copyWith(
-            colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black87,
-              onPrimary: Colors.white,
-            ),
-            textTheme: theme.textTheme.copyWith(
-              titleMedium: const TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (pickedDate != null) {
-      setState(() {
-        selectedDate = pickedDate;
-      });
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ViewClubhouseBookings(
-                  villaNum: widget.villa_num,
-                  selected_date: selectedDate,
-                )),
-      );
-    }
-  }
+  dynamic asyncDate;
+  final customDatePicker = CustomDatePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: WillPopScope(
         onWillPop: () async {
-          // Return false to disable the back button functionality.
           return Future.value(false);
         },
         child: Center(
@@ -112,7 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: HomepageOptionButton(
                   text: 'View Bookings',
                   onPressed: () async {
-                    _selectDate(context);
+                    asyncDate = await customDatePicker.selectDate(
+                        context);
+                        setState(() {
+                          selectedDate = asyncDate == null ? selectedDate : asyncDate;
+                        });
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ViewClubhouseBookings(
+                                villaNum: widget.villa_num,
+                                selected_date: selectedDate,
+                              )),
+                    );
                   },
                 ),
               )
