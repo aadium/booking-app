@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -74,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: HomepageOptionButton(
                   text: 'View Bookings',
                   onPressed: () async {
-                    asyncDate = await customDatePicker.selectDate(
-                        context);
-                        setState(() {
-                          selectedDate = asyncDate == null ? selectedDate : asyncDate;
-                        });
+                    asyncDate = await customDatePicker.selectDate(context);
+                    setState(() {
+                      selectedDate =
+                          asyncDate == null ? selectedDate : asyncDate;
+                    });
                     await Navigator.push(
                       context,
                       MaterialPageRoute(

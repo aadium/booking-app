@@ -15,8 +15,8 @@ class HomepageOptionButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         textStyle: const TextStyle(fontSize: 22),
-        backgroundColor: Colors.black,
-        disabledBackgroundColor: Colors.black54,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        disabledBackgroundColor: Color.fromRGBO(77, 91, 97, 1),
         padding: const EdgeInsets.all(22.0),
       ),
       onPressed: onPressed,

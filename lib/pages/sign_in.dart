@@ -2,6 +2,7 @@
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/homepage.dart';
+import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
@@ -28,8 +29,7 @@ class _SignInPageState extends State<SignInPage> {
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-        title: const Center(child: Text('Sign In')),
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,8 +59,7 @@ class _SignInPageState extends State<SignInPage> {
                       _isLoading = true;
                     });
                     signInResult = await signFunctions.signIn(
-                        _villaNumberController,
-                        _passwordController);
+                        _villaNumberController, _passwordController);
                     if (signInResult[0] == 0) {
                       Navigator.push(
                           context,
@@ -78,7 +77,8 @@ class _SignInPageState extends State<SignInPage> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text('Invalid Credentials'),
-                            content: Text('The villa number or password is incorrect.'),
+                            content: Text(
+                                'The villa number or password is incorrect.'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',

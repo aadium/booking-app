@@ -18,8 +18,8 @@ class PrimaryButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 0,
         textStyle: const TextStyle(fontSize: 20),
-        backgroundColor: Colors.black,
-        disabledBackgroundColor: Colors.black54,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        disabledBackgroundColor: Color.fromRGBO(77, 91, 97, 1),
         padding: const EdgeInsets.all(20.0),
       ),
       onPressed:
@@ -33,9 +33,7 @@ class PrimaryButton extends StatelessWidget {
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                    color: Colors
-                        .white),
+                    strokeWidth: 2, color: Colors.white),
               ),
             )
           else

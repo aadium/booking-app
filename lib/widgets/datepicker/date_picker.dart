@@ -13,12 +13,12 @@ class CustomDatePicker {
         return Theme(
           data: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black,
+              primary: Color.fromRGBO(42, 54, 59, 1),
               onPrimary: Colors.white,
             ),
             textTheme: theme.textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Colors.black,
+                color: Color.fromRGBO(42, 54, 59, 1),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -29,6 +29,7 @@ class CustomDatePicker {
     );
     return pickedDate;
   }
+
   Future<DateTime?> selectDateFromCurrentDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -41,12 +42,12 @@ class CustomDatePicker {
         return Theme(
           data: theme.copyWith(
             colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.black,
+              primary: Color.fromRGBO(42, 54, 59, 1),
               onPrimary: Colors.white,
             ),
             textTheme: theme.textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Colors.black,
+                color: Color.fromRGBO(42, 54, 59, 1),
                 fontWeight: FontWeight.bold,
               ),
             ),

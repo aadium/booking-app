@@ -15,7 +15,7 @@ class _ProfileStatsPageState extends State<ProfileStatsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
       ),
     );
   }

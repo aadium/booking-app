@@ -2,7 +2,7 @@
 
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/profile_statistics.dart';
-import 'package:booking_app/widgets/buttons/secondary_button.dart';
+import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
@@ -70,15 +70,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   var addUserResult = await profileFunctions.addUser(
                       newNameController,
                       newPhoneNumberController,
-                      newEmailController, widget.villaNumber);
+                      newEmailController,
+                      widget.villaNumber);
                   if (addUserResult[0] == 1) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Empty field'),
-                          content:
-                              Text('One or more of the required fields is empty'),
+                          content: Text(
+                              'One or more of the required fields is empty'),
                           actions: [
                             PrimaryTextButton(
                               text: 'OK',
@@ -110,21 +111,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     });
                   } else if (addUserResult[0] == 2) {
                     Navigator.of(context).pop();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Failure to add user'),
-                            content: Text('${addUserResult[1]} could not be added.'),
-                            actions: [
-                              PrimaryTextButton(
-                                text: 'OK',
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Failure to add user'),
+                          content:
+                              Text('${addUserResult[1]} could not be added.'),
+                          actions: [
+                            PrimaryTextButton(
+                              text: 'OK',
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   }
                 }),
             RejectTextButton(
@@ -149,7 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
-                profileFunctions.removeUser(widget.villaNumber, widget.userDataList, index);
+                profileFunctions.removeUser(
+                    widget.villaNumber, widget.userDataList, index);
                 Navigator.of(context).pop();
               },
             ),
@@ -167,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -191,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Color.fromRGBO(42, 54, 59, 1),
               ),
             ),
             const SizedBox(height: 5),
@@ -207,7 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Color.fromRGBO(42, 54, 59, 1),
               ),
             ),
             const SizedBox(height: 15),
@@ -373,7 +376,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 20),
             FractionallySizedBox(
               widthFactor: 0.95,
-              child: SecondaryButton(
+              child: PrimaryButton(
                   text: 'Add User', onPressed: () => addUserDialog()),
             ),
           ],

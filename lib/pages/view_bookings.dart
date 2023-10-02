@@ -37,7 +37,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
       ),
       body: Column(
         children: [
@@ -69,7 +69,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: Colors.black,
+                      color: Color.fromRGBO(42, 54, 59, 1),
                     ),
                   );
                 }
@@ -127,7 +127,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                             'Villa Number',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                                color: Color.fromRGBO(42, 54, 59, 1)),
                                           ),
                                         ),
                                       ),
@@ -150,7 +150,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                             'Reason',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                                color: Color.fromRGBO(42, 54, 59, 1)),
                                           ),
                                         ),
                                       ),
@@ -173,7 +173,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                             'Time Duration',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                                color: Color.fromRGBO(42, 54, 59, 1)),
                                           ),
                                         ),
                                       ),
@@ -196,7 +196,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                             'Occupants',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                                color: Color.fromRGBO(42, 54, 59, 1)),
                                           ),
                                         ),
                                       ),
@@ -253,7 +253,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -320,7 +320,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -336,7 +336,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -352,7 +352,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -368,7 +368,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -384,7 +384,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -400,7 +400,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -416,7 +416,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),
@@ -437,7 +437,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromRGBO(42, 54, 59, 1),
                 ),
               ),
               const SizedBox(height: 5),

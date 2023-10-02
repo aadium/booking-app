@@ -69,7 +69,7 @@ class _BookClubHouse extends State<BookClubHouse> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -135,7 +135,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                       value: startTimeList[0],
                       onChanged: (value) {
                         setState(() {
-                          selectedStartingTime = bookingMinorFunctions.parseTimeOfDay(value!);
+                          selectedStartingTime =
+                              bookingMinorFunctions.parseTimeOfDay(value!);
                         });
                       },
                       items: startTimeList.map((time) {
@@ -153,7 +154,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                       value: endTimeList[0],
                       onChanged: (value) {
                         setState(() {
-                          selectedEndingTime = bookingMinorFunctions.parseTimeOfDay(value!);
+                          selectedEndingTime =
+                              bookingMinorFunctions.parseTimeOfDay(value!);
                         });
                       },
                       items: endTimeList.map((time) {
@@ -265,8 +267,8 @@ class _BookClubHouse extends State<BookClubHouse> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text('Date too early'),
-                            content:
-                                const Text('Please select a time atleast 4 hours from now'),
+                            content: const Text(
+                                'Please select a time atleast 4 hours from now'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',

@@ -17,9 +17,8 @@ class ViewBookingsDateButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: ContinuousRectangleBorder(),
         backgroundColor: Colors.white,
-        side: BorderSide(width: 2, color: Colors.black),
-        textStyle: const TextStyle(fontSize: 17, color: Colors.black),
-        disabledBackgroundColor: Colors.black12,
+        side: BorderSide(width: 2, color: Color.fromRGBO(42, 54, 59, 1)),
+        textStyle: const TextStyle(fontSize: 17, color: Color.fromRGBO(42, 54, 59, 1)),
         padding: const EdgeInsets.all(17.0),
       ),
       onPressed:
