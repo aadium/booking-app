@@ -15,7 +15,7 @@ class RejectTextButton extends StatelessWidget {
       style: const ButtonStyle(
           foregroundColor: MaterialStatePropertyAll<Color>(Colors.red),
           overlayColor: MaterialStatePropertyAll<Color>(
-              Color.fromARGB(255, 236, 206, 204))),
+              Color.fromRGBO(244, 67, 54, 0.11))),
       onPressed: onPressed,
       child: Text(text),
     );

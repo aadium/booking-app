@@ -17,10 +17,10 @@ class SecondaryButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 0,
-        textStyle: const TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 17),
         backgroundColor: Color.fromRGBO(235, 74, 95, 1),
         disabledBackgroundColor: Color.fromRGBO(255, 116, 134, 1),
-        padding: const EdgeInsets.all(17.0),
+        padding: const EdgeInsets.all(15.0),
       ),
       onPressed:
           isLoading ? null : onPressed, // Disable button when isLoading is true

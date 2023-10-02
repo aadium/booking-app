@@ -15,7 +15,7 @@ class AcceptTextButton extends StatelessWidget {
       style: const ButtonStyle(
           foregroundColor: MaterialStatePropertyAll<Color>(Colors.green),
           overlayColor: MaterialStatePropertyAll<Color>(
-              Color.fromARGB(255, 201, 243, 203))),
+              Color.fromRGBO(76, 175, 79, 0.11))),
       onPressed: onPressed,
       child: Text(text),
     );

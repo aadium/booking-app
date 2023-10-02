@@ -13,9 +13,9 @@ class PrimaryTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: const ButtonStyle(
-          foregroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+          foregroundColor: MaterialStatePropertyAll<Color>(Color.fromRGBO(42, 54, 59, 1),),
           overlayColor: MaterialStatePropertyAll<Color>(
-              Color.fromARGB(255, 225, 225, 225))),
+              Color.fromRGBO(42, 54, 59, 0.11),)),
       onPressed: onPressed,
       child: Text(text),
     );
