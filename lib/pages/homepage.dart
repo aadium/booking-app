@@ -1,8 +1,7 @@
 import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
-import 'package:booking_app/pages/view_bookings.dart';
+import 'package:booking_app/pages/view_bookings/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
-import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:flutter/material.dart';
 

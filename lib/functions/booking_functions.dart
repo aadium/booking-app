@@ -57,7 +57,6 @@ class BookingMinorFunctions {
     } else if (parts[1].toLowerCase() == 'am' && hour == 12) {
       hour = 0;
     }
-
     return TimeOfDay(hour: hour, minute: minute);
   }
 }
@@ -139,5 +138,24 @@ class BookingMainFunctions {
       completer.complete([4, null]);
     }
     return completer.future;
+  }
+
+  Future<List> fetchClubhouseBookings(DateTime selectedDate) async {
+    final querySnapshot = await firestore
+        .collection(firestoreBookClubhouseCollection)
+        .orderBy('start_datetime', descending: false)
+        .get();
+
+    final documents = querySnapshot.docs;
+
+    final filteredDocuments = documents.where((document) {
+      final data = document.data() as Map<String, dynamic>;
+      final name = DateFormat('d MMMM yyyy')
+          .format(DateTime.parse(data['start_datetime']));
+      return name
+          .toString()
+          .contains(DateFormat('d MMMM yyyy').format(selectedDate));
+    }).toList();
+    return filteredDocuments;
   }
 }

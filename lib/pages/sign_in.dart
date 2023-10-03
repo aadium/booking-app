@@ -2,7 +2,6 @@
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/homepage.dart';
-import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
