@@ -2,6 +2,7 @@ import 'package:booking_app/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final User? user = FirebaseAuth.instance.currentUser;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -66,5 +67,18 @@ class ProfileFunctions {
             .update({'userMaps': userDataList});
       }
     });
+  }
+}
+class StatisticsFunctions {
+  Future<String> getLastUsageTime() async {
+    final preferences = await SharedPreferences.getInstance();
+    final lastUsageTime = preferences.getString('last_usage_time');
+
+    if (lastUsageTime != null) {
+      final lastUsageDateTime = DateTime.parse(lastUsageTime).toString();
+      return lastUsageDateTime;
+    } else {
+      return 'App usage data not available';
+    }
   }
 }

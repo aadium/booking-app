@@ -8,8 +8,6 @@ import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart'
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:flutter/material.dart';
 
-GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -25,7 +23,6 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),

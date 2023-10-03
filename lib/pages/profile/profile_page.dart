@@ -8,12 +8,7 @@ import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart'
 import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-final User? user = FirebaseAuth.instance.currentUser;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class ProfilePage extends StatefulWidget {
   final int villaNumber;
@@ -178,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfileStatsPage()),
+                    MaterialPageRoute(builder: (context) => ProfileStatsPage(userDataList: widget.userDataList,)),
                   );
                 },
                 icon: Icon(Icons.stacked_bar_chart)),
