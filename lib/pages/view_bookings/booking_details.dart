@@ -1,5 +1,5 @@
-import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
-import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
+import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
+import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -46,7 +46,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                           content:
                               const Text('Do you want to delete the booking?'),
                           actions: [
-                            AcceptTextButton(
+                            PrimaryTextButton(
                               text: 'Yes',
                               onPressed: () async {
                                 try {
@@ -63,7 +63,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                                 }
                               },
                             ),
-                            RejectTextButton(
+                            SecondaryTextButton(
                               text: 'No',
                               onPressed: () {
                                 Navigator.of(context).pop();

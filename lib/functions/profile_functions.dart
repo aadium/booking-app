@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final User? user = FirebaseAuth.instance.currentUser;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -69,16 +70,13 @@ class ProfileFunctions {
     });
   }
 }
-class StatisticsFunctions {
-  Future<String> getLastUsageTime() async {
-    final preferences = await SharedPreferences.getInstance();
-    final lastUsageTime = preferences.getString('last_usage_time');
+class ProfileInfoFunctions {
+  void showLocation() async {
+    final latitude = 25.24225207729788;
+    final longitude = 51.55955193548285;
 
-    if (lastUsageTime != null) {
-      final lastUsageDateTime = DateTime.parse(lastUsageTime).toString();
-      return lastUsageDateTime;
-    } else {
-      return 'App usage data not available';
-    }
+    final url = 'https://maps.google.com/?q=$latitude,$longitude';
+
+    await launch(url);
   }
 }

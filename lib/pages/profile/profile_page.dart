@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/functions/profile_functions.dart';
-import 'package:booking_app/pages/profile/profile_statistics.dart';
+import 'package:booking_app/pages/profile/profile_info.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
-import 'package:booking_app/widgets/textbuttons/accept_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
-import 'package:booking_app/widgets/textbuttons/reject_text_button.dart';
+import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -59,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           actions: [
-            AcceptTextButton(
+            PrimaryTextButton(
                 text: 'Add user',
                 onPressed: () async {
                   var addUserResult = await profileFunctions.addUser(
@@ -124,7 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   }
                 }),
-            RejectTextButton(
+            SecondaryTextButton(
               text: 'Cancel',
               onPressed: () => Navigator.of(context).pop(),
             ),
@@ -142,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Text('Remove User'),
           content: Text('Are you sure you want to remove this user?'),
           actions: [
-            AcceptTextButton(
+            PrimaryTextButton(
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -151,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Navigator.of(context).pop();
               },
             ),
-            RejectTextButton(
+            SecondaryTextButton(
               text: 'Cancel',
               onPressed: () => Navigator.of(context).pop(),
             ),
@@ -176,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     MaterialPageRoute(builder: (context) => ProfileStatsPage(userDataList: widget.userDataList,)),
                   );
                 },
-                icon: Icon(Icons.stacked_bar_chart)),
+                icon: Icon(Icons.info_outline_rounded)),
           ],
         ),
       ),
@@ -218,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(
                         12.0), // Set the border radius here
                     border: Border.all(
-                      color: Colors.black12, // Border color
+                      color: Color.fromRGBO(235, 74, 95, 1), // Border color
                       width: 2, // Border width
                     ),
                   ),
@@ -307,7 +306,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   icon: Icon(
                                     Icons.remove_circle_outline,
                                     color: widget.userDataList.length != 1
-                                        ? Colors.red
+                                        ? Color.fromRGBO(235, 74, 95, 1)
                                         : Colors.grey,
                                   ),
                                   onPressed: () {
