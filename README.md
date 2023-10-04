@@ -7,3 +7,6 @@ For the frontend, I am using Flutter. Flutter offers several benefits that caugh
 I have used minimalism in the UI/UX design of this app. This is to ensure that the users will not face any difficulty or discomfort in using the application. Additionally, Flutter's highly customizable UI design allowed me to create customized widgets, like text boxes, buttons, etc. which matched my intended theme.
 
 For the backend, I have used Google Firestore, a NoSQL document database. This is very effective for small to medium scale mobile applications, which is a perfect match for the application being developed.
+
+<h3>Color palette used</h3>
+<img src = "assets/color_palette_cropped.png" width=40%>
