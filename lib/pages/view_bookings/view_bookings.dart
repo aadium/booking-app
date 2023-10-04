@@ -1,7 +1,7 @@
 import 'package:booking_app/functions/booking_functions.dart';
 import 'package:booking_app/pages/view_bookings/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
-import 'package:booking_app/widgets/buttons/view_bookings_option_button.dart';
+import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -73,7 +73,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                       children: [
                         FractionallySizedBox(
                           widthFactor: 0.95,
-                          child: ViewBookingsOptionButton(
+                          child: TertiaryButton(
                             onPressed: () {
                               Navigator.push(
                                 context,

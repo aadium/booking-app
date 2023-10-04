@@ -19,9 +19,10 @@ class PrimaryIconButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.5)
         ),
         textStyle: const TextStyle(fontSize: 19),
-        backgroundColor: Colors.black87,
-        disabledBackgroundColor: Colors.black54,
+        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        disabledBackgroundColor: Color.fromRGBO(77, 91, 97, 1),
         padding: const EdgeInsets.all(20.0),
+        elevation: 0
       ),
       onPressed: isLoading ? null : onPressed,
       child: Stack(

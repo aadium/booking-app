@@ -69,8 +69,6 @@ class ProfileFunctions {
       }
     });
   }
-}
-class ProfileInfoFunctions {
   void showLocation() async {
     final latitude = 25.24225207729788;
     final longitude = 51.55955193548285;
@@ -78,5 +76,13 @@ class ProfileInfoFunctions {
     final url = 'https://maps.google.com/?q=$latitude,$longitude';
 
     await launch(url);
+  }
+
+  void phone() {
+    debugPrint('TODO: Implement');
+  }
+
+  void email() {
+    debugPrint('TODO: Implement');
   }
 }

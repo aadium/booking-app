@@ -1,10 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/functions/profile_functions.dart';
-import 'package:booking_app/pages/profile/profile_info.dart';
-import 'package:booking_app/widgets/buttons/primary_button.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
+import 'package:booking_app/pages/profile/user_info.dart';
+import 'package:booking_app/widgets/buttons/profile_options_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
@@ -25,355 +23,103 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final profileFunctions = ProfileFunctions();
-  void addUserDialog() {
-    TextEditingController newNameController = TextEditingController();
-    TextEditingController newPhoneNumberController = TextEditingController();
-    TextEditingController newEmailController = TextEditingController();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Add another user'),
-          content: SingleChildScrollView(
-            child: IntrinsicHeight(
-              child: Column(
-                children: [
-                  CustomTextFieldWController(
-                    labelText: 'Enter name',
-                    controller: newNameController,
-                  ),
-                  CustomNumericTextFieldWController(
-                    labelText: 'Enter phone number',
-                    controller: newPhoneNumberController,
-                  ),
-                  CustomTextFieldWController(
-                    labelText: 'Enter email ID',
-                    controller: newEmailController,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: [
-            PrimaryTextButton(
-                text: 'Add user',
-                onPressed: () async {
-                  var addUserResult = await profileFunctions.addUser(
-                      newNameController,
-                      newPhoneNumberController,
-                      newEmailController,
-                      widget.villaNumber);
-                  if (addUserResult[0] == 1) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Empty field'),
-                          content: Text(
-                              'One or more of the required fields is empty'),
-                          actions: [
-                            PrimaryTextButton(
-                              text: 'OK',
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else if (addUserResult[0] == 0) {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Success'),
-                          content: Text('${addUserResult[1]} had been added.'),
-                          actions: [
-                            PrimaryTextButton(
-                              text: 'OK',
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    setState(() {
-                      widget.userDataList.add(addUserResult[2]);
-                    });
-                  } else if (addUserResult[0] == 2) {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Failure to add user'),
-                          content:
-                              Text('${addUserResult[1]} could not be added.'),
-                          actions: [
-                            PrimaryTextButton(
-                              text: 'OK',
-                              onPressed: () => Navigator.of(context).pop(),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                }),
-            SecondaryTextButton(
-              text: 'Cancel',
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void removeUserDialog(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Remove User'),
-          content: Text('Are you sure you want to remove this user?'),
-          actions: [
-            PrimaryTextButton(
-              text: 'Remove',
-              onPressed: () async {
-                Navigator.of(context).pop();
-                profileFunctions.removeUser(
-                    widget.villaNumber, widget.userDataList, index);
-                Navigator.of(context).pop();
-              },
-            ),
-            SecondaryTextButton(
-              text: 'Cancel',
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfileStatsPage(userDataList: widget.userDataList,)),
-                  );
-                },
-                icon: Icon(Icons.info_outline_rounded)),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Villa Number:',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(42, 54, 59, 1),
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              widget.villaNumber.toString(),
-              style: const TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'User Information:',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color.fromRGBO(42, 54, 59, 1),
-              ),
-            ),
-            const SizedBox(height: 15),
-            FractionallySizedBox(
-              widthFactor: 0.95,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+      appBar: AppBar(backgroundColor: Color.fromRGBO(42, 54, 59, 1)),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              FractionallySizedBox(
+                widthFactor: 1,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        12.0), // Set the border radius here
-                    border: Border.all(
-                      color: Color.fromRGBO(235, 74, 95, 1), // Border color
-                      width: 2, // Border width
-                    ),
-                  ),
-                  child: Table(
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    columnWidths: {
-                      0: IntrinsicColumnWidth(), // Adjusts width based on content
-                      1: IntrinsicColumnWidth(),
-                      2: IntrinsicColumnWidth(),
-                      3: IntrinsicColumnWidth(),
-                    },
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(80),
+                          bottomRight: Radius.circular(80)),
+                      color: Color.fromRGBO(42, 54, 59, 1)),
+                  child: Column(
                     children: [
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.all(8.0), // Add cell padding
-                              child: Center(
-                                child: Text(
-                                  '',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.all(8.0), // Add cell padding
-                              child: Center(
-                                child: Text(
-                                  'Name',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.all(8.0), // Add cell padding
-                              child: Center(
-                                child: Text(
-                                  'Phone Number',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.all(8.0), // Add cell padding
-                              child: Center(
-                                child: Text(
-                                  'Email',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      for (final userData in widget.userDataList)
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(
-                                    8.0), // Add cell padding
-                                child: Center(
-                                    child: IconButton(
-                                  icon: Icon(
-                                    Icons.remove_circle_outline,
-                                    color: widget.userDataList.length != 1
-                                        ? Color.fromRGBO(235, 74, 95, 1)
-                                        : Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    if (widget.userDataList.length != 1) {
-                                      removeUserDialog(widget.userDataList
-                                          .indexOf(userData));
-                                    }
-                                  },
-                                )),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(
-                                    8.0), // Add cell padding
-                                child: Center(
-                                  child: Text(
-                                    userData['name'],
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(
-                                    8.0), // Add cell padding
-                                child: Center(
-                                  child: Text(
-                                    userData['phoneNum'].toString(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: const EdgeInsets.all(
-                                    8.0), // Add cell padding
-                                child: Center(
-                                  child: Text(
-                                    userData['email'],
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Villa Number:',
+                        style: TextStyle(
+                          fontSize: 35,
+                          color: Colors.white,
                         ),
+                      ),
+                      const SizedBox(height: 25),
+                      Text(
+                        widget.villaNumber.toString(),
+                        style: const TextStyle(
+                            fontSize: 60,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            FractionallySizedBox(
-              widthFactor: 0.95,
-              child: PrimaryButton(
-                  text: 'Add User', onPressed: () => addUserDialog()),
-            ),
-          ],
+              Container(
+                child: Column(children: [
+                  SizedBox(
+                      height:
+                          MediaQuery.of(context).copyWith().size.height / 7),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: ProfileOptionsButton(
+                          text: 'Users',
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserInfoPage(
+                                      villaNumber: widget.villaNumber,
+                                      userDataList: widget.userDataList))))),
+                  const SizedBox(height: 15),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: ProfileOptionsButton(
+                          text: 'Booking History',
+                          onPressed: () => debugPrint('To be implemented'))),
+                  const SizedBox(height: 15),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: ProfileOptionsButton(
+                          text: 'Address',
+                          onPressed: () =>
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Your Address', style: TextStyle(color: Color.fromRGBO(42, 54, 59, 1)),),
+                                    content: Text('Villa #${widget.villaNumber}, Dana Garden, E-Ring Road, Old Airport, Doha, Qatar'),
+                                    actions: [
+                                      PrimaryTextButton(
+                                        text: 'View on Map',
+                                        onPressed: () => profileFunctions.showLocation(),
+                                      ),
+                                      SecondaryTextButton(
+                                        text: 'Close',
+                                        onPressed: () => Navigator.of(context).pop(),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ))),
+                  const SizedBox(height: 15),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: ProfileOptionsButton(
+                          text: 'Help',
+                          onPressed: () => debugPrint('To be implemented'))),
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
