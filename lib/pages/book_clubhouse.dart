@@ -195,18 +195,21 @@ class _BookClubHouse extends State<BookClubHouse> {
                   text: 'Book Clubhouse',
                   isLoading: loading,
                   onPressed: () async {
-                    int occupantsInteger = int.tryParse(occupants.text) ?? 0;
-                    var bookingStatus = await bookingMainFunctions.addEntry(
+                    setState(() {
+                      loading = true;
+                    });
+                    List bookingStatus = await bookingMainFunctions.addEntry(
                         selectedName,
                         selectedPhoneNumber,
                         widget.villaNum,
                         reason,
-                        occupantsInteger,
+                        occupants,
                         additionalRequests,
                         selectedDate,
                         selectedStartingTime,
                         selectedEndingTime,
                         context);
+                    print(bookingStatus[0]);
                     if (bookingStatus[0] == 1) {
                       showDialog(
                         context: context,
@@ -280,7 +283,29 @@ class _BookClubHouse extends State<BookClubHouse> {
                           );
                         },
                       );
+                    } else if (bookingStatus[0] == 4) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('One or more empty fields'),
+                            content: const Text(
+                                'Please fill out all the required fields'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     }
+                    setState(() {
+                      loading = false;
+                    });
                   },
                 ),
               ),

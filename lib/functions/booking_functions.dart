@@ -69,7 +69,7 @@ class BookingMainFunctions {
     int phoneNumber,
     int villano,
     TextEditingController reason,
-    int occupants,
+    TextEditingController occupants,
     TextEditingController additionalRequests,
     DateTime selectedDate,
     TimeOfDay selectedStartingTime,
@@ -77,8 +77,8 @@ class BookingMainFunctions {
     BuildContext context,
   ) async {
     Completer<List> completer = Completer<List>();
-
-    if (bookingMinorFunctions.checkNullRecords(reason, occupants)) {
+    int occupantsInteger = int.tryParse(occupants.text) ?? 1;
+    if (bookingMinorFunctions.checkNullRecords(reason, occupantsInteger)) {
       DateTime startingDateTime = DateTime(
         selectedDate.year,
         selectedDate.month,
@@ -105,6 +105,7 @@ class BookingMainFunctions {
               startingDateTime, endingDateTime, existingBookings);
           if (conflict != '') {
             completer.complete([1, conflict]);
+            debugPrint('1');
           } else {
             // No conflict, proceed to add the booking
             Map<String, dynamic> entryData = {
@@ -112,7 +113,7 @@ class BookingMainFunctions {
               'villa_no': villano,
               'phone_number': phoneNumber,
               'reason': reason.text,
-              'occupants': occupants,
+              'occupants': occupantsInteger,
               'additionalRequests': additionalRequests.text,
               'start_datetime': startingDateTime.toString(),
               'end_datetime': endingDateTime.toString(),
@@ -125,25 +126,30 @@ class BookingMainFunctions {
               debugPrint('Document added to Firestore: $entryData');
               debugPrint('Value ID = ${value.id}');
               completer.complete([0, null]);
+              debugPrint('0');
             }).catchError((error) {
               debugPrint('Error adding document to Firestore: $error');
               completer.complete([2, null]);
+              debugPrint('2');
             });
           }
         });
       } else {
         completer.complete([3, null]);
+        debugPrint('3');
       }
     } else {
       completer.complete([4, null]);
+      debugPrint('4');
     }
     return completer.future;
   }
 
-  Future<List> fetchClubhouseBookings(DateTime selectedDate) async {
+  Future<List> fetchClubhouseBookingsByDate(
+      DateTime selectedDate, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
         .collection(firestoreBookClubhouseCollection)
-        .orderBy('start_datetime', descending: false)
+        .orderBy('start_datetime', descending: isSortInDescendingOrder)
         .get();
 
     final documents = querySnapshot.docs;
@@ -156,6 +162,24 @@ class BookingMainFunctions {
           .toString()
           .contains(DateFormat('d MMMM yyyy').format(selectedDate));
     }).toList();
+    return filteredDocuments;
+  }
+
+  Future<List> fetchClubhouseBookingsByVilla(
+      int villaNumber, bool isSortInDescendingOrder) async {
+    final querySnapshot = await firestore
+        .collection(firestoreBookClubhouseCollection)
+        .orderBy('start_datetime', descending: isSortInDescendingOrder)
+        .get();
+
+    final documents = querySnapshot.docs;
+
+    final filteredDocuments = documents.where((document) {
+      final data = document.data() as Map<String, dynamic>;
+      final documentVillaNumber = data['villa_no'];
+      return documentVillaNumber == villaNumber;
+    }).toList();
+
     return filteredDocuments;
   }
 }

@@ -10,12 +10,14 @@ class ClubhouseBookingDetails extends StatefulWidget {
   final data;
   final DocumentReference bookingRef;
   final int villa_number;
+  bool isUserInBookingHistory = false;
 
-  const ClubhouseBookingDetails(
+  ClubhouseBookingDetails(
       {super.key,
       required this.data,
       required this.villa_number,
-      required this.bookingRef});
+      required this.bookingRef,
+      this.isUserInBookingHistory = false});
 
   @override
   _ClubhouseBookingDetails createState() => _ClubhouseBookingDetails();
@@ -33,7 +35,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-                onPressed: () {
+                onPressed: widget.isUserInBookingHistory? null : () {
                   if (widget.villa_number == widget.data['villa_no']) {
                     setState(() {
                       isLoading = true;
@@ -78,7 +80,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                 },
                 icon: Icon(
                   Icons.delete,
-                  color: widget.villa_number == widget.data['villa_no']
+                  color: widget.villa_number == widget.data['villa_no'] && !widget.isUserInBookingHistory
                       ? Colors.white
                       : Colors.grey,
                 )),

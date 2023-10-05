@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/functions/profile_functions.dart';
+import 'package:booking_app/pages/profile/user_booking_history.dart';
 import 'package:booking_app/pages/profile/user_info.dart';
 import 'package:booking_app/widgets/buttons/profile_options_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
@@ -84,7 +85,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       widthFactor: 0.9,
                       child: ProfileOptionsButton(
                           text: 'Booking History',
-                          onPressed: () => debugPrint('To be implemented'))),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserBookingHistory(
+                                      villaNum: widget.villaNumber))))),
                   const SizedBox(height: 15),
                   FractionallySizedBox(
                       widthFactor: 0.9,
