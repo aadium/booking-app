@@ -92,29 +92,6 @@ class _UserBookingHistory extends State<UserBookingHistory> {
                                   child: Padding(
                                     padding: EdgeInsets.all(tablePadding),
                                     child: const Text(
-                                      'Villa Number',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(42, 54, 59, 1)),
-                                    ),
-                                  ),
-                                ),
-                                TableCell(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(tablePadding),
-                                    child: Text(
-                                      data['villa_no'].toString(),
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                              TableRow(children: [
-                                TableCell(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(tablePadding),
-                                    child: const Text(
                                       'Reason',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -173,29 +150,6 @@ class _UserBookingHistory extends State<UserBookingHistory> {
                                     padding: EdgeInsets.all(tablePadding),
                                     child: Text(
                                       '${DateFormat('h:mm a').format(DateTime.parse(data['start_datetime']))} to ${DateFormat('h:mm a').format(DateTime.parse(data['end_datetime']))}',
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                              TableRow(children: [
-                                TableCell(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(tablePadding),
-                                    child: const Text(
-                                      'Occupants',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromRGBO(42, 54, 59, 1)),
-                                    ),
-                                  ),
-                                ),
-                                TableCell(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(tablePadding),
-                                    child: Text(
-                                      data['occupants'].toString(),
                                       style:
                                           const TextStyle(color: Colors.black),
                                     ),
