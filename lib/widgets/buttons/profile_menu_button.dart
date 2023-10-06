@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProfileOptionsButton extends StatelessWidget {
+class ProfileMenuButton extends StatelessWidget {
   final String text;
   final bool isLoading;
   final VoidCallback onPressed;
 
-  const ProfileOptionsButton({
+  const ProfileMenuButton({
     required this.text,
     this.isLoading = false,
     required this.onPressed,
@@ -17,16 +17,16 @@ class ProfileOptionsButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 0,
-        textStyle: const TextStyle(fontSize: 25),
+        textStyle: const TextStyle(fontSize: 21),
         backgroundColor: Color.fromRGBO(219, 226, 230, 1),
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.all(23.0),
       ),
       onPressed: onPressed,
       child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Color.fromRGBO(42, 54, 59, 1)),
-            ),
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Color.fromRGBO(42, 54, 59, 1)),
+      ),
     );
   }
 }

@@ -15,8 +15,6 @@ class SignFunctions {
         .where('Villa_num', isEqualTo: villaNumber)
         .where('Password', isEqualTo: password)
         .get();
-    _villaNumberController.clear();
-    _passwordController.clear();
     if (snapshot.docs.isNotEmpty) {
       List<dynamic> userMaps = snapshot.docs.first.data()['userMaps'];
       return [0, userMaps];

@@ -3,7 +3,7 @@
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/user_booking_history.dart';
 import 'package:booking_app/pages/profile/user_info.dart';
-import 'package:booking_app/widgets/buttons/profile_options_button.dart';
+import 'package:booking_app/widgets/buttons/profile_menu_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           MediaQuery.of(context).copyWith().size.height / 7),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileOptionsButton(
+                      child: ProfileMenuButton(
                           text: 'Users',
                           onPressed: () => Navigator.push(
                               context,
@@ -80,47 +80,69 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (context) => UserInfoPage(
                                       villaNumber: widget.villaNumber,
                                       userDataList: widget.userDataList))))),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileOptionsButton(
+                      child: ProfileMenuButton(
                           text: 'Booking History',
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => UserBookingHistory(
                                       villaNum: widget.villaNumber))))),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileOptionsButton(
+                      child: ProfileMenuButton(
                           text: 'Address',
-                          onPressed: () =>
-                              showDialog(
+                          onPressed: () => showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text('Your Address', style: TextStyle(color: Color.fromRGBO(42, 54, 59, 1)),),
-                                    content: Text('Villa #${widget.villaNumber}, Dana Garden, E-Ring Road, Old Airport, Doha, Qatar'),
+                                    title: Text(
+                                      'Your Address',
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(42, 54, 59, 1)),
+                                    ),
+                                    content: Text(
+                                        'Villa #${widget.villaNumber}, Dana Garden, E-Ring Road, Old Airport, Doha, Qatar'),
                                     actions: [
                                       PrimaryTextButton(
                                         text: 'View on Map',
-                                        onPressed: () => profileFunctions.showLocation(),
+                                        onPressed: () =>
+                                            profileFunctions.showLocation(),
                                       ),
                                       SecondaryTextButton(
                                         text: 'Close',
-                                        onPressed: () => Navigator.of(context).pop(),
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
                                       ),
                                     ],
                                   );
                                 },
                               ))),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileOptionsButton(
-                          text: 'Help',
-                          onPressed: () => debugPrint('To be implemented'))),
+                      child: ProfileMenuButton(
+                          text: 'Contact',
+                          onPressed: () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Contact us',
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(42, 54, 59, 1)),
+                                    ),
+                                    actions: [
+                                      IconButton(onPressed: null, icon: Icon(Icons.email_rounded, color: Color.fromRGBO(42, 54, 59, 1),)),
+                                      IconButton(onPressed: null, icon: Icon(Icons.call_rounded, color: Color.fromRGBO(42, 54, 59, 1),)),
+                                      IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.exit_to_app_rounded, color: Color.fromRGBO(235, 74, 95, 1))),
+                                    ],
+                                  );
+                                },
+                              ))),
                 ]),
               ),
             ],
