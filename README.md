@@ -1,6 +1,6 @@
 # Booking App
 
-This is a mobile application that manages bookings. Users can create, view, and delete their bookings through this application. Each villa has an one account, and under each account, there are multiple users, each having their name, phone number, and email id.
+This is a mobile application that manages bookings. Users can create, view, and delete their bookings through this application. Each villa has an account, and under each account, there are multiple users, each having their name, phone number, and email id. As of now, all of the users are equal, and can add or remove other users from the villa account. However, in the future, I am planning to implement a special administrator account, which will have the sole authority to add or remove users from their villa account.
 
 <h3>Frontend used</h3>
 
