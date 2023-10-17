@@ -30,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromRGBO(42, 54, 59, 1)),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -46,7 +45,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(42, 54, 59, 1)),
                   child: Column(
                     children: [
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 32),
+                      Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_rounded, color: Colors.white, size: 27,))                          
+                        ],
+                      ),
+                      const SizedBox(height: 10),
                       const Text(
                         'Villa Number:',
                         style: TextStyle(
@@ -76,6 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Users',
+                          icon: (Icons.group),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -87,6 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Booking History',
+                          icon: (Icons.history),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -96,7 +104,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   FractionallySizedBox(
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
-                          text: 'Contact',
+                          text: 'Location',
+                          icon: Icons.location_pin,
+                          onPressed: () => profileFunctions.showLocation())),
+                  const SizedBox(height: 12),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: PrimaryProfileMenuButton(
+                          text: 'Contact Help',
+                          icon: (Icons.help_center_rounded),
                           onPressed: () => showDialog(
                                 context: context,
                                 builder: (BuildContext context) {

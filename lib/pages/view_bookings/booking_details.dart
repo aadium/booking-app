@@ -30,6 +30,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
