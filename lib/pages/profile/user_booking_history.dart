@@ -44,6 +44,7 @@ class _UserBookingHistory extends State<UserBookingHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: Text('Villa #$villaNum booking history'),
       ),

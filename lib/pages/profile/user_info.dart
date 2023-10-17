@@ -164,6 +164,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: const Text('Users'),
       ),

@@ -69,6 +69,7 @@ class _BookClubHouse extends State<BookClubHouse> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
       ),
       body: Center(

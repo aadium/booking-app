@@ -23,25 +23,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.logout)),
-            IconButton(
-                onPressed: () => Navigator.push(
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(235, 74, 95, 1),
+        elevation: 0,
+        onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => ProfilePage(
                               villaNumber: widget.villa_num,
                               userDataList: widget.userData,
                             ))),
-                icon: Icon(Icons.house_rounded)),
-          ],
-        ),
+        child: Icon(Icons.house_rounded, size: 27,),
       ),
       body: WillPopScope(
         onWillPop: () async {

@@ -3,7 +3,9 @@
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/user_booking_history.dart';
 import 'package:booking_app/pages/profile/user_info.dart';
-import 'package:booking_app/widgets/buttons/profile_menu_button.dart';
+import 'package:booking_app/pages/sign_in.dart';
+import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
+import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromRGBO(42, 54, 59, 1)),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -44,7 +45,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(42, 54, 59, 1)),
                   child: Column(
                     children: [
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 32),
+                      Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_rounded, color: Colors.white, size: 27,))                          
+                        ],
+                      ),
+                      const SizedBox(height: 10),
                       const Text(
                         'Villa Number:',
                         style: TextStyle(
@@ -72,8 +80,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           MediaQuery.of(context).copyWith().size.height / 7),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileMenuButton(
+                      child: PrimaryProfileMenuButton(
                           text: 'Users',
+                          icon: (Icons.group),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -83,8 +92,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileMenuButton(
+                      child: PrimaryProfileMenuButton(
                           text: 'Booking History',
+                          icon: (Icons.history),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -93,39 +103,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileMenuButton(
-                          text: 'Address',
-                          onPressed: () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Your Address',
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(42, 54, 59, 1)),
-                                    ),
-                                    content: Text(
-                                        'Villa #${widget.villaNumber}, Dana Garden, E-Ring Road, Old Airport, Doha, Qatar'),
-                                    actions: [
-                                      PrimaryTextButton(
-                                        text: 'View on Map',
-                                        onPressed: () =>
-                                            profileFunctions.showLocation(),
-                                      ),
-                                      SecondaryTextButton(
-                                        text: 'Close',
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ))),
+                      child: PrimaryProfileMenuButton(
+                          text: 'Location',
+                          icon: Icons.location_pin,
+                          onPressed: () => profileFunctions.showLocation())),
                   const SizedBox(height: 12),
                   FractionallySizedBox(
                       widthFactor: 0.9,
-                      child: ProfileMenuButton(
-                          text: 'Contact',
+                      child: PrimaryProfileMenuButton(
+                          text: 'Contact Help',
+                          icon: (Icons.help_center_rounded),
                           onPressed: () => showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -136,9 +123,60 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: Color.fromRGBO(42, 54, 59, 1)),
                                     ),
                                     actions: [
-                                      IconButton(onPressed: null, icon: Icon(Icons.email_rounded, color: Color.fromRGBO(42, 54, 59, 1),)),
-                                      IconButton(onPressed: null, icon: Icon(Icons.call_rounded, color: Color.fromRGBO(42, 54, 59, 1),)),
-                                      IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.exit_to_app_rounded, color: Color.fromRGBO(235, 74, 95, 1))),
+                                      IconButton(
+                                          onPressed: null,
+                                          icon: Icon(
+                                            Icons.email_rounded,
+                                            color:
+                                                Color.fromRGBO(42, 54, 59, 1),
+                                          )),
+                                      IconButton(
+                                          onPressed: null,
+                                          icon: Icon(
+                                            Icons.call_rounded,
+                                            color:
+                                                Color.fromRGBO(42, 54, 59, 1),
+                                          )),
+                                      IconButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          icon: Icon(Icons.exit_to_app_rounded,
+                                              color: Color.fromRGBO(
+                                                  235, 74, 95, 1))),
+                                    ],
+                                  );
+                                },
+                              ))),
+                  const SizedBox(height: 20),
+                  FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: SecondaryPrimaryProfileMenuButton(
+                          text: 'Sign Out',
+                          onPressed: () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Sign Out'),
+                                    content: Text(
+                                        'Are you sure you want to sign out?'),
+                                    actions: [
+                                      PrimaryTextButton(
+                                        text: 'Yes',
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignInPage()),
+                                            (route) => false,
+                                          );
+                                        },
+                                      ),
+                                      SecondaryTextButton(
+                                        text: 'No',
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                      ),
                                     ],
                                   );
                                 },
