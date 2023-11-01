@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:booking_app/constants.dart';
+import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/functions/booking_functions.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
