@@ -1,5 +1,5 @@
-import 'package:booking_app/constants.dart';
-import 'package:booking_app/firebase_options.dart';
+import 'package:booking_app/constants/constants.dart';
+import 'package:booking_app/firebase/firebase_options.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
