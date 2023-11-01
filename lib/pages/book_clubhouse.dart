@@ -26,10 +26,13 @@ class BookClubHouse extends StatefulWidget {
 class _BookClubHouse extends State<BookClubHouse> {
   bool isDateSelectionDone = false;
   String selectedName = '';
+  String selectedEmail = '';
   int selectedPhoneNumber = 0;
   late List<dynamic> _names;
   late List<dynamic> _phoneNumbers;
+  late List<dynamic> _emailAdresses;
   final String firstElementOfNameList = 'Select Name';
+  final String firstElementOfEmailList = 'Select Email';
   final String firstElementOfStartTimeList = 'Start Time';
   final String firstElementOfEndTimeList = 'End Time';
   final int firstElementOfPhoneList = 0;
@@ -59,8 +62,12 @@ class _BookClubHouse extends State<BookClubHouse> {
     _phoneNumbers = widget.userDataList
         .map((userData) => userData['phoneNum'] as int)
         .toList();
+    _emailAdresses = widget.userDataList
+        .map((userData) => userData['email'] as String)
+        .toList();
     _names = [firstElementOfNameList, ..._names];
     _phoneNumbers = [firstElementOfPhoneList, ..._phoneNumbers];
+    _emailAdresses = [firstElementOfEmailList, ..._emailAdresses];
     startTimeList = [firstElementOfStartTimeList, ...timeList];
     endTimeList = [firstElementOfEndTimeList, ...timeList];
   }
@@ -88,6 +95,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                       if (selectedIndex >= 0 &&
                           selectedIndex < _phoneNumbers.length) {
                         selectedPhoneNumber = _phoneNumbers[selectedIndex];
+                        selectedEmail = _emailAdresses[selectedIndex];
                       } else {
                         selectedPhoneNumber = 0;
                       }
@@ -201,6 +209,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                     });
                     List bookingStatus = await bookingMainFunctions.addEntry(
                         selectedName,
+                        selectedEmail,
                         selectedPhoneNumber,
                         widget.villaNum,
                         reason,
