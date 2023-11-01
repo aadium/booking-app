@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:booking_app/constants.dart';
+import 'package:booking_app/constants/constants.dart';
+import 'package:booking_app/functions/email_functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -63,9 +64,11 @@ class BookingMinorFunctions {
 
 class BookingMainFunctions {
   final bookingMinorFunctions = BookingMinorFunctions();
+  final emailFunctions = EmailFunctions();
 
   Future<List> addEntry(
     String name,
+    String emailAddress,
     int phoneNumber,
     int villano,
     TextEditingController reason,
@@ -125,6 +128,17 @@ class BookingMainFunctions {
                 .then((value) {
               debugPrint('Document added to Firestore: $entryData');
               debugPrint('Value ID = ${value.id}');
+              emailFunctions.sendBookingConfirmationEmail(
+                  emailAddress,
+                  value.id,
+                  name,
+                  phoneNumber,
+                  villano,
+                  reason.text,
+                  occupantsInteger,
+                  additionalRequests.text,
+                  startingDateTime,
+                  endingDateTime);
               completer.complete([0, null]);
               debugPrint('0');
             }).catchError((error) {
