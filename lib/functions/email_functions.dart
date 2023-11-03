@@ -43,4 +43,37 @@ class EmailFunctions {
       debugPrint('Message not sent: $e');
     }
   }
+
+  Future<void> sendBookingDeleteConfirmationEmail(
+    String recipientAddress,
+    String bookingRef,
+    String name,
+    int phoneNumber,
+    int villano,
+    String reason,
+    String selectedStartingDateTime,
+    String selectedEndingDateTime,
+  ) async {
+    final message = Message()
+      ..from = Address(firestoreSignInEmail, 'Dana Garden')
+      ..recipients.add(recipientAddress)
+      ..bccRecipients.add(firestoreSignInEmail)
+      ..subject = 'BOOKING DELETED (Reference: $bookingRef)'
+      ..html = '''
+        <p>Below are the details of the deleted booking:</p>
+        <ul>
+          <li>Villa Number: $villano
+          <li>Name: $name
+          <li>Phone Number: $phoneNumber
+          <li>Reason for Booking: $reason
+          <li>Date: ${DateFormat('d MMMM yyyy').format(DateTime.parse(selectedStartingDateTime))}
+          <li>Time duration: ${DateFormat('h:mm a').format(DateTime.parse(selectedStartingDateTime))} to ${DateFormat('h:mm a').format(DateTime.parse(selectedEndingDateTime.toString()))}
+      ''';
+
+    try {
+      await send(message, smtpServer);
+    } on MailerException catch (e) {
+      debugPrint('Message not sent: $e');
+    }
+  }
 }

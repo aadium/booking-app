@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:booking_app/functions/booking_functions.dart';
+import 'package:booking_app/functions/email_functions.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +29,15 @@ class ClubhouseBookingDetails extends StatefulWidget {
 
 class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
   bool isLoading = false;
+  late String bookerName;
+  late String bookerEmailAddress;
+  late int bookerPhNo;
+  late int bookerVilla;
+  late String reason;
+  late String start_dt;
+  late String end_dt;
+
+  final EmailFunctions emailFuncs = EmailFunctions();
 
   @override
   Widget build(BuildContext context) {
@@ -36,52 +49,86 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-                onPressed: widget.isUserInBookingHistory? null : () {
-                  if (widget.villa_number == widget.data['villa_no']) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Confirm delete'),
-                          content:
-                              const Text('Do you want to delete the booking?'),
-                          actions: [
-                            PrimaryTextButton(
-                              text: 'Yes',
-                              onPressed: () async {
-                                try {
-                                  await widget.bookingRef.delete();
-                                  debugPrint('Booking deleted successfully.');
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                } catch (error) {
-                                  debugPrint('Error deleting booking: $error');
-                                } finally {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                }
-                              },
-                            ),
-                            SecondaryTextButton(
-                              text: 'No',
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
+                onPressed: widget.isUserInBookingHistory
+                    ? null
+                    : () {
+                        if (widget.villa_number == widget.data['villa_no']) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          widget.bookingRef
+                              .get()
+                              .then((DocumentSnapshot bookingSnapshot) {
+                            Map<String, dynamic> bookingData =
+                                bookingSnapshot.data() as Map<String, dynamic>;
+
+                            bookerName = bookingData['name'];
+                            bookerEmailAddress =
+                                bookingData['email_address'];
+                            bookerPhNo = bookingData['phone_number'];
+                            bookerVilla = bookingData['villa_no'];
+                            reason = bookingData['reason'];
+                            start_dt = bookingData['start_datetime'];
+                            end_dt = bookingData['end_datetime'];
+
+                            debugPrint(widget.bookingRef.id);
+                          }).catchError((error) {
+                            debugPrint('Error: $error');
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Confirm delete'),
+                                content: const Text(
+                                    'Do you want to delete the booking?'),
+                                actions: [
+                                  PrimaryTextButton(
+                                    text: 'Yes',
+                                    onPressed: () async {
+                                      try {
+                                        await widget.bookingRef.delete();
+                                        emailFuncs
+                                            .sendBookingDeleteConfirmationEmail(
+                                                bookerEmailAddress,
+                                                widget.bookingRef.id,
+                                                bookerName,
+                                                bookerPhNo,
+                                                bookerVilla,
+                                                reason,
+                                                start_dt,
+                                                end_dt);
+                                        debugPrint(
+                                            'Booking deleted successfully.');
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      } catch (error) {
+                                        debugPrint(
+                                            'Error deleting booking: $error');
+                                      } finally {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  SecondaryTextButton(
+                                    text: 'No',
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        ;
                       },
-                    );
-                  }
-                  ;
-                },
                 icon: Icon(
                   Icons.delete,
-                  color: widget.villa_number == widget.data['villa_no'] && !widget.isUserInBookingHistory
+                  color: widget.villa_number == widget.data['villa_no'] &&
+                          !widget.isUserInBookingHistory
                       ? Colors.white
                       : Colors.grey,
                 )),
