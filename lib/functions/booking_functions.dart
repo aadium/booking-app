@@ -115,6 +115,7 @@ class BookingMainFunctions {
               'name': name,
               'villa_no': villano,
               'phone_number': phoneNumber,
+              'email_address': emailAddress,
               'reason': reason.text,
               'occupants': occupantsInteger,
               'additionalRequests': additionalRequests.text,
