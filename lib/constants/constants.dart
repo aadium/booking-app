@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 const List<String> timeList = [
   '12:00 AM',
   '1:00 AM',
@@ -27,6 +29,6 @@ const List<String> timeList = [
 
 const String firestoreBookClubhouseCollection = 'book_clubhouse';
 const String firestoreVillaUsersCollection = 'villa_users';
-const String firestoreSignInEmail = 'dana.garden.doha@gmail.com';
-const String firestoreSignInPassword = 'danagarden@123';
-const String appPassword = 'ksoj gsvb tktj gnpm';
+String firestoreSignInEmail = dotenv.env['firestoreSignInEmail']!;
+String firestoreSignInPassword = dotenv.env['firestoreSignInPassword']!;
+String appPassword = dotenv.env['appPassword']!;
