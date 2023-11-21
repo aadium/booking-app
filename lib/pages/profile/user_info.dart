@@ -162,6 +162,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    const double fontSize = 17;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -187,14 +188,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
                           child: Table(
                             columnWidths: const {
-                              0: FixedColumnWidth(20),
+                              0: FixedColumnWidth(30),
                               1: FixedColumnWidth(
                                   100), // Adjusts width based on content
                               2: FixedColumnWidth(170),
                             },
                             children: [
                               TableRow(children: [
-                                TableCell(child: Text(''), verticalAlignment: TableCellVerticalAlignment.middle,),
+                                TableCell(
+                                  child: Text(''),
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
+                                ),
                                 TableCell(
                                   verticalAlignment:
                                       TableCellVerticalAlignment.middle,
@@ -204,7 +209,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                       'Name',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: fontSize,
                                           color: Color.fromRGBO(42, 54, 59, 1)),
                                     ),
                                   ),
@@ -218,7 +223,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                       userData['name'].toString(),
                                       style: const TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: fontSize,
                                       ),
                                     ),
                                   ),
@@ -232,8 +237,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                         onPressed: () => removeUserDialog(widget
                                             .userDataList
                                             .indexOf(userData)),
-                                        icon:
-                                            Icon(Icons.remove_circle_outline, color: Color.fromRGBO(235, 74, 95, 1),))),
+                                        icon: Icon(
+                                          Icons.remove_circle_outline,
+                                          color: Color.fromRGBO(235, 74, 95, 1),
+                                        ))),
                                 TableCell(
                                   verticalAlignment:
                                       TableCellVerticalAlignment.middle,
@@ -243,49 +250,56 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                       'Phone Number',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: fontSize,
                                           color: Color.fromRGBO(42, 54, 59, 1)),
                                     ),
                                   ),
                                 ),
                                 TableCell(
-                                  verticalAlignment: TableCellVerticalAlignment.middle,
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
                                   child: Padding(
                                     padding: EdgeInsets.all(tablePadding),
                                     child: Text(
                                       userData['phoneNum'].toString(),
                                       style: const TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: fontSize,
                                       ),
                                     ),
                                   ),
                                 )
                               ]),
                               TableRow(children: [
-                                TableCell(child: Text(''), verticalAlignment: TableCellVerticalAlignment.middle,),
                                 TableCell(
-                                  verticalAlignment: TableCellVerticalAlignment.middle,
+                                  child: Text(''),
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
+                                ),
+                                TableCell(
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
                                   child: Padding(
                                     padding: EdgeInsets.all(tablePadding),
                                     child: const Text(
                                       'Email',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: fontSize,
                                           color: Color.fromRGBO(42, 54, 59, 1)),
                                     ),
                                   ),
                                 ),
                                 TableCell(
-                                  verticalAlignment: TableCellVerticalAlignment.middle,
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.middle,
                                   child: Padding(
                                     padding: EdgeInsets.all(tablePadding),
                                     child: Text(
                                       userData['email'].toString(),
                                       style: const TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: fontSize,
                                       ),
                                     ),
                                   ),
