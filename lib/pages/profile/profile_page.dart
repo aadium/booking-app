@@ -89,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (context) => UserInfoPage(
                                       villaNumber: widget.villaNumber,
                                       userDataList: widget.userDataList))))),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 15),
                   FractionallySizedBox(
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
@@ -100,53 +100,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               MaterialPageRoute(
                                   builder: (context) => UserBookingHistory(
                                       villaNum: widget.villaNumber))))),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 15),
                   FractionallySizedBox(
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Location',
                           icon: Icons.location_pin,
                           onPressed: () => profileFunctions.showLocation())),
-                  const SizedBox(height: 12),
-                  FractionallySizedBox(
-                      widthFactor: 0.9,
-                      child: PrimaryProfileMenuButton(
-                          text: 'Contact Help',
-                          icon: (Icons.help_center_rounded),
-                          onPressed: () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Contact us',
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(42, 54, 59, 1)),
-                                    ),
-                                    actions: [
-                                      IconButton(
-                                          onPressed: null,
-                                          icon: Icon(
-                                            Icons.email_rounded,
-                                            color:
-                                                Color.fromRGBO(42, 54, 59, 1),
-                                          )),
-                                      IconButton(
-                                          onPressed: null,
-                                          icon: Icon(
-                                            Icons.call_rounded,
-                                            color:
-                                                Color.fromRGBO(42, 54, 59, 1),
-                                          )),
-                                      IconButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          icon: Icon(Icons.exit_to_app_rounded,
-                                              color: Color.fromRGBO(
-                                                  235, 74, 95, 1))),
-                                    ],
-                                  );
-                                },
-                              ))),
                   const SizedBox(height: 20),
                   FractionallySizedBox(
                       widthFactor: 0.9,

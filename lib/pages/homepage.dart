@@ -1,3 +1,4 @@
+import 'package:booking_app/pages/view_bookings/calendar_page.dart';
 import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:booking_app/pages/book_clubhouse.dart';
 import 'package:booking_app/pages/view_bookings/view_bookings.dart';
@@ -56,10 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BookClubHouse(
-                                villaNum: widget.villa_num,
-                                userDataList: widget.userData,
-                              )),
+                        builder: (context) => BookClubHouse(
+                              villaNum: widget.villa_num,
+                              userDataList: widget.userData,
+                            )
+                      ),
                     );
                   },
                 ),
@@ -69,19 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 widthFactor: 0.9,
                 child: HomepageOptionButton(
                   text: 'View Bookings',
-                  onPressed: () async {
-                    asyncDate = await customDatePicker.selectDate(context);
-                    setState(() {
-                      selectedDate =
-                          asyncDate == null ? selectedDate : asyncDate;
-                    });
-                    await Navigator.push(
+                  onPressed: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ViewClubhouseBookings(
-                                villaNum: widget.villa_num,
-                                selected_date: selectedDate,
-                              )),
+                          builder: (context) => CalendarPage(villaNum: widget.villa_num,)
+                      ),
                     );
                   },
                 ),

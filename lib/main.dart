@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: Color.fromRGBO(42, 54, 59, 1),
         ),
+        appBarTheme: AppBarTheme(backgroundColor: Color.fromRGBO(42, 54, 59, 1),elevation: 0)
       ),
       home: SignInPage(),
     );
