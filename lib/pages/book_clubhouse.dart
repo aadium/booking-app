@@ -78,11 +78,12 @@ class _BookClubHouse extends State<BookClubHouse> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        title: Text('Enter Booking Details'),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FractionallySizedBox(
                 widthFactor: 0.9,
