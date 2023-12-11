@@ -36,6 +36,7 @@ class _CalendarPageState extends State<CalendarPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(),
+            Text('Select Date', style: TextStyle(fontSize: 45, color: Color.fromRGBO(42, 54, 59, 1)),),
             TableCalendar(
               calendarBuilders: CalendarBuilders(
                 headerTitleBuilder: (context, day) {
@@ -52,14 +53,11 @@ class _CalendarPageState extends State<CalendarPage> {
                     margin: const EdgeInsets.all(4.0),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(77, 91, 97, 1),
+                      color: Color.fromRGBO(255, 157, 170, 1),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
                       '${day.day}',
-                      style: TextStyle(
-                        color: Colors.white, // Customize the text color
-                      ),
                     ),
                   );
                 },
@@ -68,7 +66,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     margin: const EdgeInsets.all(4.0),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(42, 54, 59, 1),
+                      color: Color.fromRGBO(235, 74, 95, 1),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
