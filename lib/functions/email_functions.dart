@@ -76,4 +76,35 @@ class EmailFunctions {
       debugPrint('Message not sent: $e');
     }
   }
+
+  Future<void> sendComplaintConfirmationEmail(
+    String recipientAddress,
+    String complaintRef,
+    String name,
+    int phoneNumber,
+    int villano,
+    String issue,
+    String description
+  ) async {
+    final message = Message()
+      ..from = Address(firestoreSignInEmail, 'Dana Garden')
+      ..recipients.add(recipientAddress)
+      ..bccRecipients.add(firestoreSignInEmail)
+      ..subject = 'Complaint registered (Reference: $complaintRef)'
+      ..html = '''
+        <p>Below are the details of the registered complaint:</p>
+        <ul>
+          <li>Villa Number: $villano
+          <li>Name: $name
+          <li>Phone Number: $phoneNumber
+          <li>Issue: $issue
+          <li>Description: $description
+      ''';
+
+    try {
+      await send(message, smtpServer);
+    } on MailerException catch (e) {
+      debugPrint('Message not sent: $e');
+    }
+  }
 }
