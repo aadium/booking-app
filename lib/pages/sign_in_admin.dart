@@ -2,22 +2,22 @@
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/homepage.dart';
-import 'package:booking_app/pages/sign_in_admin.dart';
+import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
+import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
-import 'package:booking_app/widgets/textboxes/villa_no_controller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class AdminSignInPage extends StatefulWidget {
+  const AdminSignInPage({super.key});
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _AdminSignInPageState createState() => _AdminSignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _AdminSignInPageState extends State<AdminSignInPage> {
   final TextEditingController _villaNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
@@ -45,9 +45,10 @@ class _SignInPageState extends State<SignInPage> {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Sign In',
+                    'Administrator\nSign In',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                       color: Color.fromRGBO(42, 54, 59, 1),
                     ),
                   ),
@@ -55,19 +56,10 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      const Text(
-                        'Villa Number: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color.fromRGBO(42, 54, 59, 1),
-                        ),
-                      ),
-                      const SizedBox(width: 10.0),
-                      SizedBox(width: 75, child: CustomVillaNoWController(controller: _villaNumberController, labelText: ''))
-                    ],
-                  )
+                  child: CustomTextFieldWController(
+                    controller: _villaNumberController,
+                    labelText: 'Username',
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -135,9 +127,9 @@ class _SignInPageState extends State<SignInPage> {
         color: const Color.fromRGBO(42, 54, 59, 1),
         child: Center(
           child: GestureDetector(
-            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminSignInPage())),
+            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage())),
             child: Text(
-              'Sign in as Administrator',
+              'Sign in as User',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
