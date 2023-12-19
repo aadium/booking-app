@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:booking_app/functions/booking_functions.dart';
 import 'package:booking_app/functions/email_functions.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
@@ -10,6 +7,7 @@ import 'package:intl/intl.dart';
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable
 class ClubhouseBookingDetails extends StatefulWidget {
   final data;
   final DocumentReference bookingRef;

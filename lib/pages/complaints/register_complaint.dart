@@ -1,16 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/constants/constants.dart';
-import 'package:booking_app/functions/booking_functions.dart';
-import 'package:booking_app/widgets/datepicker/date_picker.dart';
+import 'package:booking_app/functions/complaint_functions.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
-import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class RegisterComplaint extends StatefulWidget {
   final int villaNum;
@@ -39,18 +35,10 @@ class _RegisterComplaint extends State<RegisterComplaint> {
   List<String> startTimeList = timeList;
   List<String> endTimeList = timeList;
 
-  TextEditingController reason = TextEditingController();
-  TextEditingController occupants = TextEditingController();
-  TextEditingController additionalRequests = TextEditingController();
+  TextEditingController issue = TextEditingController();
+  TextEditingController description = TextEditingController();
 
-  DateTime selectedDate = DateTime.now();
-  dynamic asyncDate;
-  TimeOfDay selectedStartingTime = TimeOfDay.now();
-  TimeOfDay selectedEndingTime = TimeOfDay.now();
-
-  final customDatePicker = CustomDatePicker();
-  final bookingMinorFunctions = BookingMinorFunctions();
-  final bookingMainFunctions = BookingMainFunctions();
+  final complaintFunctions = ComplaintFunctions();
 
   bool loading = false;
 
@@ -78,7 +66,7 @@ class _RegisterComplaint extends State<RegisterComplaint> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
-        title: Text('Enter Booking Details'),
+        title: Text('Enter Complaint Details'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -121,104 +109,32 @@ class _RegisterComplaint extends State<RegisterComplaint> {
               FractionallySizedBox(
                   widthFactor: 0.9,
                   child: CustomTextFieldWController(
-                      controller: reason, labelText: 'Purpose of booking')),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomNumericTextFieldWController(
-                      controller: occupants, labelText: 'Number of Occupants')),
+                      controller: issue, labelText: 'Issue')),
               const SizedBox(height: 3),
               FractionallySizedBox(
                   widthFactor: 0.9,
                   child: CustomTextAreaWController(
-                    controller: additionalRequests,
-                    labelText: 'Additional requests (optional)',
+                    controller: description,
+                    labelText: 'Description (optional)',
                     maxLines: 3,
                   )),
-              const SizedBox(height: 20),
-              Table(children: [
-                TableRow(children: [
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      // Start Time
-                      value: startTimeList[0],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedStartingTime =
-                              bookingMinorFunctions.parseTimeOfDay(value!);
-                        });
-                      },
-                      items: startTimeList.map((time) {
-                        return DropdownMenuItem<dynamic>(
-                          value: time,
-                          child: Text(time),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      // End Time
-                      value: endTimeList[0],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedEndingTime =
-                              bookingMinorFunctions.parseTimeOfDay(value!);
-                        });
-                      },
-                      items: endTimeList.map((time) {
-                        return DropdownMenuItem<dynamic>(
-                          value: time,
-                          child: Text(time),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ])
-              ]),
-              const SizedBox(height: 30),
-              FractionallySizedBox(
-                widthFactor: 0.9,
-                child: FractionallySizedBox(
-                  widthFactor: 1,
-                  child: SecondaryButton(
-                      text: isDateSelectionDone
-                          ? DateFormat('d MMMM yyyy').format(selectedDate)
-                          : 'Select Date',
-                      onPressed: () async {
-                        asyncDate = await customDatePicker
-                            .selectDateFromCurrentDate(context);
-                        setState(() {
-                          isDateSelectionDone = true;
-                          selectedDate =
-                              asyncDate == null ? selectedDate : asyncDate;
-                        });
-                      }),
-                ),
-              ),
               const SizedBox(height: 30),
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: PrimaryButton(
-                  text: 'Book Clubhouse',
+                  text: 'Register Complaint',
                   isLoading: loading,
                   onPressed: () async {
                     setState(() {
                       loading = true;
                     });
-                    List bookingStatus = await bookingMainFunctions.addEntry(
+                    List bookingStatus = await complaintFunctions.addEntry(
                         selectedName,
                         selectedEmail,
                         selectedPhoneNumber,
                         widget.villaNum,
-                        reason,
-                        occupants,
-                        additionalRequests,
-                        selectedDate,
-                        selectedStartingTime,
-                        selectedEndingTime,
+                        issue,
+                        description,
                         context);
                     print(bookingStatus[0]);
                     if (bookingStatus[0] == 1) {
