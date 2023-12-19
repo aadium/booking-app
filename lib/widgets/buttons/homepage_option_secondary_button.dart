@@ -14,10 +14,10 @@ class HomepageOptionSecondaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        textStyle: const TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 22),
         backgroundColor: Color.fromRGBO(235, 74, 95, 1),
         disabledBackgroundColor: Color.fromRGBO(255, 116, 134, 1),
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(22.0),
         elevation: 0,
       ),
       onPressed: onPressed,
