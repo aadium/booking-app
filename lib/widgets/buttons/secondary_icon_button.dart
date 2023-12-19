@@ -22,6 +22,7 @@ class SecondaryIconButton extends StatelessWidget {
         backgroundColor: Color.fromRGBO(235, 74, 95, 1),
         disabledBackgroundColor: Color.fromRGBO(255, 116, 134, 1),
         padding: const EdgeInsets.all(20.0),
+        elevation: 0
       ),
       onPressed: isLoading ? null : onPressed,
       child: Stack(

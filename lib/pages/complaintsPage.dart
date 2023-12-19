@@ -1,5 +1,5 @@
 import 'package:booking_app/pages/complaints/register_complaint.dart';
-import 'package:booking_app/pages/clubhouse/calendar_page.dart';
+import 'package:booking_app/pages/complaints/view_complaints.dart';
 import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_secondary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -66,12 +66,12 @@ class _ComplaintsPageState extends State<ComplaintsPage> {
             FractionallySizedBox(
               widthFactor: 0.9,
               child: HomepageOptionSecondaryButton(
-                text: 'View Bookings',
+                text: 'View your Complaints',
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CalendarPage(
+                        builder: (context) => ViewComplaints(
                               villaNum: widget.villa_num,
                             )),
                   );

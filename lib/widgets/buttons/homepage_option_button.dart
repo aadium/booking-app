@@ -18,6 +18,7 @@ class HomepageOptionButton extends StatelessWidget {
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         disabledBackgroundColor: Color.fromRGBO(77, 91, 97, 1),
         padding: const EdgeInsets.all(22.0),
+        elevation: 0,
       ),
       onPressed: onPressed,
       child: Stack(

@@ -60,7 +60,7 @@ class ComplaintFunctions {
     return completer.future;
   }
 
-  Future<List> fetchClubhouseBookingsByDate(
+  Future<List> fetchComplaintsByDate(
       DateTime selectedDate, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
         .collection(firestoreBookClubhouseCollection)
@@ -80,11 +80,11 @@ class ComplaintFunctions {
     return filteredDocuments;
   }
 
-  Future<List> fetchClubhouseBookingsByVilla(
+  Future<List> fetchComplaintsByVilla(
       int villaNumber, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
-        .collection(firestoreBookClubhouseCollection)
-        .orderBy('start_datetime', descending: isSortInDescendingOrder)
+        .collection(firestoreComplaintsCollection)
+        .orderBy('date', descending: isSortInDescendingOrder)
         .get();
 
     final documents = querySnapshot.docs;

@@ -20,6 +20,7 @@ class ViewBookingsDateButton extends StatelessWidget {
         side: BorderSide(width: 2, color: Color.fromRGBO(42, 54, 59, 1)),
         textStyle: const TextStyle(fontSize: 17, color: Color.fromRGBO(42, 54, 59, 1)),
         padding: const EdgeInsets.all(17.0),
+        elevation: 0,
       ),
       onPressed:
           isLoading ? null : onPressed, // Disable button when isLoading is true
