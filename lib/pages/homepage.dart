@@ -1,7 +1,6 @@
-import 'package:booking_app/pages/view_bookings/calendar_page.dart';
+import 'package:booking_app/pages/clubhousePage.dart';
+import 'package:booking_app/pages/complaintsPage.dart';
 import 'package:booking_app/pages/profile/profile_page.dart';
-import 'package:booking_app/pages/book_clubhouse.dart';
-import 'package:booking_app/pages/view_bookings/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:flutter/material.dart';
@@ -52,14 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: HomepageOptionButton(
-                  text: 'Book Clubhouse',
+                  text: 'Clubhouse',
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BookClubHouse(
-                              villaNum: widget.villa_num,
-                              userDataList: widget.userData,
+                        builder: (context) => ClubhousePage(
+                              villa_num: widget.villa_num,
+                              userData: widget.userData,
                             )
                       ),
                     );
@@ -70,12 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: HomepageOptionButton(
-                  text: 'View Bookings',
+                  text: 'Complaints',
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CalendarPage(villaNum: widget.villa_num,)
+                          builder: (context) => ComplaintsPage(
+                              villa_num: widget.villa_num,
+                              userData: widget.userData,
+                            )
                       ),
                     );
                   },

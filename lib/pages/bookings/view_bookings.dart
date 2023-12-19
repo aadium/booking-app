@@ -1,5 +1,5 @@
 import 'package:booking_app/functions/booking_functions.dart';
-import 'package:booking_app/pages/view_bookings/booking_details.dart';
+import 'package:booking_app/pages/clubhouse/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
