@@ -21,6 +21,7 @@ class DeleteButton extends StatelessWidget {
         backgroundColor: Colors.red,
         disabledBackgroundColor: Colors.grey,
         padding: const EdgeInsets.all(20.0),
+        elevation: 0,
       ),
       
       onPressed: isActive ? isLoading ? null : onPressed : null, // Disable button when isLoading is true
