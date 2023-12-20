@@ -46,121 +46,116 @@ class _MyHomePageState extends State<MyHomePage> {
           size: 27,
         ),
       ),
-      body: WillPopScope(
-        onWillPop: () async {
-          return Future.value(false);
-        },
-        child: Center(
-          child: FractionallySizedBox(
-            widthFactor: 0.95,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Clubhouse Bookings',
-                  style: TextStyle(fontSize: 20),
+      body: Center(
+        child: FractionallySizedBox(
+          widthFactor: 0.95,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Clubhouse Bookings',
+                style: TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(13),
+                  color: Color.fromRGBO(219, 226, 230, 1),
                 ),
-                const SizedBox(height: 5),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Color.fromRGBO(219, 226, 230, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: HomepageOptionButton(
-                            text: 'Book Clubhouse',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BookClubHouse(
-                                    villaNum: widget.villa_num,
-                                    userDataList: widget.userData,
-                                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: HomepageOptionButton(
+                          text: 'Book Clubhouse',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookClubHouse(
+                                  villaNum: widget.villa_num,
+                                  userDataList: widget.userData,
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: HomepageOptionSecondaryButton(
-                            text: 'View all Bookings',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CalendarPage(
-                                    villaNum: widget.villa_num,
-                                  ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: HomepageOptionSecondaryButton(
+                          text: 'View all Bookings',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CalendarPage(
+                                  villaNum: widget.villa_num,
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Complaints',
-                  style: TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Complaints',
+                style: TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(13),
+                  color: Color.fromRGBO(255, 216, 221, 1),
                 ),
-                const SizedBox(height: 5),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Color.fromRGBO(255, 216, 221, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: HomepageOptionButton(
-                            text: 'Register a Complaint',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterComplaint(
-                                    villaNum: widget.villa_num,
-                                    userDataList: widget.userData,
-                                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: HomepageOptionButton(
+                          text: 'Register a Complaint',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegisterComplaint(
+                                  villaNum: widget.villa_num,
+                                  userDataList: widget.userData,
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: HomepageOptionSecondaryButton(
-                            text: 'View your Complaints',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewComplaints(
-                                    villaNum: widget.villa_num,
-                                  ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: HomepageOptionSecondaryButton(
+                          text: 'View your Complaints',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ViewComplaints(
+                                  villaNum: widget.villa_num,
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

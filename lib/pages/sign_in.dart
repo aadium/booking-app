@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
           child: Container(
             decoration: const BoxDecoration(
               color: Color.fromRGBO(219, 226, 230, 1),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(30)),
               border: Border.fromBorderSide(
                   BorderSide(color: Color.fromRGBO(42, 54, 59, 1), width: 3)),
             ),
@@ -88,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                         signInResult = await signFunctions.signIn(
                             _villaNumberController, _passwordController);
                         if (signInResult[0] == 0) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage(

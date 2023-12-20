@@ -13,7 +13,7 @@ class CustomVillaNoWController extends StatelessWidget {
           borderRadius: BorderRadius.circular(13),
           border: Border.all(
             color: Color.fromRGBO(42, 54, 59, 1),
-            width: 2,
+            width: 1,
           ),
         ),
         child: TextField(
