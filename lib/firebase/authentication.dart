@@ -10,6 +10,7 @@ class Authentication {
         email: email,
         password: password,
       );
+      debugPrint('User signed in');
       return userCredential.user;
     } catch (e) {
       debugPrint('Error: $e');
@@ -19,5 +20,6 @@ class Authentication {
 
   Future<void> signOut() async {
     await _auth.signOut();
+    debugPrint('User signed out');
   }
 }

@@ -1,9 +1,11 @@
 import 'package:booking_app/constants/constants.dart';
+import 'package:booking_app/firebase/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignFunctions {
+  Authentication authentication = Authentication();
   Future<List> signIn(
     TextEditingController _villaNumberController,
     TextEditingController _passwordController,
@@ -32,10 +34,10 @@ class SignFunctions {
         List<dynamic> userMaps = snapshot.docs.first.data()['userMaps'];
         return [0, userMaps];
       } else {
+        authentication.signOut();
         return [1, null];
       }
     } catch (error) {
-      // Handle authentication errors
       print('Authentication Error: $error');
       return [2, null];
     }
