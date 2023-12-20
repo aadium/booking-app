@@ -13,20 +13,14 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   try {
-    UserCredential? userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: firestoreSignInEmail,
-      password: firestoreSignInPassword,
-    );
-    runApp(MyApp(userCredential.user));
+    runApp(MyApp());
   } on Exception catch (e) {
     debugPrint('Error: $e');
   }
 }
 
 class MyApp extends StatelessWidget {
-  final User? user;
-  const MyApp(this.user, {Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

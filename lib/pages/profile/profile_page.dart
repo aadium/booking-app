@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:booking_app/firebase/authentication.dart';
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/pages/profile/user_booking_history.dart';
 import 'package:booking_app/pages/profile/user_info.dart';
@@ -26,6 +27,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final profileFunctions = ProfileFunctions();
+  final authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     SignInPage()),
                                             (route) => false,
                                           );
+                                          authentication.signOut();
+                                          debugPrint('Signed out');
                                         },
                                       ),
                                       SecondaryTextButton(
