@@ -1,4 +1,5 @@
 import 'package:booking_app/firebase/firebase_options.dart';
+import 'package:booking_app/pages/home_page.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +29,18 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    User? currentUser = _auth.currentUser;
     return MaterialApp(
+      title: 'Booking App',
+      initialRoute: currentUser != null ? '/home' : '/login',
+      routes: {
+        '/home': (context) =>
+            HomePage(user: currentUser!),
+        '/login': (context) => SignInPage(),
+      },
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: Color.fromRGBO(42, 54, 59, 1),
@@ -42,7 +50,6 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: SignInPage(),
     );
   }
 }
