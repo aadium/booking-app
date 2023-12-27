@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/functions/sign_functions.dart';
-import 'package:booking_app/pages/homepage.dart';
-import 'package:booking_app/pages/sign_in_admin.dart';
+import 'package:booking_app/pages/home_page.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
-import 'package:booking_app/widgets/textboxes/villa_no_controller.dart';
+import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
@@ -18,8 +17,9 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final TextEditingController _villaNumberController = TextEditingController();
+  final TextEditingController _emailIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final auth = FirebaseAuth.instance;
   bool _isLoading = false;
   dynamic signInResult;
   dynamic signFunctions = SignFunctions();
@@ -55,19 +55,10 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      const Text(
-                        'Villa Number: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color.fromRGBO(42, 54, 59, 1),
-                        ),
-                      ),
-                      const SizedBox(width: 10.0),
-                      SizedBox(width: 75, child: CustomVillaNoWController(controller: _villaNumberController, labelText: ''))
-                    ],
-                  )
+                  child: CustomTextFieldWController(
+                    controller: _emailIdController,
+                    labelText: 'Email I.D.',
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -85,27 +76,21 @@ class _SignInPageState extends State<SignInPage> {
                         setState(() {
                           _isLoading = true;
                         });
-                        signInResult = await signFunctions.signIn(
-                            _villaNumberController, _passwordController);
-                        if (signInResult[0] == 0) {
+                        var user = await signFunctions.signIn(
+                            _emailIdController.text, _passwordController.text);
+                        if (user != null) {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyHomePage(
-                                        villa_num: int.tryParse(
-                                                _villaNumberController.text
-                                                    .trim()) ??
-                                            0,
-                                        userData: signInResult[1],
-                                      )));
-                        } else if (signInResult[0] == 1) {
+                                  builder: (context) => HomePage(user: user)));
+                        } else {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('Invalid Credentials'),
-                                content: const Text(
-                                    'The villa number or password is incorrect.'),
+                                title: Text('Invalid Credentials'),
+                                content: Text(
+                                    'The email address or password is incorrect.'),
                                 actions: [
                                   PrimaryTextButton(
                                     text: 'OK',
@@ -135,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
         color: const Color.fromRGBO(42, 54, 59, 1),
         child: Center(
           child: GestureDetector(
-            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminSignInPage())),
+            onTap: null,
             child: Text(
               'Sign in as Administrator',
               style: TextStyle(
