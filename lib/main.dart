@@ -13,14 +13,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  SystemChannels.lifecycle.setMessageHandler((msg) {
-    if (msg == AppLifecycleState.paused.toString()) {
-      FirebaseAuth.instance.signOut();
-    }
-    return Future.value('');
-  });
-
   try {
     runApp(MyApp());
   } on Exception catch (e) {
