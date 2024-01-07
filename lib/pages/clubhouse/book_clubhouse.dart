@@ -54,6 +54,7 @@ class _BookClubHouse extends State<BookClubHouse> {
 
   bool loading = false;
 
+  @override
   void initState() {
     super.initState();
     _names = widget.userDataList
@@ -117,6 +118,70 @@ class _BookClubHouse extends State<BookClubHouse> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
+              Table(children: [
+                TableRow(children: [
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Text(
+                      'Phone\nNumber',
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Text(
+                      'Villa\nNumber',
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Text(
+                      'Email\nI.D.',
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedPhoneNumber == 0 ? '' : '+974 $selectedPhoneNumber',
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        '${widget.villaNum}',
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedEmail,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ])
+              ]),
               const SizedBox(height: 3),
               FractionallySizedBox(
                   widthFactor: 0.9,
@@ -220,7 +285,6 @@ class _BookClubHouse extends State<BookClubHouse> {
                         selectedStartingTime,
                         selectedEndingTime,
                         context);
-                    print(bookingStatus[0]);
                     if (bookingStatus[0] == 1) {
                       showDialog(
                         context: context,
@@ -244,12 +308,13 @@ class _BookClubHouse extends State<BookClubHouse> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Record added'),
-                            content: const Text('Your record has been added'),
+                            title: const Text('Clubhouse booked'),
+                            content: const Text('Your booking has been confirmed'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',
                                 onPressed: () {
+                                  Navigator.of(context).pop();
                                   Navigator.of(context).pop();
                                 },
                               ),
