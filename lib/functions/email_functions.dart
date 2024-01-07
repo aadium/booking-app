@@ -5,7 +5,7 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
 class EmailFunctions {
-  final smtpServer = gmail(firestoreSignInEmail, appPassword);
+  final smtpServer = gmail(smtpServerEmail, appPassword);
 
   Future<void> sendBookingConfirmationEmail(
     String recipientAddress,
@@ -20,9 +20,9 @@ class EmailFunctions {
     DateTime selectedEndingDateTime,
   ) async {
     final message = Message()
-      ..from = Address(firestoreSignInEmail, 'Dana Garden')
+      ..from = Address(smtpServerEmail, 'Dana Garden')
       ..recipients.add(recipientAddress)
-      ..bccRecipients.add(firestoreSignInEmail)
+      ..bccRecipients.add(smtpServerEmail)
       ..subject = 'BOOKING CONFIRMATION (Reference: $bookingRef)'
       ..html = '''
         <p>Below are the details of your booking:</p>
@@ -55,9 +55,9 @@ class EmailFunctions {
     String selectedEndingDateTime,
   ) async {
     final message = Message()
-      ..from = Address(firestoreSignInEmail, 'Dana Garden')
+      ..from = Address(smtpServerEmail, 'Dana Garden')
       ..recipients.add(recipientAddress)
-      ..bccRecipients.add(firestoreSignInEmail)
+      ..bccRecipients.add(smtpServerEmail)
       ..subject = 'BOOKING DELETED (Reference: $bookingRef)'
       ..html = '''
         <p>Below are the details of the deleted booking:</p>
@@ -78,18 +78,17 @@ class EmailFunctions {
   }
 
   Future<void> sendComplaintConfirmationEmail(
-    String recipientAddress,
-    String complaintRef,
-    String name,
-    int phoneNumber,
-    int villano,
-    String issue,
-    String description
-  ) async {
+      String recipientAddress,
+      String complaintRef,
+      String name,
+      int phoneNumber,
+      int villano,
+      String issue,
+      String description) async {
     final message = Message()
-      ..from = Address(firestoreSignInEmail, 'Dana Garden')
+      ..from = Address(smtpServerEmail, 'Dana Garden')
       ..recipients.add(recipientAddress)
-      ..bccRecipients.add(firestoreSignInEmail)
+      ..bccRecipients.add(smtpServerEmail)
       ..subject = 'Complaint registered (Reference: $complaintRef)'
       ..html = '''
         <p>Below are the details of the registered complaint:</p>
