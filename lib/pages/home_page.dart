@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: HomepageOptionSecondaryButton(
+                        child: HomepageOptionButton(
                           text: 'View all Bookings',
                           onPressed: () {
                             Navigator.push(
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Expanded(
-                        child: HomepageOptionButton(
+                        child: HomepageOptionSecondaryButton(
                           text: 'Register a Complaint',
                           onPressed: () {
                             Navigator.push(
