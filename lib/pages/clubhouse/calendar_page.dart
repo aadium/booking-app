@@ -130,7 +130,7 @@ class _CalendarPageState extends State<CalendarPage> {
                             )),
                   );
                 },
-                text: 'Next',
+                text: 'View bookings on ${DateFormat.yMMMMd().format(_selectedDay)}',
               ),
             ),
           ],

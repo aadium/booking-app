@@ -1,5 +1,5 @@
 import 'package:booking_app/firebase/firebase_options.dart';
-import 'package:booking_app/pages/home_page.dart';
+import 'package:booking_app/home_screen.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +30,14 @@ class MyApp extends StatelessWidget {
       initialRoute: currentUser != null ? '/home' : '/login',
       routes: {
         '/home': (context) =>
-            HomePage(user: currentUser!),
+            HomeScreen(pageIndex: 0, user: currentUser!),
         '/login': (context) => SignInPage(),
       },
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: Color.fromRGBO(42, 54, 59, 1),
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Color.fromRGBO(42, 54, 59, 1), unselectedItemColor: Color.fromRGBO(112, 132, 141, 1), selectedItemColor: Color.fromRGBO(235, 74, 95, 1), elevation: 0),
         appBarTheme: AppBarTheme(
           backgroundColor: Color.fromRGBO(42, 54, 59, 1),
           elevation: 0,

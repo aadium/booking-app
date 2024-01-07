@@ -46,6 +46,7 @@ dependencies:
   test: ^1.24.1
   flutter_dotenv: ^5.1.0
   table_calendar: ^3.0.9
+  font_awesome_flutter: ^10.6.0
 
 flutter_icons:
   android: true
@@ -78,6 +79,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/app_icon.ico
+    - assets/homepage_header.png
     - secrets.env
 
   # An image asset can refer to one or more resolution-specific "variants", see

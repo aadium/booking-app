@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/functions/sign_functions.dart';
+import 'package:booking_app/home_screen.dart';
 import 'package:booking_app/pages/home_page.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
@@ -82,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage(user: user)));
+                                  builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
                         } else {
                           showDialog(
                             context: context,

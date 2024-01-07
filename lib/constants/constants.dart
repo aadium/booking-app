@@ -30,6 +30,5 @@ const List<String> timeList = [
 const String firestoreBookClubhouseCollection = 'book_clubhouse';
 const String firestoreComplaintsCollection = 'complaints';
 const String firestoreVillaUsersCollection = 'villa_users';
-String firestoreSignInEmail = dotenv.env['firestoreSignInEmail']!;
-String firestoreSignInPassword = dotenv.env['firestoreSignInPassword']!;
+String smtpServerEmail = dotenv.env['smtpServerEmail']!;
 String appPassword = dotenv.env['appPassword']!;
