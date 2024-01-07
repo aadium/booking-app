@@ -47,14 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(42, 54, 59, 1)),
                   child: Column(
                     children: [
-                      const SizedBox(height: 32),
-                      Row(
-                        children: [
-                          const SizedBox(width: 10,),
-                          IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_rounded, color: Colors.white, size: 27,))                          
-                        ],
-                      ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 70),
                       const Text(
                         'Villa Number:',
                         style: TextStyle(
