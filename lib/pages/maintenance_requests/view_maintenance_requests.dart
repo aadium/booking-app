@@ -1,21 +1,21 @@
-import 'package:booking_app/functions/complaint_functions.dart';
+import 'package:booking_app/functions/maintenance_request_functions.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:flutter/material.dart';
 
-class ViewComplaints extends StatefulWidget {
+class ViewMaintenanceRequests extends StatefulWidget {
   final int villaNum;
-  ViewComplaints({super.key, required this.villaNum});
+  ViewMaintenanceRequests({super.key, required this.villaNum});
 
   @override
-  _ViewComplaints createState() => _ViewComplaints();
+  _ViewMaintenanceRequests createState() => _ViewMaintenanceRequests();
 }
 
-class _ViewComplaints extends State<ViewComplaints> {
+class _ViewMaintenanceRequests extends State<ViewMaintenanceRequests> {
   int villaNum = 0;
   dynamic asyncDate;
   final double tablePadding = 7;
-  final complaintFunctions = ComplaintFunctions();
+  final maintenanceRequestFunctions = MaintenanceRequestFunctions();
 
   List complaints = [];
   bool isLoading = true;
@@ -29,7 +29,7 @@ class _ViewComplaints extends State<ViewComplaints> {
 
   Future<void> _fetchData(int villaNum) async {
     final List fetchedComplaints =
-        await complaintFunctions.fetchComplaintsByVilla(villaNum, true);
+        await maintenanceRequestFunctions.fetchMaintenanceRequestsByVilla(villaNum, true);
     setState(() {
       complaints = fetchedComplaints;
       isLoading = false;
@@ -42,7 +42,7 @@ class _ViewComplaints extends State<ViewComplaints> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
-        title: Text('Your complaints'),
+        title: Text('Your requests'),
       ),
       body: isLoading
           ? Center(

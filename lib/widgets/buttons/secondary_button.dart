@@ -23,7 +23,7 @@ class SecondaryButton extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
       ),
       onPressed:
-          isLoading ? null : onPressed, // Disable button when isLoading is true
+          isLoading ? null : onPressed,
       child: Stack(
         alignment: Alignment.center,
         children: [

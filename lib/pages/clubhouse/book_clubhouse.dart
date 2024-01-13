@@ -125,7 +125,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                     widthFactor: 0.8,
                     child: Text(
                       'Phone\nNumber',
-                      style: const TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 17),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -133,7 +133,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                     widthFactor: 0.8,
                     child: Text(
                       'Villa\nNumber',
-                      style: const TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 17),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -141,7 +141,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                     widthFactor: 0.8,
                     child: Text(
                       'Email\nI.D.',
-                      style: const TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 17),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -153,7 +153,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                       widthFactor: 0.8,
                       child: Text(
                         selectedPhoneNumber == 0 ? '' : '+974 $selectedPhoneNumber',
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -164,7 +164,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                       widthFactor: 0.8,
                       child: Text(
                         '${widget.villaNum}',
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -175,7 +175,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                       widthFactor: 0.8,
                       child: Text(
                         selectedEmail,
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
                     ),

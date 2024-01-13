@@ -1,25 +1,25 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/constants/constants.dart';
-import 'package:booking_app/functions/complaint_functions.dart';
+import 'package:booking_app/functions/maintenance_request_functions.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 
-class RegisterComplaint extends StatefulWidget {
+class RegisterMaintenanceRequest extends StatefulWidget {
   final int villaNum;
   final List<dynamic> userDataList;
 
-  const RegisterComplaint(
+  const RegisterMaintenanceRequest(
       {super.key, required this.villaNum, required this.userDataList});
   @override
   // ignore: no_logic_in_create_state
-  State<RegisterComplaint> createState() => _RegisterComplaint();
+  State<RegisterMaintenanceRequest> createState() => _RegisterMaintenanceRequest();
 }
 
-class _RegisterComplaint extends State<RegisterComplaint> {
+class _RegisterMaintenanceRequest extends State<RegisterMaintenanceRequest> {
   bool isDateSelectionDone = false;
   String selectedName = '';
   String selectedEmail = '';
@@ -38,7 +38,7 @@ class _RegisterComplaint extends State<RegisterComplaint> {
   TextEditingController issue = TextEditingController();
   TextEditingController description = TextEditingController();
 
-  final complaintFunctions = ComplaintFunctions();
+  final maintenanceRequestFunctions = MaintenanceRequestFunctions();
 
   bool loading = false;
 
@@ -66,7 +66,7 @@ class _RegisterComplaint extends State<RegisterComplaint> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
-        title: Text('Enter Complaint Details'),
+        title: Text('Enter MaintenanceRequest Details'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -122,13 +122,13 @@ class _RegisterComplaint extends State<RegisterComplaint> {
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: PrimaryButton(
-                  text: 'Register Complaint',
+                  text: 'Register Maintenance Request',
                   isLoading: loading,
                   onPressed: () async {
                     setState(() {
                       loading = true;
                     });
-                    List bookingStatus = await complaintFunctions.addEntry(
+                    List requestStatus = await maintenanceRequestFunctions.addEntry(
                         selectedName,
                         selectedEmail,
                         selectedPhoneNumber,
@@ -136,26 +136,7 @@ class _RegisterComplaint extends State<RegisterComplaint> {
                         issue,
                         description,
                         context);
-                    print(bookingStatus[0]);
-                    if (bookingStatus[0] == 1) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Booking Conflict'),
-                            content: Text(bookingStatus[1]),
-                            actions: [
-                              PrimaryTextButton(
-                                text: 'OK',
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else if (bookingStatus[0] == 0) {
+                    if (requestStatus[0] == 0) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -173,51 +154,13 @@ class _RegisterComplaint extends State<RegisterComplaint> {
                           );
                         },
                       );
-                    } else if (bookingStatus[0] == 2) {
+                    } else if (requestStatus[0] == 2) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: const Text('Error'),
                             content: const Text('An error occured. Try again.'),
-                            actions: [
-                              PrimaryTextButton(
-                                text: 'OK',
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else if (bookingStatus[0] == 3) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Date too early'),
-                            content: const Text(
-                                'Please select a time atleast 4 hours from now'),
-                            actions: [
-                              PrimaryTextButton(
-                                text: 'OK',
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else if (bookingStatus[0] == 4) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('One or more empty fields'),
-                            content: const Text(
-                                'Please fill out all the required fields'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',
