@@ -19,7 +19,7 @@ class TertiaryButton extends StatelessWidget {
           Padding(padding: EdgeInsets.only(left: 10, right: 10, top: 10), child: child),
           TextButton(
               onPressed: onPressed,
-              child: Text('Click for more details',
+              child: Text('View Details',
                   style: TextStyle(
                       fontSize: 20, color: Color.fromRGBO(42, 54, 59, 1))))
         ],

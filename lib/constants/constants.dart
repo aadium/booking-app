@@ -28,7 +28,7 @@ const List<String> timeList = [
 ];
 
 const String firestoreBookClubhouseCollection = 'book_clubhouse';
-const String firestoreComplaintsCollection = 'complaints';
+const String firestoreMaintenanceRequestsCollection = 'maintenance_requests';
 const String firestoreVillaUsersCollection = 'villa_users';
 String smtpServerEmail = dotenv.env['smtpServerEmail']!;
 String appPassword = dotenv.env['appPassword']!;

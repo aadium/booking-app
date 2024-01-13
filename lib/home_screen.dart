@@ -1,5 +1,6 @@
 import 'package:booking_app/functions/homepage_functions.dart';
 import 'package:booking_app/pages/home_page.dart';
+import 'package:booking_app/pages/maintenance_requests_page.dart';
 import 'package:booking_app/pages/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final User user = widget.user;
     final List<Widget> pages = <Widget>[
       HomePage(user: user, villaNumber: villaNumber, userData: userData),
+      MaintenanceRequestsPage(user: user, villaNumber: villaNumber, userData: userData),
       ProfilePage(villaNumber: villaNumber, userDataList: userData)
     ];
     return Scaffold(
@@ -52,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           currentIndex: _currentIndex,
           onTap: (int index) {
             setState(() {
@@ -62,6 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.list),
               label: 'Facilities',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.screwdriverWrench),
+              label: 'Maintenance',
             ),
             BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.houseUser),

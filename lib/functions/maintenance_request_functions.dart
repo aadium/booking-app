@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-class ComplaintFunctions {
+class MaintenanceRequestFunctions {
   final emailFunctions = EmailFunctions();
 
   Future<List> addEntry(
@@ -22,7 +22,7 @@ class ComplaintFunctions {
   ) async {
     Completer<List> completer = Completer<List>();
     firestore
-        .collection(firestoreComplaintsCollection)
+        .collection(firestoreMaintenanceRequestsCollection)
         .get()
         .then((snapshot) {
       Map<String, dynamic> entryData = {
@@ -36,7 +36,7 @@ class ComplaintFunctions {
       };
 
       firestore
-          .collection(firestoreComplaintsCollection)
+          .collection(firestoreMaintenanceRequestsCollection)
           .add(entryData)
           .then((value) {
         debugPrint('Document added to Firestore: $entryData');
@@ -60,30 +60,10 @@ class ComplaintFunctions {
     return completer.future;
   }
 
-  Future<List> fetchComplaintsByDate(
-      DateTime selectedDate, bool isSortInDescendingOrder) async {
-    final querySnapshot = await firestore
-        .collection(firestoreBookClubhouseCollection)
-        .orderBy('start_datetime', descending: isSortInDescendingOrder)
-        .get();
-
-    final documents = querySnapshot.docs;
-
-    final filteredDocuments = documents.where((document) {
-      final data = document.data() as Map<String, dynamic>;
-      final name = DateFormat('d MMMM yyyy')
-          .format(DateTime.parse(data['start_datetime']));
-      return name
-          .toString()
-          .contains(DateFormat('d MMMM yyyy').format(selectedDate));
-    }).toList();
-    return filteredDocuments;
-  }
-
-  Future<List> fetchComplaintsByVilla(
+  Future<List> fetchMaintenanceRequestsByVilla(
       int villaNumber, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
-        .collection(firestoreComplaintsCollection)
+        .collection(firestoreMaintenanceRequestsCollection)
         .orderBy('date', descending: isSortInDescendingOrder)
         .get();
 
