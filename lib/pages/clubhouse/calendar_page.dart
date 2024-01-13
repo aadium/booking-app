@@ -1,3 +1,4 @@
+import 'package:booking_app/functions/booking_functions.dart';
 import 'package:booking_app/pages/clubhouse/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class _CalendarPageState extends State<CalendarPage> {
   late CalendarFormat _calendarFormat;
   late DateTime _focusedDay;
   late DateTime _selectedDay;
+  List<DateTime> bookedDates = [];
+  BookingMainFunctions bookingMainFunctions = BookingMainFunctions();
 
   @override
   void initState() {
@@ -23,6 +26,15 @@ class _CalendarPageState extends State<CalendarPage> {
     _calendarFormat = CalendarFormat.month;
     _focusedDay = DateTime.now();
     _selectedDay = DateTime.now();
+    getBookedDates();
+  }
+
+  void getBookedDates() async {
+    List<DateTime> dates = await bookingMainFunctions.fetchBookedDates();
+    setState(() {
+      bookedDates = dates;
+    });
+    print(bookedDates);
   }
 
   @override
@@ -35,7 +47,11 @@ class _CalendarPageState extends State<CalendarPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(),
-            Text('Select Date', style: TextStyle(fontSize: 45, color: Color.fromRGBO(42, 54, 59, 1)),),
+            Text(
+              'Select Date',
+              style:
+                  TextStyle(fontSize: 45, color: Color.fromRGBO(42, 54, 59, 1)),
+            ),
             TableCalendar(
               calendarBuilders: CalendarBuilders(
                 headerTitleBuilder: (context, day) {
@@ -96,6 +112,32 @@ class _CalendarPageState extends State<CalendarPage> {
                     );
                   }
                 },
+                markerBuilder: (context, date, events) {
+                  final sameDayBookedDates = bookedDates.where((bookedDate) => 
+                    DateTime(bookedDate.year, bookedDate.month, bookedDate.day) == 
+                    DateTime(date.year, date.month, date.day)
+                  ).toList();
+
+                  if (sameDayBookedDates.isNotEmpty) {
+                    return Positioned(
+                      bottom: 1,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: List.generate(sameDayBookedDates.length, (index) => 
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 1.0), // Add some space between the dots
+                            width: 7,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromRGBO(42, 54, 59, 1),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
               firstDay: DateTime(DateTime.now().year - 1),
               lastDay: DateTime(DateTime.now().year + 1),
@@ -130,7 +172,8 @@ class _CalendarPageState extends State<CalendarPage> {
                             )),
                   );
                 },
-                text: 'View bookings on ${DateFormat.yMMMMd().format(_selectedDay)}',
+                text:
+                    'View bookings on ${DateFormat.yMMMMd().format(_selectedDay)}',
               ),
             ),
           ],

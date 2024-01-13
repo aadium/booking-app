@@ -197,4 +197,18 @@ class BookingMainFunctions {
 
     return filteredDocuments;
   }
+
+  Future<List<DateTime>> fetchBookedDates() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('book_clubhouse')
+        .get();
+
+    return snapshot.docs.map((doc) {
+      String dateString = doc.data()['start_datetime'];
+      DateTime dateTime = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse(dateString);
+      DateTime date = DateTime(dateTime.year, dateTime.month, dateTime.day);
+      return date;
+    }).toList();
+  }
 }
