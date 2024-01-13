@@ -137,6 +137,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       ),
                     );
                   }
+                  return null;
                 },
               ),
               firstDay: DateTime(DateTime.now().year - 1),
