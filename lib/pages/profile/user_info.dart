@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:booking_app/firebase/authentication.dart';
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
@@ -24,11 +25,13 @@ class UserInfoPage extends StatefulWidget {
 
 class _UserInfoPageState extends State<UserInfoPage> {
   final profileFunctions = ProfileFunctions();
+  final Authentication authentication = Authentication();
   final double tablePadding = 0;
   void addUserDialog() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
     TextEditingController newEmailController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -49,6 +52,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   CustomTextFieldWController(
                     labelText: 'Enter email ID',
                     controller: newEmailController,
+                  ),
+                  CustomTextFieldWController(
+                    labelText: 'Enter password',
+                    controller: newPasswordController,
                   ),
                   const SizedBox(
                     height: 20,
@@ -84,6 +91,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       },
                     );
                   } else if (addUserResult[0] == 0) {
+                    await authentication.signUp(
+                        newEmailController.text, newPasswordController.text);
                     Navigator.of(context).pop();
                     showDialog(
                       context: context,

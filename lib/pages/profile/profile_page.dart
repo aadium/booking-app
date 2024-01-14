@@ -5,6 +5,7 @@ import 'package:booking_app/pages/profile/user_info.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
+import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,53 +68,35 @@ class _ProfilePageState extends State<ProfilePage> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                String currentPassword = '';
-                                String newPassword = '';
-                                String confirmPassword = '';
+                                TextEditingController currentPasswordController = TextEditingController();
+                                TextEditingController newPasswordController = TextEditingController();
+                                TextEditingController confirmPasswordController = TextEditingController();
 
                                 return AlertDialog(
                                   title: Text('Change Password'),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      TextFormField(
-                                        obscureText: true,
-                                        decoration: InputDecoration(labelText: 'Current Password'),
-                                        onChanged: (value) {
-                                          currentPassword = value;
-                                        },
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        decoration: InputDecoration(labelText: 'New Password'),
-                                        onChanged: (value) {
-                                          newPassword = value;
-                                        },
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        decoration: InputDecoration(labelText: 'Confirm Password'),
-                                        onChanged: (value) {
-                                          confirmPassword = value;
-                                        },
-                                      ),
+                                      CustomPasswordField(controller: currentPasswordController, labelText: 'Current Password',),
+                                      CustomPasswordField(controller: newPasswordController, labelText: 'New Password',),
+                                      CustomPasswordField(controller: confirmPasswordController, labelText: 'Confirm Password',),
                                     ],
                                   ),
                                   actions: [
                                     PrimaryTextButton(
                                       text: ('Change Password'),
                                       onPressed: () async {
-                                        if (newPassword == confirmPassword) {
+                                        if (newPasswordController.text == confirmPasswordController.text) {
                                           User? user = FirebaseAuth.instance.currentUser;
                                           if (user != null && user.email != null) {
                                             try {
                                               // Get the credentials
                                               AuthCredential credential = EmailAuthProvider.credential(
                                                 email: user.email!,
-                                                password: currentPassword,
+                                                password: currentPasswordController.text,
                                               );
                                               await user.reauthenticateWithCredential(credential);
-                                              await signFunctions.changePassword(newPassword);
+                                              await signFunctions.changePassword(newPasswordController.text);
                                               Navigator.of(context).pop();
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
@@ -172,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       const SizedBox(height: 80),
                       const Text(
-                        'Villa Number:',
+                        'Villa Number',
                         style: TextStyle(
                           fontSize: 35,
                           color: Colors.white,

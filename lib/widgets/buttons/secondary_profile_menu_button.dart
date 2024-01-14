@@ -17,7 +17,7 @@ class SecondaryPrimaryProfileMenuButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 0,
-        textStyle: const TextStyle(fontSize: 21),
+        textStyle: const TextStyle(fontSize: 24),
         backgroundColor: Color.fromRGBO(255, 216, 221, 1),
         padding: const EdgeInsets.all(23.0),
       ),
@@ -25,7 +25,7 @@ class SecondaryPrimaryProfileMenuButton extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: Color.fromRGBO(232, 74, 95, 1), fontSize: 25),
+        style: TextStyle(color: Color.fromRGBO(232, 74, 95, 1)),
       ),
     );
   }
