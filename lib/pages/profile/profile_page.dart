@@ -9,6 +9,7 @@ import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -62,11 +63,96 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: PrimaryProfileMenuButton(
                           text: 'Change Password',
                           icon: (Icons.change_circle_outlined),
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserBookingHistory(
-                                      villaNum: widget.villaNumber))))),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                String currentPassword = '';
+                                String newPassword = '';
+                                String confirmPassword = '';
+
+                                return AlertDialog(
+                                  title: Text('Change Password'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextFormField(
+                                        obscureText: true,
+                                        decoration: InputDecoration(labelText: 'Current Password'),
+                                        onChanged: (value) {
+                                          currentPassword = value;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        obscureText: true,
+                                        decoration: InputDecoration(labelText: 'New Password'),
+                                        onChanged: (value) {
+                                          newPassword = value;
+                                        },
+                                      ),
+                                      TextFormField(
+                                        obscureText: true,
+                                        decoration: InputDecoration(labelText: 'Confirm Password'),
+                                        onChanged: (value) {
+                                          confirmPassword = value;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  actions: [
+                                    PrimaryTextButton(
+                                      text: ('Change Password'),
+                                      onPressed: () async {
+                                        if (newPassword == confirmPassword) {
+                                          User? user = FirebaseAuth.instance.currentUser;
+                                          if (user != null && user.email != null) {
+                                            try {
+                                              // Get the credentials
+                                              AuthCredential credential = EmailAuthProvider.credential(
+                                                email: user.email!,
+                                                password: currentPassword,
+                                              );
+                                              await user.reauthenticateWithCredential(credential);
+                                              await signFunctions.changePassword(newPassword);
+                                              Navigator.of(context).pop();
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text('Password changed successfully'),
+                                                  duration: Duration(seconds: 2),
+                                                ),
+                                              );
+                                            } catch (e) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text('Failed to change password: $e'),
+                                                  duration: Duration(seconds: 2),
+                                                ),
+                                              );
+                                            }
+                                          }
+                                        } else {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text('Passwords do not match'),
+                                              duration: Duration(seconds: 2),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    SecondaryTextButton(
+                                      text: ('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        )
+                      ),
             ],
           ),
         ),
@@ -84,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(42, 54, 59, 1)),
                   child: Column(
                     children: [
-                      const SizedBox(height: 70),
+                      const SizedBox(height: 80),
                       const Text(
                         'Villa Number:',
                         style: TextStyle(
@@ -100,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -109,12 +195,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(children: [
                   SizedBox(
                       height:
-                          MediaQuery.of(context).copyWith().size.height / 7),
+                          MediaQuery.of(context).copyWith().size.height / 10),
                   FractionallySizedBox(
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Users',
-                          icon: (Icons.group),
+                          icon: (FontAwesomeIcons.userGroup),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -126,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Booking History',
-                          icon: (Icons.history),
+                          icon: (FontAwesomeIcons.clockRotateLeft),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -137,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       widthFactor: 0.9,
                       child: PrimaryProfileMenuButton(
                           text: 'Location',
-                          icon: Icons.location_pin,
+                          icon: (FontAwesomeIcons.locationDot),
                           onPressed: () => profileFunctions.showLocation())),
                   const SizedBox(height: 20),
                   FractionallySizedBox(

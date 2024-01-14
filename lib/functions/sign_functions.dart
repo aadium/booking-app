@@ -16,6 +16,18 @@ class SignFunctions {
     }
   }
 
+  Future<void> changePassword(String newPassword) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      await user.updatePassword(newPassword).then((_) {
+        debugPrint('Successfully changed password');
+      }).catchError((error) {
+        debugPrint('Password cannot be changed: $error');
+      });
+    }
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }

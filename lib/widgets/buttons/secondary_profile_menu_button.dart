@@ -25,7 +25,7 @@ class SecondaryPrimaryProfileMenuButton extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: Color.fromRGBO(232, 74, 95, 1)),
+        style: TextStyle(color: Color.fromRGBO(232, 74, 95, 1), fontSize: 25),
       ),
     );
   }
