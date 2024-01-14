@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PrimaryProfileMenuButton extends StatelessWidget {
   final String text;
@@ -19,7 +20,7 @@ class PrimaryProfileMenuButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
-          textStyle: const TextStyle(fontSize: 21),
+          textStyle: const TextStyle(fontSize: 24),
           backgroundColor: Color.fromRGBO(219, 226, 230, 1),
           padding: const EdgeInsets.all(23.0),
         ),
@@ -27,12 +28,12 @@ class PrimaryProfileMenuButton extends StatelessWidget {
         child: Table(
           columnWidths: const {
             0: IntrinsicColumnWidth(),
-            1: FixedColumnWidth(10),
+            1: FixedColumnWidth(20),
             2: IntrinsicColumnWidth(),
           },
           children: [
             TableRow(children: [
-              TableCell(child: Icon(icon, color: Color.fromRGBO(42, 54, 59, 1),)),
+              TableCell(child: FaIcon(icon, color: Color.fromRGBO(42, 54, 59, 1),)),
               TableCell(child: SizedBox()),
               TableCell(
                 child: Text(

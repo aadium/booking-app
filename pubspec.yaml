@@ -47,6 +47,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   table_calendar: ^3.0.9
   font_awesome_flutter: ^10.6.0
+  sliding_up_panel: ^2.0.0+1
 
 flutter_icons:
   android: true
