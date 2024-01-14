@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/profile/user_booking_history.dart';
@@ -9,16 +7,19 @@ import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ProfilePage extends StatefulWidget {
   final int villaNumber;
-  final List<dynamic> userDataList; // Pass a list of user data maps
+  final List<dynamic> userDataList;
+  final User user;
 
   const ProfilePage({
     Key? key,
     required this.villaNumber,
-    required this.userDataList,
+    required this.userDataList, required this.user,
   }) : super(key: key);
 
   @override
@@ -32,8 +33,44 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
+      body: SlidingUpPanel(
+        minHeight: 45,
+        maxHeight: 200,
+        panel: Center(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Container(
+                width: 50,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                widget.user.email.toString(),
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Color.fromRGBO(42, 54, 59, 1)
+                ),
+              ),
+              const SizedBox(height: 30),
+              FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: PrimaryProfileMenuButton(
+                          text: 'Change Password',
+                          icon: (Icons.change_circle_outlined),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserBookingHistory(
+                                      villaNum: widget.villaNumber))))),
+            ],
+          ),
+        ),
+        body: Center(
           child: Column(
             children: <Widget>[
               FractionallySizedBox(
