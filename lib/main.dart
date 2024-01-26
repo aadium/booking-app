@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) =>
             HomeScreen(pageIndex: 0, user: currentUser!),
+        '/admin_home': (context) =>
+            HomeScreen(pageIndex: 0, user: currentUser!),
         '/login': (context) => SignInPage(),
       },
       theme: ThemeData(
