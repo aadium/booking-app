@@ -2,6 +2,7 @@
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/home_screen.dart';
+import 'package:booking_app/pages/admin/admin_home_screen.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
@@ -115,10 +116,17 @@ class _SignInPageState extends State<SignInPage> {
                         var user = await signFunctions.signIn(
                             _emailIdController.text, _passwordController.text);
                         if (user != null) {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
+                          if (!isAdmin) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
+                          } else {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdminHomeScreen()));
+                          }
                         } else {
                           showDialog(
                             context: context,
