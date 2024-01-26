@@ -8,6 +8,7 @@ import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -23,6 +24,7 @@ class _SignInPageState extends State<SignInPage> {
   bool _isLoading = false;
   dynamic signInResult;
   dynamic signFunctions = SignFunctions();
+  bool isAdmin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,40 @@ class _SignInPageState extends State<SignInPage> {
                       color: Color.fromRGBO(42, 54, 59, 1),
                     ),
                   ),
+                ),
+                const SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Admin',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color.fromRGBO(42, 54, 59, 1),
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    FlutterSwitch(
+                      width: 55.0,
+                      height: 26.0,
+                      toggleSize: 15.0,
+                      value: isAdmin,
+                      borderRadius: 13.0,
+                      activeColor: Color.fromRGBO(42, 54, 59, 1),
+                      inactiveColor: Color.fromRGBO(42, 54, 59, 0),
+                      activeToggleColor: Color.fromRGBO(219, 226, 230, 1),
+                      inactiveToggleColor: Color.fromRGBO(42, 54, 59, 1),
+                      switchBorder: Border.all(
+                        color: Color.fromRGBO(42, 54, 59, 1),
+                        width: 2.0,
+                      ),
+                      onToggle: (val) {
+                        setState(() {
+                          isAdmin = val;
+                        });
+                      },
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10.0),
                 Padding(
@@ -111,22 +147,6 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
-      ),
-      bottomSheet: Container(
-        height: 70,
-        color: const Color.fromRGBO(42, 54, 59, 1),
-        child: Center(
-          child: GestureDetector(
-            onTap: null,
-            child: Text(
-              'Sign in as Administrator',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
             ),
           ),
         ),
