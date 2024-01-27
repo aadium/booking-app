@@ -125,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AdminHomeScreen()));
+                                    builder: (context) => AdminHomeScreen(user: user, pageIndex: 0,)));
                           }
                         } else {
                           showDialog(

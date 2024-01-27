@@ -49,6 +49,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   sliding_up_panel: ^2.0.0+1
   flutter_switch: ^0.3.0
+  flutter_svg: ^2.0.9
 
 flutter_icons:
   android: true
@@ -82,6 +83,8 @@ flutter:
   assets:
     - assets/app_icon.ico
     - assets/homepage_header.png
+    - assets/houses.svg
+    - assets/admin.svg
     - secrets.env
 
   # An image asset can refer to one or more resolution-specific "variants", see

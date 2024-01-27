@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class UserInfoPage extends StatefulWidget {
   final int villaNumber;
-  final List<dynamic> userDataList; // Pass a list of user data maps
+  final List<dynamic> userDataList;
 
   const UserInfoPage({
     Key? key,
@@ -199,7 +199,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             columnWidths: const {
                               0: FixedColumnWidth(30),
                               1: FixedColumnWidth(
-                                  100), // Adjusts width based on content
+                                  100),
                               2: FixedColumnWidth(170),
                             },
                             children: [
