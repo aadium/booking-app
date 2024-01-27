@@ -6,7 +6,6 @@ import 'package:booking_app/pages/admin/admin_villas_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   int pageIndex;
