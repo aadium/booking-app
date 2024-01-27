@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:booking_app/functions/homepage_functions.dart';
 import 'package:booking_app/pages/home_page.dart';
 import 'package:booking_app/pages/profile/profile_page.dart';
