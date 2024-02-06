@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/home_screen.dart';
@@ -125,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AdminHomeScreen(user: user, pageIndex: 0,)));
+                                    builder: (context) => AdminHomeScreen(pageIndex: 0,)));
                           }
                         } else {
                           showDialog(
