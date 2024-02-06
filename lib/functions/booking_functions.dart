@@ -170,7 +170,7 @@ class BookingMainFunctions {
     final documents = querySnapshot.docs;
 
     final filteredDocuments = documents.where((document) {
-      final data = document.data() as Map<String, dynamic>;
+      final data = document.data();
       final name = DateFormat('d MMMM yyyy')
           .format(DateTime.parse(data['start_datetime']));
       return name
@@ -190,7 +190,7 @@ class BookingMainFunctions {
     final documents = querySnapshot.docs;
 
     final filteredDocuments = documents.where((document) {
-      final data = document.data() as Map<String, dynamic>;
+      final data = document.data();
       final documentVillaNumber = data['villa_no'];
       return documentVillaNumber == villaNumber;
     }).toList();
