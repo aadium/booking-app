@@ -38,12 +38,16 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SlidingUpPanel(
         minHeight: 45,
         maxHeight: 200,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
         panel: Center(
           child: Column(
             children: [
               const SizedBox(height: 10),
               Container(
-                width: 50,
+                width: 200,
                 height: 10,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
