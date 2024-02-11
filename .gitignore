@@ -43,3 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 secrets.env
+admin_server/project1-6c6fe-firebase-adminsdk-kar9s-93ea820673.json
