@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/profile/user_booking_history.dart';
@@ -21,7 +23,8 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({
     Key? key,
     required this.villaNumber,
-    required this.userDataList, required this.user,
+    required this.userDataList,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -58,88 +61,138 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 widget.user.email.toString(),
                 style: TextStyle(
-                  fontSize: 30,
-                  color: Color.fromRGBO(42, 54, 59, 1)
-                ),
+                    fontSize: 30, color: Color.fromRGBO(42, 54, 59, 1)),
               ),
               const SizedBox(height: 30),
               FractionallySizedBox(
-                      widthFactor: 0.9,
-                      child: PrimaryProfileMenuButton(
-                          text: 'Change Password',
-                          icon: (Icons.change_circle_outlined),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                TextEditingController currentPasswordController = TextEditingController();
-                                TextEditingController newPasswordController = TextEditingController();
-                                TextEditingController confirmPasswordController = TextEditingController();
+                  widthFactor: 0.9,
+                  child: PrimaryProfileMenuButton(
+                    text: 'Change Password',
+                    icon: (Icons.change_circle_outlined),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          TextEditingController currentPasswordController =
+                              TextEditingController();
+                          TextEditingController newPasswordController =
+                              TextEditingController();
+                          TextEditingController confirmPasswordController =
+                              TextEditingController();
 
-                                return AlertDialog(
-                                  title: Text('Change Password'),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CustomPasswordField(controller: currentPasswordController, labelText: 'Current Password',),
-                                      CustomPasswordField(controller: newPasswordController, labelText: 'New Password',),
-                                      CustomPasswordField(controller: confirmPasswordController, labelText: 'Confirm Password',),
-                                    ],
-                                  ),
-                                  actions: [
-                                    PrimaryTextButton(
-                                      text: ('Change Password'),
-                                      onPressed: () async {
-                                        if (newPasswordController.text == confirmPasswordController.text) {
-                                          User? user = FirebaseAuth.instance.currentUser;
-                                          if (user != null && user.email != null) {
-                                            try {
-                                              // Get the credentials
-                                              AuthCredential credential = EmailAuthProvider.credential(
-                                                email: user.email!,
-                                                password: currentPasswordController.text,
-                                              );
-                                              await user.reauthenticateWithCredential(credential);
-                                              await signFunctions.changePassword(newPasswordController.text);
-                                              Navigator.of(context).pop();
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text('Password changed successfully'),
-                                                  duration: Duration(seconds: 2),
-                                                ),
-                                              );
-                                            } catch (e) {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text('Failed to change password: $e'),
-                                                  duration: Duration(seconds: 2),
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        } else {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text('Passwords do not match'),
-                                              duration: Duration(seconds: 2),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                    SecondaryTextButton(
-                                      text: ('Cancel'),
-                                      onPressed: () {
+                          return AlertDialog(
+                            title: Text('Change Password'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CustomPasswordField(
+                                  controller: currentPasswordController,
+                                  labelText: 'Current Password',
+                                ),
+                                CustomPasswordField(
+                                  controller: newPasswordController,
+                                  labelText: 'New Password',
+                                ),
+                                CustomPasswordField(
+                                  controller: confirmPasswordController,
+                                  labelText: 'Confirm Password',
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              PrimaryTextButton(
+                                text: ('Change Password'),
+                                onPressed: () async {
+                                  if (newPasswordController.text ==
+                                      confirmPasswordController.text) {
+                                    User? user =
+                                        FirebaseAuth.instance.currentUser;
+                                    if (user != null && user.email != null) {
+                                      try {
+                                        AuthCredential credential =
+                                            EmailAuthProvider.credential(
+                                          email: user.email!,
+                                          password:
+                                              currentPasswordController.text,
+                                        );
+                                        await user.reauthenticateWithCredential(
+                                            credential);
+                                        await signFunctions.changePassword(
+                                            newPasswordController.text);
                                         Navigator.of(context).pop();
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Success'),
+                                              content: Text(
+                                                  'Password changed successfully'),
+                                              actions: [
+                                                PrimaryTextButton(
+                                                  text: 'OK',
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } catch (e) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Error'),
+                                              content: Text(
+                                                  'An error occured while changing passwords. Please try again later.'),
+                                              actions: [
+                                                PrimaryTextButton(
+                                                  text: 'OK',
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Error'),
+                                          content: Text(
+                                              'Passwords do not match. Please try again.'),
+                                          actions: [
+                                            PrimaryTextButton(
+                                              text: 'OK',
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
                                       },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        )
-                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                              SecondaryTextButton(
+                                text: ('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  )),
             ],
           ),
         ),

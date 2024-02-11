@@ -76,12 +76,4 @@ class ProfileFunctions {
 
     await launch(url);
   }
-
-  void phone() {
-    debugPrint('TODO: Implement');
-  }
-
-  void email() {
-    debugPrint('TODO: Implement');
-  }
 }
