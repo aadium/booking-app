@@ -2,14 +2,12 @@
 
 import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/home_screen.dart';
-import 'package:booking_app/pages/admin/admin_home_screen.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -25,7 +23,6 @@ class _SignInPageState extends State<SignInPage> {
   bool _isLoading = false;
   dynamic signInResult;
   dynamic signFunctions = SignFunctions();
-  bool isAdmin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,40 +53,6 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Admin',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(42, 54, 59, 1),
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    FlutterSwitch(
-                      width: 55.0,
-                      height: 26.0,
-                      toggleSize: 15.0,
-                      value: isAdmin,
-                      borderRadius: 13.0,
-                      activeColor: Color.fromRGBO(42, 54, 59, 1),
-                      inactiveColor: Color.fromRGBO(42, 54, 59, 0),
-                      activeToggleColor: Color.fromRGBO(219, 226, 230, 1),
-                      inactiveToggleColor: Color.fromRGBO(42, 54, 59, 1),
-                      switchBorder: Border.all(
-                        color: Color.fromRGBO(42, 54, 59, 1),
-                        width: 2.0,
-                      ),
-                      onToggle: (val) {
-                        setState(() {
-                          isAdmin = val;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: CustomTextFieldWController(
@@ -116,17 +79,10 @@ class _SignInPageState extends State<SignInPage> {
                         var user = await signFunctions.signIn(
                             _emailIdController.text, _passwordController.text);
                         if (user != null) {
-                          if (!isAdmin) {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
-                          } else {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AdminHomeScreen(pageIndex: 0,)));
-                          }
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
                         } else {
                           showDialog(
                             context: context,
