@@ -1,23 +1,25 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:booking_app/functions/sign_functions.dart';
-import 'package:booking_app/home_screen.dart';
-import 'package:booking_app/pages/sign_in_admin.dart';
+import 'package:booking_app/pages/admin/admin_home_screen.dart';
+import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class AdminSignInPage extends StatefulWidget {
+  const AdminSignInPage({super.key});
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _AdminSignInPageState createState() => _AdminSignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _AdminSignInPageState extends State<AdminSignInPage> {
   final TextEditingController _emailIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final auth = FirebaseAuth.instance;
@@ -46,9 +48,9 @@ class _SignInPageState extends State<SignInPage> {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Sign In',
+                    'Admin Sign In',
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                       color: Color.fromRGBO(42, 54, 59, 1),
                     ),
                   ),
@@ -79,11 +81,40 @@ class _SignInPageState extends State<SignInPage> {
                         });
                         var user = await signFunctions.signIn(
                             _emailIdController.text, _passwordController.text);
+                        var api_user_response = await http.get(Uri.parse(
+                            'http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
+                        var user_role =
+                            jsonDecode(api_user_response.body)['customClaims']
+                                ['role'];
                         if (user != null) {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
+                          if (user_role == 'admin') {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdminHomeScreen(
+                                          pageIndex: 0,
+                                        )));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Invalid Credentials'),
+                                  content: Text(
+                                      'The email address or password is incorrect.'),
+                                  actions: [
+                                    PrimaryTextButton(
+                                      text: 'OK',
+                                      onPressed: () {
+                                        auth.signOut();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         } else {
                           showDialog(
                             context: context,
@@ -95,7 +126,10 @@ class _SignInPageState extends State<SignInPage> {
                                 actions: [
                                   PrimaryTextButton(
                                     text: 'OK',
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    onPressed: () {
+                                      auth.signOut();
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
                                 ],
                               );
@@ -121,9 +155,9 @@ class _SignInPageState extends State<SignInPage> {
         color: const Color.fromRGBO(42, 54, 59, 1),
         child: Center(
           child: GestureDetector(
-            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminSignInPage())),
+            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage())),
             child: Text(
-              'Sign in as Administrator',
+              'Sign in as User',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
