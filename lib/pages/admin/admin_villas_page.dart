@@ -1,3 +1,4 @@
+import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/pages/admin/admin_user_info.dart';
 import 'package:booking_app/widgets/cards/AdminVillasCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,12 +16,12 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Villas'),
+        title: const Text('Admin Villas')
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('villa_users').orderBy('Villa_num', descending: false).snapshots(),
+          stream: FirebaseFirestore.instance.collection(firestoreVillaUsersCollection).orderBy('Villa_num', descending: false).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final documents = snapshot.data!.docs;
@@ -36,7 +37,7 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
                   return AdminVillasCard(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AdminUserInfoPage(
+                        builder: (context) => AdminUserInfoPage(   
                           villaNumber: int.parse(data['Villa_num'].toString()),
                           userDataList: data['userMaps'],
                         ),

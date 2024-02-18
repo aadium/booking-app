@@ -4,7 +4,6 @@ import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/admin/admin_home_screen.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
-import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
@@ -36,10 +35,10 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
         child: Center(
           child: Container(
             decoration: const BoxDecoration(
-              color: Color.fromRGBO(255, 216, 221, 1),
+              color: Color.fromRGBO(219, 226, 230, 1),
               borderRadius: BorderRadius.all(Radius.circular(30)),
               border: Border.fromBorderSide(
-                  BorderSide(color: Color.fromRGBO(235, 74, 95, 1), width: 3)),
+                  BorderSide(color: Color.fromRGBO(42, 54, 59, 1), width: 3)),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +51,7 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
                     'Admin Sign In',
                     style: TextStyle(
                       fontSize: 40,
-                      color: Color.fromRGBO(235, 74, 95, 1),
+                      color: Color.fromRGBO(42, 54, 59, 1),
                     ),
                   ),
                 ),
@@ -75,19 +74,19 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
                   padding: const EdgeInsets.all(20.0),
                   child: FractionallySizedBox(
                     widthFactor: 1,
-                    child: SecondaryButton(
+                    child: PrimaryButton(
                       onPressed: () async {
                         setState(() {
                           _isLoading = true;
                         });
                         var user = await signFunctions.signIn(
                             _emailIdController.text, _passwordController.text);
-                        var api_user_response = await http.get(Uri.parse(
-                            'http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
-                        var user_role =
-                            jsonDecode(api_user_response.body)['customClaims']
-                                ['role'];
                         if (user != null) {
+                          var api_user_response = await http.get(Uri.parse(
+                              'http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
+                          var user_role =
+                              jsonDecode(api_user_response.body)['customClaims']
+                                  ['role'];
                           if (user_role == 'admin') {
                             Navigator.pushReplacement(
                                 context,
@@ -153,7 +152,12 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
       ),
       bottomSheet: Container(
         height: 70,
-        color: const Color.fromRGBO(235, 74, 95, 1),
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(42, 54, 59, 1),
+          border: Border(
+            top: BorderSide(width: 2.0, color: Color.fromRGBO(235, 74, 95, 1)),
+          ),
+        ),
         child: Center(
           child: GestureDetector(
             onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage())),
