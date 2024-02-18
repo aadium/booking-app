@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
     if (user == null) {
       return '';
     }
-    final response = await http.get(Uri.parse('http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
+    final response = await http.get(
+        Uri.parse('http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
     return jsonDecode(response.body)['customClaims']['role'];
   }
 
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
                     : '/home'
                 : '/login',
             routes: {
-              '/home': (context) => HomeScreen(pageIndex: 0, user: currentUser!),
+              '/home': (context) =>
+                  HomeScreen(pageIndex: 0, user: currentUser!),
               '/admin': (context) => AdminHomeScreen(pageIndex: 0),
               '/login': (context) => SignInPage(),
             },

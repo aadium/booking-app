@@ -81,12 +81,12 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
                         });
                         var user = await signFunctions.signIn(
                             _emailIdController.text, _passwordController.text);
-                        var api_user_response = await http.get(Uri.parse(
-                            'http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
-                        var user_role =
-                            jsonDecode(api_user_response.body)['customClaims']
-                                ['role'];
                         if (user != null) {
+                          var api_user_response = await http.get(Uri.parse(
+                              'http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
+                          var user_role =
+                              jsonDecode(api_user_response.body)['customClaims']
+                                  ['role'];
                           if (user_role == 'admin') {
                             Navigator.pushReplacement(
                                 context,
@@ -152,7 +152,12 @@ class _AdminSignInPageState extends State<AdminSignInPage> {
       ),
       bottomSheet: Container(
         height: 70,
-        color: const Color.fromRGBO(42, 54, 59, 1),
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(42, 54, 59, 1),
+          border: Border(
+            top: BorderSide(width: 2.0, color: Color.fromRGBO(235, 74, 95, 1)),
+          ),
+        ),
         child: Center(
           child: GestureDetector(
             onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage())),

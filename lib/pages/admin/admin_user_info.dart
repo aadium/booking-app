@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:booking_app/firebase/authentication.dart';
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
@@ -8,6 +10,7 @@ import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart'
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AdminUserInfoPage extends StatefulWidget {
   final int villaNumber;
@@ -91,8 +94,12 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       },
                     );
                   } else if (addUserResult[0] == 0) {
-                    await authentication.signUp(
-                        newEmailController.text, newPasswordController.text);
+                    var body = {
+                      'email': newEmailController.text.toString(),
+                      'password': newPasswordController.text.toString(),
+                    };
+                    var response = await http.post(Uri.parse('http://192.168.0.114:3001/api/auth/createUser'), headers: {"Content-Type": "application/json"}, body: json.encode(body));
+                    debugPrint(response.body);
                     Navigator.of(context).pop();
                     showDialog(
                       context: context,
@@ -154,9 +161,12 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
-                profileFunctions.removeUser(
-                    widget.villaNumber, widget.userDataList, index);
-                Navigator.of(context).pop();
+                var body = {
+                  'email': widget.userDataList[index]['email'],
+                };
+                var response = await http.delete(Uri.parse('http://192.168.0.114:3001/api/auth/deleteUserByEmail/'), headers: {"Content-Type": "application/json"}, body: json.encode(body));
+                debugPrint(response.body);
+                profileFunctions.removeUser(widget.villaNumber, widget.userDataList, index);
               },
             ),
             SecondaryTextButton(
