@@ -68,6 +68,7 @@ class ProfileFunctions {
       }
     });
   }
+  
   void showLocation() async {
     final latitude = 25.24225207729788;
     final longitude = 51.55955193548285;

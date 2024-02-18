@@ -42,6 +42,18 @@ router.delete('/deleteUser/:uid', async (req, res) => {
     }
 });
 
+router.delete('/deleteUserByEmail', async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await admin.auth().getUserByEmail(email);
+        await admin.auth().deleteUser(user.uid);
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Failed to delete user' });
+    }
+});
+
 router.post('/createUser', async (req, res) => {
     try {
         const { email, password, role } = req.body;
@@ -51,13 +63,13 @@ router.post('/createUser', async (req, res) => {
                 password
             });
             await admin.auth().setCustomUserClaims(userRecord.uid, { role });
-            res.status(201).json({ message: 'User created successfully', userRecord });
+            res.status(201).json(userRecord);
         } else {
             const userRecord = await admin.auth().createUser({
                 email,
                 password
             });
-            res.status(201).json({ message: 'User created successfully', userRecord });
+            res.status(201).json(userRecord);
         }
     } catch (error) {
         console.error('Error creating user:', error);
