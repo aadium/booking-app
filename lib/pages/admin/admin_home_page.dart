@@ -1,23 +1,16 @@
-import 'package:booking_app/pages/clubhouse/book_clubhouse.dart';
-import 'package:booking_app/pages/clubhouse/calendar_page.dart';
+import 'package:booking_app/pages/admin/admin_calendar_page.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  final User user;
-  final int villaNumber;
-  final List userData;
-  const HomePage({super.key, required this.user, required this.villaNumber, required this.userData});
+class AdminHomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _AdminHomePageState createState() => _AdminHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AdminHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
-    int villaNumber = widget.villaNumber;
-    List userData = widget.userData;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -53,31 +46,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Expanded(
                               child: HomepageOptionButton(
-                                text: 'Book\nClubhouse',
+                                text: 'View all Bookings',
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
+                                      builder: (context) => AdminCalendarPage(),
                                     ),
                                   );
                                 },
@@ -110,31 +84,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Expanded(
                               child: HomepageOptionButton(
-                                text: 'Book Tennis\nCourt',
+                                text: 'View all Bookings',
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
+                                      builder: (context) => AdminCalendarPage(),
                                     ),
                                   );
                                 },
@@ -167,31 +122,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Expanded(
                               child: HomepageOptionButton(
-                                text: 'Book Squash\nCourt',
+                                text: 'View all Bookings',
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
+                                      builder: (context) => AdminCalendarPage(),
                                     ),
                                   );
                                 },
@@ -224,31 +160,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Expanded(
                               child: HomepageOptionButton(
-                                text: 'Book\nSwimming Pool',
+                                text: 'View all Bookings',
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
+                                      builder: (context) => AdminCalendarPage(),
                                     ),
                                   );
                                 },
@@ -281,31 +198,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Expanded(
                               child: HomepageOptionButton(
-                                text: 'Book\nBilliards Room',
+                                text: 'View all Bookings',
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
+                                      builder: (context) => AdminCalendarPage(),
                                     ),
                                   );
                                 },

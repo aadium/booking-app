@@ -14,10 +14,10 @@ class HomepageOptionButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        textStyle: const TextStyle(fontSize: 22),
+        textStyle: const TextStyle(fontSize: 18),
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         disabledBackgroundColor: Color.fromRGBO(77, 91, 97, 1),
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.all(14.0),
         elevation: 0,
       ),
       onPressed: onPressed,
