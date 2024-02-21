@@ -1,13 +1,13 @@
 import 'dart:convert';
 
+import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/firebase/firebase_options.dart';
+import 'package:booking_app/home_screen.dart';
 import 'package:booking_app/pages/admin/admin_home_screen.dart';
 import 'package:booking_app/pages/sign_in.dart';
-import 'package:booking_app/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,12 +27,17 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  MyApp({super.key});
+
   Future<String> getUserRole(User? user) async {
     if (user == null) {
       return '';
     }
+    final jwt = await user.getIdToken();
     final response = await http.get(
-        Uri.parse('http://192.168.0.114:3001/api/auth/getUser/${user.uid}'));
+        Uri.parse(
+            '${adminServerUrl}api/auth/getUser/${user.uid}'),
+        headers: {'Authorization': 'Bearer $jwt'});
     return jsonDecode(response.body)['customClaims']['role'];
   }
 
@@ -44,11 +49,11 @@ class MyApp extends StatelessWidget {
       future: getUserRole(currentUser),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          String user_role = snapshot.data ?? '';
+          String userRole = snapshot.data ?? '';
           return MaterialApp(
             title: 'Booking App',
             initialRoute: currentUser != null
-                ? user_role == 'admin'
+                ? userRole == 'admin'
                     ? '/admin'
                     : '/home'
                 : '/login',
@@ -56,19 +61,19 @@ class MyApp extends StatelessWidget {
               '/home': (context) =>
                   HomeScreen(pageIndex: 0, user: currentUser!),
               '/admin': (context) => AdminHomeScreen(pageIndex: 0),
-              '/login': (context) => SignInPage(),
+              '/login': (context) => const SignInPage(),
             },
             theme: ThemeData(
-              textSelectionTheme: TextSelectionThemeData(
+              textSelectionTheme: const TextSelectionThemeData(
                 cursorColor: Color.fromRGBO(42, 54, 59, 1),
               ),
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 backgroundColor: Color.fromRGBO(42, 54, 59, 1),
                 unselectedItemColor: Color.fromRGBO(112, 132, 141, 1),
                 selectedItemColor: Color.fromRGBO(235, 74, 95, 1),
                 elevation: 0,
               ),
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 backgroundColor: Color.fromRGBO(42, 54, 59, 1),
                 elevation: 0,
               ),
@@ -76,7 +81,7 @@ class MyApp extends StatelessWidget {
           );
         } else {
           // Return a placeholder widget while the Future is loading.
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );

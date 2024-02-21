@@ -30,5 +30,6 @@ const List<String> timeList = [
 const String firestoreBookClubhouseCollection = 'book_clubhouse';
 const String firestoreMaintenanceRequestsCollection = 'maintenance_requests';
 const String firestoreVillaUsersCollection = 'villa_users';
+const String adminServerUrl = 'http://192.168.0.114:3001/';
 String smtpServerEmail = dotenv.env['smtpServerEmail']!;
 String appPassword = dotenv.env['appPassword']!;

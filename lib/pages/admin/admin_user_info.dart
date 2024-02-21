@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/firebase/authentication.dart';
 import 'package:booking_app/functions/profile_functions.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
@@ -17,10 +18,10 @@ class AdminUserInfoPage extends StatefulWidget {
   final List<dynamic> userDataList;
 
   const AdminUserInfoPage({
-    Key? key,
+    super.key,
     required this.villaNumber,
     required this.userDataList,
-  }) : super(key: key);
+  });
 
   @override
   _AdminUserInfoPageState createState() => _AdminUserInfoPageState();
@@ -39,7 +40,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add another user'),
+          title: const Text('Add another user'),
           content: SingleChildScrollView(
             child: IntrinsicHeight(
               child: Column(
@@ -81,8 +82,8 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Empty field'),
-                          content: Text(
+                          title: const Text('Empty field'),
+                          content: const Text(
                               'One or more of the required fields is empty'),
                           actions: [
                             PrimaryTextButton(
@@ -98,14 +99,21 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       'email': newEmailController.text.toString(),
                       'password': newPasswordController.text.toString(),
                     };
-                    var response = await http.post(Uri.parse('http://192.168.0.114:3001/api/auth/createUser'), headers: {"Content-Type": "application/json"}, body: json.encode(body));
+                    var jwt = await user?.getIdToken();
+                    var response = await http.post(
+                        Uri.parse('${adminServerUrl}api/auth/createUser'),
+                        headers: {
+                          "Content-Type": "application/json",
+                          'Authorization': 'Bearer $jwt'
+                        },
+                        body: json.encode(body));
                     debugPrint(response.body);
                     Navigator.of(context).pop();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Success'),
+                          title: const Text('Success'),
                           content: Text('${addUserResult[1]} had been added.'),
                           actions: [
                             PrimaryTextButton(
@@ -125,7 +133,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Failure to add user'),
+                          title: const Text('Failure to add user'),
                           content:
                               Text('${addUserResult[1]} could not be added.'),
                           actions: [
@@ -154,8 +162,8 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Remove User'),
-          content: Text('Are you sure you want to remove this user?'),
+          title: const Text('Remove User'),
+          content: const Text('Are you sure you want to remove this user?'),
           actions: [
             PrimaryTextButton(
               text: 'Remove',
@@ -164,9 +172,17 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                 var body = {
                   'email': widget.userDataList[index]['email'],
                 };
-                var response = await http.delete(Uri.parse('http://192.168.0.114:3001/api/auth/deleteUserByEmail/'), headers: {"Content-Type": "application/json"}, body: json.encode(body));
+                var jwt = await user?.getIdToken();
+                var response = await http.delete(
+                    Uri.parse('${adminServerUrl}api/auth/deleteUserByEmail/'),
+                    headers: {
+                      "Content-Type": "application/json",
+                      'Authorization': 'Bearer $jwt'
+                    },
+                    body: json.encode(body));
                 debugPrint(response.body);
-                profileFunctions.removeUser(widget.villaNumber, widget.userDataList, index);
+                profileFunctions.removeUser(
+                    widget.villaNumber, widget.userDataList, index);
               },
             ),
             SecondaryTextButton(
@@ -185,7 +201,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        backgroundColor: const Color.fromRGBO(42, 54, 59, 1),
         title: const Text('Users'),
       ),
       body: Center(
@@ -201,7 +217,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       child: Container(
                         decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
-                            color: Color.fromRGBO(219, 226, 230, 1),
+                            color: const Color.fromRGBO(219, 226, 230, 1),
                             borderRadius: BorderRadius.circular(17)),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -213,10 +229,10 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                             },
                             children: [
                               TableRow(children: [
-                                TableCell(
-                                  child: Text(''),
+                                const TableCell(
                                   verticalAlignment:
                                       TableCellVerticalAlignment.middle,
+                                  child: Text(''),
                                 ),
                                 TableCell(
                                   verticalAlignment:
@@ -255,7 +271,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                                         onPressed: () => removeUserDialog(widget
                                             .userDataList
                                             .indexOf(userData)),
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.remove_circle_outline,
                                           color: Color.fromRGBO(235, 74, 95, 1),
                                         ))),
@@ -289,10 +305,10 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                                 )
                               ]),
                               TableRow(children: [
-                                TableCell(
-                                  child: Text(''),
+                                const TableCell(
                                   verticalAlignment:
                                       TableCellVerticalAlignment.middle,
+                                  child: Text(''),
                                 ),
                                 TableCell(
                                   verticalAlignment:
