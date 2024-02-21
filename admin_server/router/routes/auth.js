@@ -1,7 +1,8 @@
 const express = require('express');
 const admin = require('firebase-admin');
+const verifyToken = require('../middlewares/verifyToken');
 
-const serviceAccount = require('./project1-6c6fe-firebase-adminsdk-kar9s-93ea820673.json');
+const serviceAccount = require('../../project1-6c6fe-firebase-adminsdk-kar9s-93ea820673.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -9,7 +10,7 @@ admin.initializeApp({
 
 const router = express.Router();
 
-router.get('/getUsers', async (req, res) => {
+router.get('/getUsers', verifyToken, async (req, res) => {
     try {
         const listUsers = await admin.auth().listUsers();
         const users = listUsers.users.map(userRecord => userRecord.toJSON());
@@ -20,7 +21,7 @@ router.get('/getUsers', async (req, res) => {
     }
 });
 
-router.get('/getUser/:uid', async (req, res) => {
+router.get('/getUser/:uid', verifyToken, async (req, res) => {
     try {
         const uid = req.params.uid;
         const userRecord = await admin.auth().getUser(uid);
@@ -31,7 +32,7 @@ router.get('/getUser/:uid', async (req, res) => {
     }
 });
 
-router.delete('/deleteUser/:uid', async (req, res) => {
+router.delete('/deleteUser/:uid', verifyToken, async (req, res) => {
     try {
         const uid = req.params.uid;
         await admin.auth().deleteUser(uid);
@@ -42,7 +43,7 @@ router.delete('/deleteUser/:uid', async (req, res) => {
     }
 });
 
-router.delete('/deleteUserByEmail', async (req, res) => {
+router.delete('/deleteUserByEmail', verifyToken, async (req, res) => {
     try {
         const email = req.body.email;
         const user = await admin.auth().getUserByEmail(email);
@@ -54,7 +55,7 @@ router.delete('/deleteUserByEmail', async (req, res) => {
     }
 });
 
-router.post('/createUser', async (req, res) => {
+router.post('/createUser', verifyToken, async (req, res) => {
     try {
         const { email, password, role } = req.body;
         if (role) {
