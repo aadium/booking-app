@@ -16,7 +16,7 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Villas')
+        title: Center(child: const Text('Villas'))
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
