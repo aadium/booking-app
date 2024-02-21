@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:booking_app/functions/homepage_functions.dart';
+import 'package:booking_app/pages/admin/admin_home_page.dart';
 import 'package:booking_app/pages/admin/admin_profile_page.dart';
 import 'package:booking_app/pages/admin/admin_villas_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   int pageIndex;
@@ -26,6 +28,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = <Widget>[
+      AdminHomePage(),
       AdminVillasPage(),
       AdminProfilePage()
     ];
@@ -48,11 +51,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           },
           items: [
             BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.list),
+              label: 'Booking List',
+            ),
+            BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/houses.svg',
                 width: 30,
                 height: 30,
-                color: _currentIndex == 0
+                color: _currentIndex == 1
                     ? const Color.fromRGBO(235, 74, 95, 1)
                     : const Color.fromRGBO(112, 132, 141, 1),
               ),
@@ -63,7 +70,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 'assets/admin.svg',
                 width: 30,
                 height: 30,
-                color: _currentIndex == 1
+                color: _currentIndex == 2
                     ? const Color.fromRGBO(235, 74, 95, 1)
                     : const Color.fromRGBO(112, 132, 141, 1),
               ),
