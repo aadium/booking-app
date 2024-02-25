@@ -6,6 +6,7 @@ import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminProfilePage extends StatefulWidget {
   const AdminProfilePage({super.key});
@@ -101,7 +102,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     );
                   },
                   text: 'Change Name',
-                  icon: Icons.edit_attributes,
+                  icon: FontAwesomeIcons.a,
                 ),
               ),
               SizedBox(height: 15),
@@ -167,7 +168,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                     );
                   },
-                  icon: Icons.lock,
+                  icon: FontAwesomeIcons.lock
                 ),
               ),
               SizedBox(height: 20),

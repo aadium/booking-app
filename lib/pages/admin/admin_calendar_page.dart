@@ -1,4 +1,4 @@
-import 'package:booking_app/functions/booking_functions.dart';
+import 'package:booking_app/functions/clubhouse_booking_functions.dart';
 import 'package:booking_app/pages/admin/bookings/clubhouse/clubhouse_bookings.dart';
 import 'package:booking_app/pages/clubhouse/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
@@ -16,7 +16,7 @@ class _AdminCalendarPageState extends State<AdminCalendarPage> {
   late DateTime _focusedDay;
   late DateTime _selectedDay;
   List<DateTime> bookedDates = [];
-  BookingMainFunctions bookingMainFunctions = BookingMainFunctions();
+  ClubhouseBookingMainFunctions bookingMainFunctions = ClubhouseBookingMainFunctions();
 
   @override
   void initState() {

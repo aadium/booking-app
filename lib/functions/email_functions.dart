@@ -8,34 +8,55 @@ class EmailFunctions {
   final smtpServer = gmail(smtpServerEmail, appPassword);
 
   Future<void> sendBookingConfirmationEmail(
+    String facility,
     String recipientAddress,
     String bookingRef,
     String name,
     int phoneNumber,
     int villano,
-    String reason,
-    int occupants,
-    String additionalRequests,
     DateTime selectedStartingDateTime,
     DateTime selectedEndingDateTime,
+    String additionalRequests,
+  {
+    String reason = '',
+    int occupants = 0,
+  }
   ) async {
-    final message = Message()
-      ..from = Address(smtpServerEmail, 'Dana Garden')
-      ..recipients.add(recipientAddress)
-      ..bccRecipients.add(smtpServerEmail)
-      ..subject = 'BOOKING CONFIRMATION (Reference: $bookingRef)'
-      ..html = '''
-        <p>Below are the details of your booking:</p>
-        <ul>
-          <li>Villa Number: $villano
-          <li>Name: $name
-          <li>Phone Number: $phoneNumber
-          <li>Reason: $reason
-          <li>Occupants: $occupants
-          <li>Additional Requests: $additionalRequests
-          <li>Date: ${DateFormat('d MMMM yyyy').format(DateTime.parse(selectedStartingDateTime.toString()))}
-          <li>Time duration: ${DateFormat('h:mm a').format(DateTime.parse(selectedStartingDateTime.toString()))} to ${DateFormat('h:mm a').format(DateTime.parse(selectedEndingDateTime.toString()))}
-      ''';
+    Message message = Message();
+    if (reason == '' && occupants == 0) {
+      message = Message()
+        ..from = Address(smtpServerEmail, 'Dana Garden')
+        ..recipients.add(recipientAddress)
+        ..bccRecipients.add(smtpServerEmail)
+        ..subject = '$facility BOOKING CONFIRMATION (Reference: $bookingRef)'
+        ..html = '''
+          <p>Below are the details of your $facility booking:</p>
+          <ul>
+            <li>Villa Number: $villano
+            <li>Name: $name
+            <li>Phone Number: $phoneNumber
+            <li>Date: ${DateFormat('d MMMM yyyy').format(DateTime.parse(selectedStartingDateTime.toString()))}
+            <li>Time duration: ${DateFormat('h:mm a').format(DateTime.parse(selectedStartingDateTime.toString()))} to ${DateFormat('h:mm a').format(DateTime.parse(selectedEndingDateTime.toString()))}
+        ''';
+    } else {
+      message = Message()
+        ..from = Address(smtpServerEmail, 'Dana Garden')
+        ..recipients.add(recipientAddress)
+        ..bccRecipients.add(smtpServerEmail)
+        ..subject = '$facility BOOKING CONFIRMATION (Reference: $bookingRef)'
+        ..html = '''
+          <p>Below are the details of your $facility booking:</p>
+          <ul>
+            <li>Villa Number: $villano
+            <li>Name: $name
+            <li>Phone Number: $phoneNumber
+            <li>Reason: $reason
+            <li>Additional Requests: $additionalRequests
+            <li>Occupants: $occupants
+            <li>Date: ${DateFormat('d MMMM yyyy').format(DateTime.parse(selectedStartingDateTime.toString()))}
+            <li>Time duration: ${DateFormat('h:mm a').format(DateTime.parse(selectedStartingDateTime.toString()))} to ${DateFormat('h:mm a').format(DateTime.parse(selectedEndingDateTime.toString()))}
+        ''';
+    }
 
     try {
       await send(message, smtpServer);
@@ -50,7 +71,6 @@ class EmailFunctions {
     String name,
     int phoneNumber,
     int villano,
-    String reason,
     String selectedStartingDateTime,
     String selectedEndingDateTime,
   ) async {
@@ -65,7 +85,6 @@ class EmailFunctions {
           <li>Villa Number: $villano
           <li>Name: $name
           <li>Phone Number: $phoneNumber
-          <li>Reason for Booking: $reason
           <li>Date: ${DateFormat('d MMMM yyyy').format(DateTime.parse(selectedStartingDateTime))}
           <li>Time duration: ${DateFormat('h:mm a').format(DateTime.parse(selectedStartingDateTime))} to ${DateFormat('h:mm a').format(DateTime.parse(selectedEndingDateTime.toString()))}
       ''';

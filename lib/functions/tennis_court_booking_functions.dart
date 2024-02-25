@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-class BookingMinorFunctions {
+class TennisCourtBookingMinorFunctions {
   String checkBookingConflicts(DateTime selectedStartingTime,
       DateTime selectedEndingTime, List<dynamic> existingBookings) {
     for (var booking in existingBookings) {
@@ -21,7 +21,7 @@ class BookingMinorFunctions {
               existingEndingTime.isBefore(selectedEndingTime)) ||
           (existingStartingTime.isBefore(selectedStartingTime) &&
               existingEndingTime.isAfter(selectedEndingTime))) {
-        return 'Clubhouse is booked from ${DateFormat('h:mm a').format(existingStartingTime)} to ${DateFormat('h:mm a').format(existingEndingTime)} on ${DateFormat('dd MMMM yyyy').format(existingStartingTime)}. Please choose another time range'; // Conflict detected
+        return 'Tennis Court is booked from ${DateFormat('h:mm a').format(existingStartingTime)} to ${DateFormat('h:mm a').format(existingEndingTime)} on ${DateFormat('dd MMMM yyyy').format(existingStartingTime)}. Please choose another time range'; // Conflict detected
       }
     }
     return ''; // No conflict
@@ -32,17 +32,10 @@ class BookingMinorFunctions {
         selectedStartingDateTime.difference(DateTime.now());
     int hourDifference = timeDifference.inHours;
 
-    if (hourDifference < 4) {
+    if (hourDifference < 1) {
       return false;
     }
 
-    return true;
-  }
-
-  bool checkNullRecords(TextEditingController reason, int occupants) {
-    if (reason.text == '' || occupants == 0) {
-      return false;
-    }
     return true;
   }
 
@@ -62,8 +55,8 @@ class BookingMinorFunctions {
   }
 }
 
-class BookingMainFunctions {
-  final bookingMinorFunctions = BookingMinorFunctions();
+class TennisCourtBookingMainFunctions {
+  final bookingMinorFunctions = TennisCourtBookingMinorFunctions();
   final emailFunctions = EmailFunctions();
 
   Future<List> addEntry(
@@ -71,17 +64,12 @@ class BookingMainFunctions {
     String emailAddress,
     int phoneNumber,
     int villano,
-    TextEditingController reason,
-    TextEditingController occupants,
-    TextEditingController additionalRequests,
     DateTime selectedDate,
     TimeOfDay selectedStartingTime,
     TimeOfDay selectedEndingTime,
     BuildContext context,
   ) async {
     Completer<List> completer = Completer<List>();
-    int occupantsInteger = int.tryParse(occupants.text) ?? 1;
-    if (bookingMinorFunctions.checkNullRecords(reason, occupantsInteger)) {
       DateTime startingDateTime = DateTime(
         selectedDate.year,
         selectedDate.month,
@@ -100,7 +88,7 @@ class BookingMainFunctions {
       if (bookingMinorFunctions.checkTimeDiffValid(startingDateTime)) {
         final existingBookings = [];
         firestore
-            .collection(firestoreBookClubhouseCollection)
+            .collection(firestoreBookTennisCourtCollection)
             .get()
             .then((snapshot) {
           existingBookings.addAll(snapshot.docs.map((doc) => doc.data()));
@@ -110,36 +98,31 @@ class BookingMainFunctions {
             completer.complete([1, conflict]);
             debugPrint('1');
           } else {
-            // No conflict, proceed to add the booking
             Map<String, dynamic> entryData = {
               'name': name,
               'villa_no': villano,
               'phone_number': phoneNumber,
               'email_address': emailAddress,
-              'reason': reason.text,
-              'occupants': occupantsInteger,
-              'additionalRequests': additionalRequests.text,
               'start_datetime': startingDateTime.toString(),
               'end_datetime': endingDateTime.toString(),
             };
 
             firestore
-                .collection(firestoreBookClubhouseCollection)
+                .collection(firestoreBookTennisCourtCollection)
                 .add(entryData)
                 .then((value) {
               debugPrint('Document added to Firestore: $entryData');
               debugPrint('Value ID = ${value.id}');
               emailFunctions.sendBookingConfirmationEmail(
+                  'Tennis Court',
                   emailAddress,
                   value.id,
                   name,
                   phoneNumber,
                   villano,
-                  reason.text,
-                  occupantsInteger,
-                  additionalRequests.text,
                   startingDateTime,
-                  endingDateTime);
+                  endingDateTime,
+                  '',);
               completer.complete([0, null]);
               debugPrint('0');
             }).catchError((error) {
@@ -153,17 +136,13 @@ class BookingMainFunctions {
         completer.complete([3, null]);
         debugPrint('3');
       }
-    } else {
-      completer.complete([4, null]);
-      debugPrint('4');
-    }
     return completer.future;
   }
 
-  Future<List> fetchClubhouseBookingsByDate(
+  Future<List> fetchBookingsByDate(
       DateTime selectedDate, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
-        .collection(firestoreBookClubhouseCollection)
+        .collection(firestoreBookTennisCourtCollection)
         .orderBy('start_datetime', descending: isSortInDescendingOrder)
         .get();
 
@@ -180,10 +159,10 @@ class BookingMainFunctions {
     return filteredDocuments;
   }
 
-  Future<List> fetchClubhouseBookingsByVilla(
+  Future<List> fetchBookingsByVilla(
       int villaNumber, bool isSortInDescendingOrder) async {
     final querySnapshot = await firestore
-        .collection(firestoreBookClubhouseCollection)
+        .collection(firestoreBookTennisCourtCollection)
         .orderBy('start_datetime', descending: isSortInDescendingOrder)
         .get();
 

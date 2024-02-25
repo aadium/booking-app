@@ -2,6 +2,8 @@
 
 import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/functions/clubhouse_booking_functions.dart';
+import 'package:booking_app/functions/profile_functions.dart';
+import 'package:booking_app/functions/tennis_court_booking_functions.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
 import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
@@ -9,21 +11,22 @@ import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart'
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class BookClubHouse extends StatefulWidget {
+class BookTennisCourt extends StatefulWidget {
   final int villaNum;
   final List<dynamic> userDataList;
 
-  const BookClubHouse(
+  const BookTennisCourt(
       {super.key, required this.villaNum, required this.userDataList});
   @override
   // ignore: no_logic_in_create_state
-  State<BookClubHouse> createState() => _BookClubHouse();
+  State<BookTennisCourt> createState() => _BookTennisCourt();
 }
 
-class _BookClubHouse extends State<BookClubHouse> {
+class _BookTennisCourt extends State<BookTennisCourt> {
   bool isDateSelectionDone = false;
   String selectedName = '';
   String selectedEmail = '';
@@ -31,28 +34,22 @@ class _BookClubHouse extends State<BookClubHouse> {
   late List<dynamic> _names;
   late List<dynamic> _phoneNumbers;
   late List<dynamic> _emailAdresses;
-  final String firstElementOfNameList = 'Select Name';
-  final String firstElementOfEmailList = 'Select Email';
   final String firstElementOfStartTimeList = 'Start Time';
   final String firstElementOfEndTimeList = 'End Time';
-  final int firstElementOfPhoneList = 0;
   List<String> startTimeList = timeList;
   List<String> endTimeList = timeList;
-
-  TextEditingController reason = TextEditingController();
-  TextEditingController occupants = TextEditingController();
-  TextEditingController additionalRequests = TextEditingController();
-
   DateTime selectedDate = DateTime.now();
   dynamic asyncDate;
   TimeOfDay selectedStartingTime = TimeOfDay.now();
   TimeOfDay selectedEndingTime = TimeOfDay.now();
 
   final customDatePicker = CustomDatePicker();
-  final bookingMinorFunctions = ClubhouseBookingMinorFunctions();
-  final bookingMainFunctions = ClubhouseBookingMainFunctions();
+  final bookingMinorFunctions = TennisCourtBookingMinorFunctions();
+  final bookingMainFunctions = TennisCourtBookingMainFunctions();
 
   bool loading = false;
+
+  final User user = FirebaseAuth.instance.currentUser!;
 
   @override
   void initState() {
@@ -66,11 +63,17 @@ class _BookClubHouse extends State<BookClubHouse> {
     _emailAdresses = widget.userDataList
         .map((userData) => userData['email'] as String)
         .toList();
-    _names = [firstElementOfNameList, ..._names];
-    _phoneNumbers = [firstElementOfPhoneList, ..._phoneNumbers];
-    _emailAdresses = [firstElementOfEmailList, ..._emailAdresses];
     startTimeList = [firstElementOfStartTimeList, ...timeList];
     endTimeList = [firstElementOfEndTimeList, ...timeList];
+    selectedEmail = user.email!;
+    int selectedIndex = _emailAdresses.indexOf(selectedEmail);
+    if (selectedIndex >= 0 &&
+        selectedIndex < _phoneNumbers.length) {
+      selectedPhoneNumber = _phoneNumbers[selectedIndex];
+      selectedName = _names[selectedIndex];
+    } else {
+      selectedPhoneNumber = 0;
+    }
   }
 
   @override
@@ -86,39 +89,6 @@ class _BookClubHouse extends State<BookClubHouse> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              FractionallySizedBox(
-                widthFactor: 0.9,
-                child: DropdownButtonFormField<dynamic>(
-                  value: _names[0],
-                  onChanged: (value) {
-                    setState(() {
-                      selectedName = value!;
-                      int selectedIndex = _names.indexOf(selectedName);
-                      if (selectedIndex >= 0 &&
-                          selectedIndex < _phoneNumbers.length) {
-                        selectedPhoneNumber = _phoneNumbers[selectedIndex];
-                        selectedEmail = _emailAdresses[selectedIndex];
-                      } else {
-                        selectedPhoneNumber = 0;
-                      }
-                    });
-                  },
-                  items: _names.map((name) {
-                    return DropdownMenuItem<dynamic>(
-                      value: name,
-                      child: Text(name),
-                    );
-                  }).toList(),
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    labelStyle: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
               Table(children: [
                 TableRow(children: [
                   FractionallySizedBox(
@@ -132,7 +102,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                   FractionallySizedBox(
                     widthFactor: 0.8,
                     child: Text(
-                      'Villa\nNumber',
+                      'Name',
                       style: const TextStyle(fontSize: 17),
                       textAlign: TextAlign.center,
                     ),
@@ -163,7 +133,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: Text(
-                        '${widget.villaNum}',
+                        selectedName,
                         style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
@@ -182,24 +152,6 @@ class _BookClubHouse extends State<BookClubHouse> {
                   ),
                 ])
               ]),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomTextFieldWController(
-                      controller: reason, labelText: 'Purpose of booking')),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomNumericTextFieldWController(
-                      controller: occupants, labelText: 'Number of Occupants')),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomTextAreaWController(
-                    controller: additionalRequests,
-                    labelText: 'Additional requests (optional)',
-                    maxLines: 3,
-                  )),
               const SizedBox(height: 20),
               Table(children: [
                 TableRow(children: [
@@ -267,7 +219,7 @@ class _BookClubHouse extends State<BookClubHouse> {
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: PrimaryButton(
-                  text: 'Book Clubhouse',
+                  text: 'Book Tennis Court',
                   isLoading: loading,
                   onPressed: () async {
                     setState(() {
@@ -278,9 +230,6 @@ class _BookClubHouse extends State<BookClubHouse> {
                         selectedEmail,
                         selectedPhoneNumber,
                         widget.villaNum,
-                        reason,
-                        occupants,
-                        additionalRequests,
                         selectedDate,
                         selectedStartingTime,
                         selectedEndingTime,
@@ -308,7 +257,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Clubhouse booked'),
+                            title: const Text('Tennis Court booked'),
                             content: const Text('Your booking has been confirmed'),
                             actions: [
                               PrimaryTextButton(
@@ -347,7 +296,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                           return AlertDialog(
                             title: const Text('Date too early'),
                             content: const Text(
-                                'Please select a time atleast 4 hours from now'),
+                                'Please select a time atleast 1 hour from now'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',

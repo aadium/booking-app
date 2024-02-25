@@ -1,5 +1,6 @@
 import 'package:booking_app/pages/clubhouse/book_clubhouse.dart';
 import 'package:booking_app/pages/clubhouse/calendar_page.dart';
+import 'package:booking_app/pages/tennis_court/book_tennis_court.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         automaticallyImplyLeading: false,
-        title: Center (child: Text('Dana Garden'),)
+        title: Center (child: Text('Facilities'),)
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
+                                      builder: (context) => BookTennisCourt(
                                         villaNum: villaNumber,
                                         userDataList: userData,
                                       ),
@@ -225,63 +226,6 @@ class _HomePageState extends State<HomePage> {
                             Expanded(
                               child: HomepageOptionButton(
                                 text: 'Book\nSwimming Pool',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Color.fromRGBO(219, 226, 230, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Billiards Room',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'Book\nBilliards Room',
                                 onPressed: () {
                                   Navigator.push(
                                     context,

@@ -1,4 +1,5 @@
 import 'package:booking_app/functions/clubhouse_booking_functions.dart';
+import 'package:booking_app/functions/tennis_court_booking_functions.dart';
 import 'package:booking_app/pages/clubhouse/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _CalendarPageState extends State<CalendarPage> {
   late DateTime _focusedDay;
   late DateTime _selectedDay;
   List<DateTime> bookedDates = [];
-  ClubhouseBookingMainFunctions bookingMainFunctions = ClubhouseBookingMainFunctions();
+  TennisCourtBookingMainFunctions bookingMainFunctions = TennisCourtBookingMainFunctions();
 
   @override
   void initState() {

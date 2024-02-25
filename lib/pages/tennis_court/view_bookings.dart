@@ -1,5 +1,5 @@
 import 'package:booking_app/functions/clubhouse_booking_functions.dart';
-import 'package:booking_app/pages/admin/bookings/clubhouse/booking_details.dart';
+import 'package:booking_app/functions/tennis_court_booking_functions.dart';
 import 'package:booking_app/pages/clubhouse/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
@@ -8,21 +8,22 @@ import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AdminViewClubhouseBookings extends StatefulWidget {
+class ViewClubhouseBookings extends StatefulWidget {
+  final int villaNum;
   final DateTime selected_date;
-  AdminViewClubhouseBookings(
-      {super.key, required this.selected_date});
+  ViewClubhouseBookings(
+      {super.key, required this.villaNum, required this.selected_date});
 
   @override
-  _AdminViewClubhouseBookingsState createState() => _AdminViewClubhouseBookingsState();
+  _ViewClubhouseBookingsState createState() => _ViewClubhouseBookingsState();
 }
 
-class _AdminViewClubhouseBookingsState extends State<AdminViewClubhouseBookings> {
+class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
   DateTime selectedDate = DateTime.now();
   dynamic asyncDate;
   final double tablePadding = 7;
   final customDatePicker = CustomDatePicker();
-  final bookingMainFunctions = ClubhouseBookingMainFunctions();
+  final bookingMainFunctions = TennisCourtBookingMainFunctions();
 
   List bookings = [];
   bool isLoading = true;
@@ -36,7 +37,7 @@ class _AdminViewClubhouseBookingsState extends State<AdminViewClubhouseBookings>
 
   Future<void> _fetchData(DateTime selectedDate) async {
     final List fetchedBookings = await bookingMainFunctions
-        .fetchClubhouseBookingsByDate(selectedDate, false);
+        .fetchBookingsByDate(selectedDate, false);
     setState(() {
       bookings = fetchedBookings;
       isLoading = false;
@@ -87,9 +88,10 @@ class _AdminViewClubhouseBookingsState extends State<AdminViewClubhouseBookings>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AdminClubhouseBookingDetails(
+                                        ClubhouseBookingDetails(
                                           data: data,
                                           bookingRef: document.reference,
+                                          villa_number: widget.villaNum,
                                         )),
                               );
                             },
