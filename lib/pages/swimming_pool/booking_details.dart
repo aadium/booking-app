@@ -8,13 +8,13 @@ import 'package:intl/intl.dart';
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
-class ClubhouseBookingDetails extends StatefulWidget {
+class SwimPoolBookingDetails extends StatefulWidget {
   final data;
   final DocumentReference bookingRef;
   final int villa_number;
   bool isUserInBookingHistory = false;
 
-  ClubhouseBookingDetails(
+  SwimPoolBookingDetails(
       {super.key,
       required this.data,
       required this.villa_number,
@@ -22,18 +22,17 @@ class ClubhouseBookingDetails extends StatefulWidget {
       this.isUserInBookingHistory = false});
 
   @override
-  _ClubhouseBookingDetails createState() => _ClubhouseBookingDetails();
+  _SwimPoolBookingDetails createState() => _SwimPoolBookingDetails();
 }
 
-class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
+class _SwimPoolBookingDetails extends State<SwimPoolBookingDetails> {
   bool isLoading = false;
-  late String bookerName;
-  late String bookerEmailAddress;
-  late int bookerPhNo;
-  late int bookerVilla;
-  late String reason;
-  late String start_dt;
-  late String end_dt;
+  String bookerName = '';
+  String bookerEmailAddress = '';
+  int bookerPhNo = 0;
+  int bookerVilla = 0;
+  String start_dt = '';
+  String end_dt = '';
 
   final EmailFunctions emailFuncs = EmailFunctions();
 
@@ -59,16 +58,14 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                               .then((DocumentSnapshot bookingSnapshot) {
                             Map<String, dynamic> bookingData =
                                 bookingSnapshot.data() as Map<String, dynamic>;
-
-                            bookerName = bookingData['name'];
-                            bookerEmailAddress =
-                                bookingData['email_address'];
-                            bookerPhNo = bookingData['phone_number'];
-                            bookerVilla = bookingData['villa_no'];
-                            reason = bookingData['reason'];
-                            start_dt = bookingData['start_datetime'];
-                            end_dt = bookingData['end_datetime'];
-
+                            setState(() {
+                              bookerName = bookingData['name'];
+                              bookerEmailAddress = bookingData['email_address'];
+                              bookerPhNo = bookingData['phone_number'];
+                              bookerVilla = bookingData['villa_no'];
+                              start_dt = bookingData['start_datetime'];
+                              end_dt = bookingData['end_datetime'];
+                            });
                             debugPrint(widget.bookingRef.id);
                           }).catchError((error) {
                             debugPrint('Error: $error');
@@ -89,7 +86,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                                         emailFuncs
                                             .sendBookingDeleteConfirmationEmail(
                                                 bookerEmailAddress,
-                                                'Clubhouse',
+                                                'Swimming Pool',
                                                 widget.bookingRef.id,
                                                 bookerName,
                                                 bookerPhNo,
@@ -98,6 +95,7 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                                                 end_dt);
                                         debugPrint(
                                             'Booking deleted successfully.');
+                                        Navigator.pop(context);
                                         Navigator.pop(context);
                                         Navigator.pop(context);
                                       } catch (error) {
@@ -233,7 +231,6 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 20)
             ],
           ),
         ),

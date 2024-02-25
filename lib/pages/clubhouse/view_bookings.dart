@@ -1,4 +1,4 @@
-import 'package:booking_app/functions/booking_functions.dart';
+import 'package:booking_app/functions/clubhouse_booking_functions.dart';
 import 'package:booking_app/pages/clubhouse/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
@@ -22,7 +22,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
   dynamic asyncDate;
   final double tablePadding = 7;
   final customDatePicker = CustomDatePicker();
-  final bookingMainFunctions = BookingMainFunctions();
+  final bookingMainFunctions = ClubhouseBookingMainFunctions();
 
   List bookings = [];
   bool isLoading = true;
@@ -49,6 +49,10 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        title: Text(
+          'Clubhouse Bookings',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: isLoading
           ? Center(child: Loader1())

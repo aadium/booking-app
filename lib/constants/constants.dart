@@ -28,6 +28,9 @@ const List<String> timeList = [
 ];
 
 const String firestoreBookClubhouseCollection = 'book_clubhouse';
+const String firestoreBookTennisCourtCollection = 'book_tennis_court';
+const String firestoreBookSwimPoolCollection = 'book_swim_pool';
+const String firestoreBookSquashCourtCollection = 'book_squash_court';
 const String firestoreMaintenanceRequestsCollection = 'maintenance_requests';
 const String firestoreVillaUsersCollection = 'villa_users';
 const String adminServerUrl = 'http://192.168.0.114:3001/';

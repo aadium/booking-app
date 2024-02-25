@@ -1,24 +1,24 @@
-import 'package:booking_app/functions/clubhouse_booking_functions.dart';
-import 'package:booking_app/pages/clubhouse/view_bookings.dart';
+import 'package:booking_app/functions/swim_pool_booking_functions.dart';
+import 'package:booking_app/pages/swimming_pool/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarPage extends StatefulWidget {
+class SwimPoolCalendarPage extends StatefulWidget {
   final int villaNum;
 
-  const CalendarPage({super.key, required this.villaNum});
+  const SwimPoolCalendarPage({super.key, required this.villaNum});
   @override
-  _CalendarPageState createState() => _CalendarPageState();
+  _SwimPoolCalendarPageState createState() => _SwimPoolCalendarPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> {
+class _SwimPoolCalendarPageState extends State<SwimPoolCalendarPage> {
   late CalendarFormat _calendarFormat;
   late DateTime _focusedDay;
   late DateTime _selectedDay;
   List<DateTime> bookedDates = [];
-  ClubhouseBookingMainFunctions bookingMainFunctions = ClubhouseBookingMainFunctions();
+  SwimPoolBookingMainFunctions bookingMainFunctions = SwimPoolBookingMainFunctions();
 
   @override
   void initState() {
@@ -167,7 +167,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ViewClubhouseBookings(
+                        builder: (context) => ViewSwimPoolBookings(
                               villaNum: widget.villaNum,
                               selected_date: _selectedDay,
                             )),

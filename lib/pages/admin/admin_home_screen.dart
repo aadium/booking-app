@@ -28,8 +28,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = <Widget>[
-      AdminHomePage(),
       AdminVillasPage(),
+      AdminHomePage(),
       AdminProfilePage()
     ];
     return Scaffold(
@@ -51,19 +51,19 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.list),
-              label: 'Booking List',
-            ),
-            BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/houses.svg',
                 width: 30,
                 height: 30,
-                color: _currentIndex == 1
+                color: _currentIndex == 0
                     ? const Color.fromRGBO(235, 74, 95, 1)
                     : const Color.fromRGBO(112, 132, 141, 1),
               ),
               label: 'Villas',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.list),
+              label: 'Booking List',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(

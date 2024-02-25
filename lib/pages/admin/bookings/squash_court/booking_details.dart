@@ -6,30 +6,29 @@ import 'package:intl/intl.dart';
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
-class AdminClubhouseBookingDetails extends StatefulWidget {
+class AdminSquashCourtBookingDetails extends StatefulWidget {
   final data;
   final DocumentReference bookingRef;
   bool isUserInBookingHistory = false;
 
-  AdminClubhouseBookingDetails(
+  AdminSquashCourtBookingDetails(
       {super.key,
       required this.data,
       required this.bookingRef,
       this.isUserInBookingHistory = false});
 
   @override
-  _AdminClubhouseBookingDetails createState() => _AdminClubhouseBookingDetails();
+  _AdminSquashCourtBookingDetails createState() => _AdminSquashCourtBookingDetails();
 }
 
-class _AdminClubhouseBookingDetails extends State<AdminClubhouseBookingDetails> {
+class _AdminSquashCourtBookingDetails extends State<AdminSquashCourtBookingDetails> {
   bool isLoading = false;
-  late String bookerName;
-  late String bookerEmailAddress;
-  late int bookerPhNo;
-  late int bookerVilla;
-  late String reason;
-  late String start_dt;
-  late String end_dt;
+  String bookerName = '';
+  String bookerEmailAddress = '';
+  int bookerPhNo = 0;
+  int bookerVilla = 0;
+  String start_dt = '';
+  String end_dt = '';
 
   final EmailFunctions emailFuncs = EmailFunctions();
 
@@ -136,43 +135,6 @@ class _AdminClubhouseBookingDetails extends State<AdminClubhouseBookingDetails> 
               const SizedBox(height: 5),
               Text(
                 '${DateFormat('h:mm a').format(DateTime.parse(widget.data['end_datetime']))}',
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Reason for booking:',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(42, 54, 59, 1),
-                ),
-              ),
-              const SizedBox(height: 5),
-              FractionallySizedBox(
-                widthFactor: 0.9,
-                child: Center(
-                  child: Text(
-                    '${widget.data['reason']}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Number of Occupants:',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(42, 54, 59, 1),
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                '${widget.data['occupants']}',
                 style: const TextStyle(
                   fontSize: 20,
                 ),

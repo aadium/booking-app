@@ -1,22 +1,24 @@
-import 'package:booking_app/functions/booking_functions.dart';
-import 'package:booking_app/pages/admin/bookings/clubhouse/clubhouse_bookings.dart';
-import 'package:booking_app/pages/clubhouse/view_bookings.dart';
+import 'package:booking_app/functions/squash_court_booking_functions.dart';
+import 'package:booking_app/pages/squash_court/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class AdminCalendarPage extends StatefulWidget {
+class SquashCourtCalendarPage extends StatefulWidget {
+  final int villaNum;
+
+  const SquashCourtCalendarPage({super.key, required this.villaNum});
   @override
-  _AdminCalendarPageState createState() => _AdminCalendarPageState();
+  _SquashCourtCalendarPageState createState() => _SquashCourtCalendarPageState();
 }
 
-class _AdminCalendarPageState extends State<AdminCalendarPage> {
+class _SquashCourtCalendarPageState extends State<SquashCourtCalendarPage> {
   late CalendarFormat _calendarFormat;
   late DateTime _focusedDay;
   late DateTime _selectedDay;
   List<DateTime> bookedDates = [];
-  BookingMainFunctions bookingMainFunctions = BookingMainFunctions();
+  SquashCourtBookingMainFunctions bookingMainFunctions = SquashCourtBookingMainFunctions();
 
   @override
   void initState() {
@@ -165,7 +167,8 @@ class _AdminCalendarPageState extends State<AdminCalendarPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AdminViewClubhouseBookings(
+                        builder: (context) => ViewSquashCourtBookings(
+                              villaNum: widget.villaNum,
                               selected_date: _selectedDay,
                             )),
                   );

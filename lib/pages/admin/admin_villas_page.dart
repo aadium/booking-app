@@ -1,6 +1,7 @@
 import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/pages/admin/admin_user_info.dart';
 import 'package:booking_app/widgets/cards/AdminVillasCard.dart';
+import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              return const CircularProgressIndicator();
+              return Center(child: Loader1());
             }
           },
         ),

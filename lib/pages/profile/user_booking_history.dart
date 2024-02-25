@@ -1,4 +1,4 @@
-import 'package:booking_app/functions/booking_functions.dart';
+import 'package:booking_app/functions/clubhouse_booking_functions.dart';
 import 'package:booking_app/pages/clubhouse/booking_details.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -19,7 +19,7 @@ class _UserBookingHistory extends State<UserBookingHistory> {
   dynamic asyncDate;
   final double tablePadding = 7;
   final customDatePicker = CustomDatePicker();
-  final bookingMainFunctions = BookingMainFunctions();
+  final bookingMainFunctions = ClubhouseBookingMainFunctions();
 
   List bookings = [];
   bool isLoading = true;
