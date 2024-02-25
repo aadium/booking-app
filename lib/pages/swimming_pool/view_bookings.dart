@@ -1,5 +1,5 @@
-import 'package:booking_app/functions/tennis_court_booking_functions.dart';
-import 'package:booking_app/pages/tennis_court/booking_details.dart';
+import 'package:booking_app/functions/swim_pool_booking_functions.dart';
+import 'package:booking_app/pages/swimming_pool/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -7,22 +7,22 @@ import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ViewTennisCourtBookings extends StatefulWidget {
+class ViewSwimPoolBookings extends StatefulWidget {
   final int villaNum;
   final DateTime selected_date;
-  ViewTennisCourtBookings(
+  ViewSwimPoolBookings(
       {super.key, required this.villaNum, required this.selected_date});
 
   @override
-  _ViewTennisCourtBookingsState createState() => _ViewTennisCourtBookingsState();
+  _ViewSwimPoolBookingsState createState() => _ViewSwimPoolBookingsState();
 }
 
-class _ViewTennisCourtBookingsState extends State<ViewTennisCourtBookings> {
+class _ViewSwimPoolBookingsState extends State<ViewSwimPoolBookings> {
   DateTime selectedDate = DateTime.now();
   dynamic asyncDate;
   final double tablePadding = 7;
   final customDatePicker = CustomDatePicker();
-  final bookingMainFunctions = TennisCourtBookingMainFunctions();
+  final bookingMainFunctions = SwimPoolBookingMainFunctions();
 
   List bookings = [];
   bool isLoading = true;
@@ -50,7 +50,7 @@ class _ViewTennisCourtBookingsState extends State<ViewTennisCourtBookings> {
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
         title: Text(
-          'Tennis Court Bookings',
+          'Swimming Pool Bookings',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -91,7 +91,7 @@ class _ViewTennisCourtBookingsState extends State<ViewTennisCourtBookings> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TennisCourtBookingDetails(
+                                        SwimPoolBookingDetails(
                                           data: data,
                                           bookingRef: document.reference,
                                           villa_number: widget.villaNum,
