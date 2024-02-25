@@ -49,6 +49,10 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromRGBO(42, 54, 59, 1),
+        title: Text(
+          'Clubhouse Bookings',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: isLoading
           ? Center(child: Loader1())

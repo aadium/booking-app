@@ -1,11 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:booking_app/constants/constants.dart';
-import 'package:booking_app/functions/clubhouse_booking_functions.dart';
+import 'package:booking_app/functions/squash_court_booking_functions.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
-import 'package:booking_app/widgets/textboxes/text_area_wcontroller.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
-import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_button.dart';
@@ -13,18 +10,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class BookClubHouse extends StatefulWidget {
+class BookSquashCourt extends StatefulWidget {
   final int villaNum;
   final List<dynamic> userDataList;
 
-  const BookClubHouse(
+  const BookSquashCourt(
       {super.key, required this.villaNum, required this.userDataList});
   @override
   // ignore: no_logic_in_create_state
-  State<BookClubHouse> createState() => _BookClubHouse();
+  State<BookSquashCourt> createState() => _BookSquashCourt();
 }
 
-class _BookClubHouse extends State<BookClubHouse> {
+class _BookSquashCourt extends State<BookSquashCourt> {
   bool isDateSelectionDone = false;
   String selectedName = '';
   String selectedEmail = '';
@@ -32,29 +29,22 @@ class _BookClubHouse extends State<BookClubHouse> {
   late List<dynamic> _names;
   late List<dynamic> _phoneNumbers;
   late List<dynamic> _emailAdresses;
-  final String firstElementOfNameList = 'Select Name';
-  final String firstElementOfEmailList = 'Select Email';
   final String firstElementOfStartTimeList = 'Start Time';
   final String firstElementOfEndTimeList = 'End Time';
-  final int firstElementOfPhoneList = 0;
   List<String> startTimeList = timeList;
   List<String> endTimeList = timeList;
-
-  TextEditingController reason = TextEditingController();
-  TextEditingController occupants = TextEditingController();
-  TextEditingController additionalRequests = TextEditingController();
-
   DateTime selectedDate = DateTime.now();
   dynamic asyncDate;
   TimeOfDay selectedStartingTime = TimeOfDay.now();
   TimeOfDay selectedEndingTime = TimeOfDay.now();
 
   final customDatePicker = CustomDatePicker();
-  final bookingMinorFunctions = ClubhouseBookingMinorFunctions();
-  final bookingMainFunctions = ClubhouseBookingMainFunctions();
-  final User user = FirebaseAuth.instance.currentUser!;
+  final bookingMinorFunctions = SquashCourtBookingMinorFunctions();
+  final bookingMainFunctions = SquashCourtBookingMainFunctions();
 
   bool loading = false;
+
+  final User user = FirebaseAuth.instance.currentUser!;
 
   @override
   void initState() {
@@ -95,99 +85,81 @@ class _BookClubHouse extends State<BookClubHouse> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Table(
-                  border: TableBorder.all(color: Color.fromRGBO(219, 226, 230, 1)),
+                border: TableBorder.all(color: Color.fromRGBO(219, 226, 230, 1)),
                   children: [
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            'Name',
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                TableRow(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        'Name',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            selectedName,
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedName,
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                    ]),
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            'Phone Number',
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        'Phone Number',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            selectedPhoneNumber == 0 ? '' : '+974 $selectedPhoneNumber',
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedPhoneNumber == 0 ? '' : '+974 $selectedPhoneNumber',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                    ]),
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            'Email I.D.',
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        'Email I.D.',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: Text(
-                            selectedEmail,
-                            style: const TextStyle(fontSize: 17),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedEmail,
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
                       ),
-                    ])
-                  ]),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomTextFieldWController(
-                      controller: reason, labelText: 'Purpose of booking')),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomNumericTextFieldWController(
-                      controller: occupants, labelText: 'Number of Occupants')),
-              const SizedBox(height: 3),
-              FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: CustomTextAreaWController(
-                    controller: additionalRequests,
-                    labelText: 'Additional requests (optional)',
-                    maxLines: 3,
-                  )),
+                    ),
+                  ),
+                ])
+              ]),
               const SizedBox(height: 20),
               Table(children: [
                 TableRow(children: [
@@ -255,7 +227,7 @@ class _BookClubHouse extends State<BookClubHouse> {
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: PrimaryButton(
-                  text: 'Book Clubhouse',
+                  text: 'Book Squash Court',
                   isLoading: loading,
                   onPressed: () async {
                     setState(() {
@@ -266,9 +238,6 @@ class _BookClubHouse extends State<BookClubHouse> {
                         selectedEmail,
                         selectedPhoneNumber,
                         widget.villaNum,
-                        reason,
-                        occupants,
-                        additionalRequests,
                         selectedDate,
                         selectedStartingTime,
                         selectedEndingTime,
@@ -296,7 +265,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Clubhouse booked'),
+                            title: const Text('Squash Court booked'),
                             content: const Text('Your booking has been confirmed'),
                             actions: [
                               PrimaryTextButton(
@@ -335,7 +304,7 @@ class _BookClubHouse extends State<BookClubHouse> {
                           return AlertDialog(
                             title: const Text('Date too early'),
                             content: const Text(
-                                'Please select a time atleast 4 hours from now'),
+                                'Please select a time atleast 1 hour from now'),
                             actions: [
                               PrimaryTextButton(
                                 text: 'OK',

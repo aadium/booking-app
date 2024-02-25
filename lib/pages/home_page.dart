@@ -1,5 +1,9 @@
 import 'package:booking_app/pages/clubhouse/book_clubhouse.dart';
 import 'package:booking_app/pages/clubhouse/calendar_page.dart';
+import 'package:booking_app/pages/squash_court/book_squash_court.dart';
+import 'package:booking_app/pages/squash_court/calendar_page.dart';
+import 'package:booking_app/pages/swimming_pool/book_swim_pool.dart';
+import 'package:booking_app/pages/swimming_pool/calendar_page.dart';
 import 'package:booking_app/pages/tennis_court/book_tennis_court.dart';
 import 'package:booking_app/pages/tennis_court/calendar_page.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
@@ -174,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
+                                      builder: (context) => BookSquashCourt(
                                         villaNum: villaNumber,
                                         userDataList: userData,
                                       ),
@@ -191,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
+                                      builder: (context) => SquashCourtCalendarPage(
                                         villaNum: villaNumber,
                                       ),
                                     ),
@@ -231,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => BookClubHouse(
+                                      builder: (context) => BookSwimPool(
                                         villaNum: villaNumber,
                                         userDataList: userData,
                                       ),
@@ -248,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
+                                      builder: (context) => SwimPoolCalendarPage(
                                         villaNum: villaNumber,
                                       ),
                                     ),
