@@ -1,6 +1,4 @@
 import 'package:booking_app/functions/email_functions.dart';
-import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
-import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
