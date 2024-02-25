@@ -1,6 +1,8 @@
-import 'package:booking_app/pages/admin/admin_calendar_page.dart';
+import 'package:booking_app/pages/admin/bookings/clubhouse/clubhouse_bookings.dart';
+import 'package:booking_app/pages/admin/bookings/squash_court/squash_court_bookings.dart';
+import 'package:booking_app/pages/admin/bookings/swimming_pool/swimming_pool_bookings.dart';
+import 'package:booking_app/pages/admin/bookings/tennis_court/tennis_court_bookings.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -51,7 +53,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminCalendarPage(),
+                                      builder: (context) => AdminViewClubhouseBookings(),
                                     ),
                                   );
                                 },
@@ -89,7 +91,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminCalendarPage(),
+                                      builder: (context) => AdminViewTennisCourtBookings(),
                                     ),
                                   );
                                 },
@@ -127,7 +129,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminCalendarPage(),
+                                      builder: (context) => AdminViewSquashCourtBookings(),
                                     ),
                                   );
                                 },
@@ -165,7 +167,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminCalendarPage(),
+                                      builder: (context) => AdminViewSwimPoolBookings(),
                                     ),
                                   );
                                 },
