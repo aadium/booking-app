@@ -89,63 +89,76 @@ class _BookTennisCourt extends State<BookTennisCourt> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Table(children: [
+              Table(
+                border: TableBorder.all(color: Color.fromRGBO(219, 226, 230, 1)),
+                  children: [
                 TableRow(children: [
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: Text(
-                      'Phone\nNumber',
-                      style: const TextStyle(fontSize: 17),
-                      textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        'Name',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: Text(
-                      'Name',
-                      style: const TextStyle(fontSize: 17),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: Text(
-                      'Email\nI.D.',
-                      style: const TextStyle(fontSize: 17),
-                      textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        selectedName,
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ]),
                 TableRow(children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Text(
+                        'Phone Number',
+                        style: const TextStyle(fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: Text(
                         selectedPhoneNumber == 0 ? '' : '+974 $selectedPhoneNumber',
-                        style: const TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 17),
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
+                ]),
+                TableRow(children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: Text(
-                        selectedName,
-                        style: const TextStyle(fontSize: 15),
+                        'Email I.D.',
+                        style: const TextStyle(fontSize: 17),
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: FractionallySizedBox(
                       widthFactor: 0.8,
                       child: Text(
                         selectedEmail,
-                        style: const TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 17),
                         textAlign: TextAlign.center,
                       ),
                     ),

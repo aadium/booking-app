@@ -1,6 +1,5 @@
-import 'package:booking_app/functions/clubhouse_booking_functions.dart';
 import 'package:booking_app/functions/tennis_court_booking_functions.dart';
-import 'package:booking_app/pages/clubhouse/booking_details.dart';
+import 'package:booking_app/pages/tennis_court/booking_details.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -8,17 +7,17 @@ import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ViewClubhouseBookings extends StatefulWidget {
+class ViewTennisCourtBookings extends StatefulWidget {
   final int villaNum;
   final DateTime selected_date;
-  ViewClubhouseBookings(
+  ViewTennisCourtBookings(
       {super.key, required this.villaNum, required this.selected_date});
 
   @override
-  _ViewClubhouseBookingsState createState() => _ViewClubhouseBookingsState();
+  _ViewTennisCourtBookingsState createState() => _ViewTennisCourtBookingsState();
 }
 
-class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
+class _ViewTennisCourtBookingsState extends State<ViewTennisCourtBookings> {
   DateTime selectedDate = DateTime.now();
   dynamic asyncDate;
   final double tablePadding = 7;
@@ -88,7 +87,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ClubhouseBookingDetails(
+                                        TennisCourtBookingDetails(
                                           data: data,
                                           bookingRef: document.reference,
                                           villa_number: widget.villaNum,
@@ -157,30 +156,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                         child: Padding(
                                           padding: EdgeInsets.all(tablePadding),
                                           child: const Text(
-                                            'Reason',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['reason'],
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
                                             'Time Duration',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -194,30 +169,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           padding: EdgeInsets.all(tablePadding),
                                           child: Text(
                                             '${DateFormat('h:mm a').format(DateTime.parse(data['start_datetime']))} to ${DateFormat('h:mm a').format(DateTime.parse(data['end_datetime']))}',
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
-                                            'Occupants',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['occupants'].toString(),
                                             style: const TextStyle(
                                                 color: Colors.black),
                                           ),

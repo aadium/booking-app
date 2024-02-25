@@ -28,7 +28,7 @@ class EmailFunctions {
         ..from = Address(smtpServerEmail, 'Dana Garden')
         ..recipients.add(recipientAddress)
         ..bccRecipients.add(smtpServerEmail)
-        ..subject = '$facility BOOKING CONFIRMATION (Reference: $bookingRef)'
+        ..subject = '${facility.toUpperCase()} BOOKING CONFIRMATION (Reference: $bookingRef)'
         ..html = '''
           <p>Below are the details of your $facility booking:</p>
           <ul>
@@ -43,7 +43,7 @@ class EmailFunctions {
         ..from = Address(smtpServerEmail, 'Dana Garden')
         ..recipients.add(recipientAddress)
         ..bccRecipients.add(smtpServerEmail)
-        ..subject = '$facility BOOKING CONFIRMATION (Reference: $bookingRef)'
+        ..subject = '${facility.toUpperCase()} BOOKING CONFIRMATION (Reference: $bookingRef)'
         ..html = '''
           <p>Below are the details of your $facility booking:</p>
           <ul>
@@ -67,6 +67,7 @@ class EmailFunctions {
 
   Future<void> sendBookingDeleteConfirmationEmail(
     String recipientAddress,
+    String facility,
     String bookingRef,
     String name,
     int phoneNumber,
@@ -78,10 +79,11 @@ class EmailFunctions {
       ..from = Address(smtpServerEmail, 'Dana Garden')
       ..recipients.add(recipientAddress)
       ..bccRecipients.add(smtpServerEmail)
-      ..subject = 'BOOKING DELETED (Reference: $bookingRef)'
+      ..subject = '${facility.toUpperCase()} BOOKING DELETED (Reference: $bookingRef)'
       ..html = '''
         <p>Below are the details of the deleted booking:</p>
         <ul>
+          <li>Facility: $facility
           <li>Villa Number: $villano
           <li>Name: $name
           <li>Phone Number: $phoneNumber

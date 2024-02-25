@@ -180,7 +180,7 @@ class TennisCourtBookingMainFunctions {
   Future<List<DateTime>> fetchBookedDates() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
-        .collection('book_clubhouse')
+        .collection(firestoreBookTennisCourtCollection)
         .get();
 
     return snapshot.docs.map((doc) {

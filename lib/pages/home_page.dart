@@ -1,6 +1,7 @@
 import 'package:booking_app/pages/clubhouse/book_clubhouse.dart';
 import 'package:booking_app/pages/clubhouse/calendar_page.dart';
 import 'package:booking_app/pages/tennis_court/book_tennis_court.dart';
+import 'package:booking_app/pages/tennis_court/calendar_page.dart';
 import 'package:booking_app/widgets/buttons/homepage_option_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CalendarPage(
+                                      builder: (context) => TennisCourtCalendarPage(
                                         villaNum: villaNumber,
                                       ),
                                     ),
