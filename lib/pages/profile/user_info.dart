@@ -51,7 +51,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           child: Column(
                             children: [
                               const SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
                               Table(
                                 columnWidths: const {

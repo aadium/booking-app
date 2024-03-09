@@ -24,6 +24,7 @@ class ProfileFunctions {
         'name': newName,
         'phoneNum': newPhoneNumber,
         'email': newEmail,
+        'createdAt': DateTime.now(),
       };
 
       QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore

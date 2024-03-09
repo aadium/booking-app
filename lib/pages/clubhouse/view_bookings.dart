@@ -102,35 +102,10 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                               children: [
                                 Table(
                                   columnWidths: const {
-                                    0: FixedColumnWidth(
-                                        170), // Adjusts width based on content
+                                    0: FixedColumnWidth(170),
                                     1: FixedColumnWidth(170),
                                   },
                                   children: [
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
-                                            'Person Name',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['name'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
                                     TableRow(children: [
                                       TableCell(
                                         child: Padding(
@@ -160,30 +135,6 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                         child: Padding(
                                           padding: EdgeInsets.all(tablePadding),
                                           child: const Text(
-                                            'Reason',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['reason'],
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
                                             'Time Duration',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -202,31 +153,7 @@ class _ViewClubhouseBookingsState extends State<ViewClubhouseBookings> {
                                           ),
                                         ),
                                       )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
-                                            'Occupants',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['occupants'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
+                                    ])
                                   ],
                                 ),
                               ],

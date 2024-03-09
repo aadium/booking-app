@@ -1,4 +1,4 @@
-import 'package:booking_app/pages/sign_in_admin.dart';
+import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
@@ -180,7 +180,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AdminSignInPage()),
+                          builder: (context) => SignInPage()),
                       (route) => false,
                     );
                   },

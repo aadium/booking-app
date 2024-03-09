@@ -233,7 +233,43 @@ class _ClubhouseBookingDetails extends State<ClubhouseBookingDetails> {
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 20)
+              const SizedBox(height: 20),
+              const Text(
+                'Reason for booking:',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(42, 54, 59, 1),
+                ),
+              ),
+              const SizedBox(height: 5),
+              FractionallySizedBox(
+                widthFactor: 0.9,
+                child: Center(
+                  child: Text(
+                    '${widget.data['reason']}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Number of Occupants:',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(42, 54, 59, 1),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '${widget.data['occupants']}',
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ],
           ),
         ),
