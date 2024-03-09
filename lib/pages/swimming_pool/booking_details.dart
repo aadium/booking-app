@@ -235,6 +235,26 @@ class _SwimPoolBookingDetails extends State<SwimPoolBookingDetails> {
           ),
         ),
       ),
+      bottomSheet: widget.data['others_can_use']
+          ? Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.info,
+                    color: Color.fromRGBO(235, 74, 95, 1),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Others can use the swimming pool.',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Color.fromRGBO(42, 54, 59, 1),
+                    ),
+                  ),
+                ],
+              ))
+          : Padding(padding: const EdgeInsets.all(20), child: null),
     );
   }
 }

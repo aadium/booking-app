@@ -51,6 +51,7 @@ dependencies:
   flutter_switch: ^0.3.0
   flutter_svg: ^2.0.9
   http: ^1.1.0
+  msh_checkbox: ^2.0.1
 
 flutter_icons:
   android: true
