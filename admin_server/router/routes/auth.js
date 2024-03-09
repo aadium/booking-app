@@ -32,6 +32,18 @@ router.get('/getUser/:uid', verifyToken, async (req, res) => {
     }
 });
 
+router.get('/getAllAdminEmails', verifyToken, async (req, res) => {
+    try {
+        const listUsers = await admin.auth().listUsers();
+        const users = listUsers.users.map(userRecord => userRecord.toJSON());
+        const adminEmails = users.filter(user => user.customClaims && user.customClaims.role === 'admin').map(user => user.email);
+        res.status(200).json(adminEmails);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Failed to fetch users' });
+    }
+});
+
 router.delete('/deleteUser/:uid', verifyToken, async (req, res) => {
     try {
         const uid = req.params.uid;

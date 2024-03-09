@@ -113,30 +113,6 @@ class _ViewSquashCourtBookingsState extends State<ViewSquashCourtBookings> {
                                         child: Padding(
                                           padding: EdgeInsets.all(tablePadding),
                                           child: const Text(
-                                            'Person Name',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    42, 54, 59, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: Text(
-                                            data['name'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                                    TableRow(children: [
-                                      TableCell(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(tablePadding),
-                                          child: const Text(
                                             'Villa Number',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,

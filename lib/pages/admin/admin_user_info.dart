@@ -14,6 +14,8 @@ import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../functions/email_functions.dart';
+
 class AdminUserInfoPage extends StatefulWidget {
   final int villaNumber;
   final List<dynamic> userDataList;
@@ -30,6 +32,7 @@ class AdminUserInfoPage extends StatefulWidget {
 
 class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
   final profileFunctions = ProfileFunctions();
+  final emailFunctions = EmailFunctions();
   final Authentication authentication = Authentication();
   final double tablePadding = 0;
   void addUserDialog() {
@@ -99,6 +102,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                     var body = {
                       'email': newEmailController.text.toString(),
                       'password': newPasswordController.text.toString(),
+                      'role': 'user'
                     };
                     var jwt = await user?.getIdToken();
                     var response = await http.post(
@@ -108,7 +112,13 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                           'Authorization': 'Bearer $jwt'
                         },
                         body: json.encode(body));
-                    debugPrint(response.body);
+                    emailFunctions.sendAccountCreationEmail(
+                        user!.email!,
+                        user!.displayName!,
+                        newNameController.text.toString(),
+                        newEmailController.text.toString(),
+                        int.parse(newPhoneNumberController.text.toString()),
+                        newPasswordController.text.toString());
                     Navigator.of(context).pop();
                     showDialog(
                       context: context,
@@ -170,6 +180,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
               text: 'Remove',
               onPressed: () async {
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 var body = {
                   'email': widget.userDataList[index]['email'],
                 };
@@ -181,7 +192,6 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       'Authorization': 'Bearer $jwt'
                     },
                     body: json.encode(body));
-                debugPrint(response.body);
                 profileFunctions.removeUser(
                     widget.villaNumber, widget.userDataList, index);
               },

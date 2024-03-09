@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class EmailFunctions {
   final smtpServer = gmail(smtpServerEmail, appPassword);
@@ -119,6 +121,66 @@ class EmailFunctions {
           <li>Phone Number: $phoneNumber
           <li>Issue: $issue
           <li>Description: $description
+      ''';
+
+    try {
+      await send(message, smtpServer);
+    } on MailerException catch (e) {
+      debugPrint('Message not sent: $e');
+    }
+  }
+
+  Future<void> sendRegistrationRequestEmail(
+      int villaNumber,
+      String name,
+      int phoneNumber,
+      String email) async {
+    final response = await http.get(
+      Uri.parse('${adminServerUrl}api/auth/getAllAdminEmails'));
+    final adminEmails = jsonDecode(response.body);
+    final message = Message()
+      ..from = Address(smtpServerEmail, 'Dana Garden')
+      ..recipients.addAll(adminEmails)
+        ..subject = 'USER REGISTRATION REQUEST (VILLA NUMBER: $villaNumber)'
+      ..html = '''
+        <p>Below are the user details:</p>
+        <ul>
+          <li>Villa Number: $villaNumber
+          <li>Name: $name
+          <li>Phone Number: $phoneNumber
+          <li>Email: $email
+      ''';
+
+    try {
+      await send(message, smtpServer);
+    } on MailerException catch (e) {
+      debugPrint('Message not sent: $e');
+    }
+  }
+
+  Future<void> sendAccountCreationEmail(
+      String adminEmail,
+      String adminName,
+      String name,
+      String email,
+      int phoneNumber,
+      String password) async {
+    final message = Message()
+      ..from = Address(adminEmail, adminName)
+      ..recipients.add(email)
+      ..subject = 'ACCOUNT CREATED'
+      ..html = '''
+        <p>Dear $name,</p>
+        <p>Below are your account details:</p>
+        <hr/>
+        <p>Name: $name</p>
+        <p>Email: $email</p>
+        <p>Phone Number: $phoneNumber</p>
+        <p>Password: $password</p>
+        <hr/>
+        <p>Kindly change your password after logging in.</p>
+        <p>With Regards,</p>
+        <p>$adminName</p>
       ''';
 
     try {
