@@ -9,6 +9,7 @@ import 'package:booking_app/widgets/buttons/secondary_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:msh_checkbox/msh_checkbox.dart';
 
 class BookSwimPool extends StatefulWidget {
   final int villaNum;
@@ -37,6 +38,7 @@ class _BookSwimPool extends State<BookSwimPool> {
   dynamic asyncDate;
   TimeOfDay selectedStartingTime = TimeOfDay.now();
   TimeOfDay selectedEndingTime = TimeOfDay.now();
+  bool othersCanUse = true;
 
   final customDatePicker = CustomDatePicker();
   final bookingMinorFunctions = SwimPoolBookingMinorFunctions();
@@ -161,6 +163,27 @@ class _BookSwimPool extends State<BookSwimPool> {
                 ])
               ]),
               const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MSHCheckbox(
+                    value: othersCanUse,
+                    colorConfig: MSHColorConfig.fromCheckedUncheckedDisabled(
+                      checkedColor: Color.fromRGBO(42, 54, 59, 1),
+                    ),
+                    size: 30,
+                    onChanged: (value) {
+                      setState(() {
+                        othersCanUse = value;
+                      });
+                    },
+                    style: MSHCheckboxStyle.stroke,
+                  ),
+                  const SizedBox(width: 10),
+                  Text('Others can use the pool', style: TextStyle(fontSize: 17)),
+                ],
+              ),
+              const SizedBox(height: 20),
               Table(children: [
                 TableRow(children: [
                   FractionallySizedBox(
@@ -238,6 +261,7 @@ class _BookSwimPool extends State<BookSwimPool> {
                         selectedEmail,
                         selectedPhoneNumber,
                         widget.villaNum,
+                        othersCanUse,
                         selectedDate,
                         selectedStartingTime,
                         selectedEndingTime,

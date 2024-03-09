@@ -64,6 +64,7 @@ class SwimPoolBookingMainFunctions {
     String emailAddress,
     int phoneNumber,
     int villano,
+    bool othersCanUse,
     DateTime selectedDate,
     TimeOfDay selectedStartingTime,
     TimeOfDay selectedEndingTime,
@@ -105,6 +106,7 @@ class SwimPoolBookingMainFunctions {
               'email_address': emailAddress,
               'start_datetime': startingDateTime.toString(),
               'end_datetime': endingDateTime.toString(),
+              'others_can_use': othersCanUse,
             };
 
             firestore
