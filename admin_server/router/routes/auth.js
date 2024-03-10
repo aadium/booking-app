@@ -2,7 +2,7 @@ const express = require('express');
 const admin = require('firebase-admin');
 const verifyToken = require('../middlewares/verifyToken');
 
-const serviceAccount = require('../../etc/secrets/project1-6c6fe-firebase-adminsdk-kar9s-93ea820673.json');
+const serviceAccount = require('/etc/secrets/project1-6c6fe-firebase-adminsdk-kar9s-93ea820673.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
