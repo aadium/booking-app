@@ -2,6 +2,7 @@ import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller.dart';
+import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -121,11 +122,11 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CustomTextFieldWController(
+                              CustomPasswordField(
                                   controller: _currPasswordController,
                                   labelText: 'Enter current password'
                               ),
-                              CustomTextFieldWController(
+                              CustomPasswordField(
                                 controller: _newPasswordController,
                                 labelText: 'Enter new password',
                               ),

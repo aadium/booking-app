@@ -33,6 +33,6 @@ const String firestoreBookSwimPoolCollection = 'book_swim_pool';
 const String firestoreBookSquashCourtCollection = 'book_squash_court';
 const String firestoreMaintenanceRequestsCollection = 'maintenance_requests';
 const String firestoreVillaUsersCollection = 'villa_users';
-const String adminServerUrl = 'http://192.168.0.114:3001/';
+const String adminServerUrl = 'https://booking-app-95z3.onrender.com/';
 String smtpServerEmail = dotenv.env['smtpServerEmail']!;
 String appPassword = dotenv.env['appPassword']!;
