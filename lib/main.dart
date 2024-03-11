@@ -4,6 +4,7 @@ import 'package:booking_app/constants/constants.dart';
 import 'package:booking_app/firebase/firebase_options.dart';
 import 'package:booking_app/home_screen.dart';
 import 'package:booking_app/pages/admin/admin_home_screen.dart';
+import 'package:booking_app/pages/loading_screen.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
           );
         } else {
           // Return a placeholder widget while the Future is loading.
-          return const CircularProgressIndicator();
+          return LoadingScreen();
         }
       },
     );
