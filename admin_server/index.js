@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.send('Booking App');
+});
 app.use('/api', router);
 
 app.listen(PORT, () => {
