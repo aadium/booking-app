@@ -59,6 +59,7 @@ To run the application, use the following command in the terminal:
 
 ```bash
 flutter run
+```
 
 ## License
 
