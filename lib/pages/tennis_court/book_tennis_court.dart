@@ -165,49 +165,6 @@ class _BookTennisCourt extends State<BookTennisCourt> {
                   ),
                 ])
               ]),
-              const SizedBox(height: 20),
-              Table(children: [
-                TableRow(children: [
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      // Start Time
-                      value: startTimeList[0],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedStartingTime =
-                              bookingMinorFunctions.parseTimeOfDay(value!);
-                        });
-                      },
-                      items: startTimeList.map((time) {
-                        return DropdownMenuItem<dynamic>(
-                          value: time,
-                          child: Text(time),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: DropdownButtonFormField<dynamic>(
-                      // End Time
-                      value: endTimeList[0],
-                      onChanged: (value) {
-                        setState(() {
-                          selectedEndingTime =
-                              bookingMinorFunctions.parseTimeOfDay(value!);
-                        });
-                      },
-                      items: endTimeList.map((time) {
-                        return DropdownMenuItem<dynamic>(
-                          value: time,
-                          child: Text(time),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ])
-              ]),
               const SizedBox(height: 30),
               FractionallySizedBox(
                 widthFactor: 0.9,
@@ -228,6 +185,58 @@ class _BookTennisCourt extends State<BookTennisCourt> {
                       }),
                 ),
               ),
+              isDateSelectionDone ? Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Table(children: [
+                    TableRow(children: [
+                      FractionallySizedBox(
+                        widthFactor: 0.8,
+                        child: DropdownButtonFormField<dynamic>(
+                          // Start Time
+                          value: startTimeList[0],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedStartingTime = bookingMinorFunctions.parseTimeOfDay(value!);
+                              int selectedIndex = timeList.indexOf(value);
+                              if (selectedIndex >= 0 && selectedIndex < timeList.length - 1) {
+                                endTimeList = [firstElementOfEndTimeList, ...timeList.sublist(selectedIndex + 1)];
+                              } else {
+                                endTimeList = [firstElementOfEndTimeList];
+                              }
+                            });
+                          },
+                          items: startTimeList.map((time) {
+                            return DropdownMenuItem<dynamic>(
+                              value: time,
+                              child: Text(time),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      FractionallySizedBox(
+                        widthFactor: 0.8,
+                        child: DropdownButtonFormField<dynamic>(
+                          // End Time
+                          value: endTimeList[0],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedEndingTime =
+                                  bookingMinorFunctions.parseTimeOfDay(value!);
+                            });
+                          },
+                          items: endTimeList.map((time) {
+                            return DropdownMenuItem<dynamic>(
+                              value: time,
+                              child: Text(time),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ])
+                  ]),
+                ],
+              ) : const SizedBox(height: 0),
               const SizedBox(height: 30),
               FractionallySizedBox(
                 widthFactor: 0.9,
