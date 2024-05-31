@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SlidingUpPanel(
-        minHeight: 45,
+        minHeight: 90,
         maxHeight: 200,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   widthFactor: 0.9,
                   child: PrimaryProfileMenuButton(
                     text: 'Change Password',
-                    icon: (Icons.change_circle_outlined),
+                    icon: (FontAwesomeIcons.key),
                     onPressed: () {
                       showDialog(
                         context: context,
