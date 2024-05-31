@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             MaterialPageRoute(
                                 builder: (context) => UserBookingHistory(
                                     villaNum: widget.villaNumber))))),
-                const SizedBox(height: 15),
+                const SizedBox(height: 15)
                 FractionallySizedBox(
                     widthFactor: 0.9,
                     child: PrimaryProfileMenuButton(
