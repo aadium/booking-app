@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SlidingUpPanel(
-        minHeight: 45,
+        minHeight: 90,
         maxHeight: 200,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
