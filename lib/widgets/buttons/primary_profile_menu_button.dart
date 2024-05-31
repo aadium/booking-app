@@ -20,9 +20,9 @@ class PrimaryProfileMenuButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
-          textStyle: const TextStyle(fontSize: 22),
+          textStyle: const TextStyle(fontSize: 20),
           backgroundColor: Color.fromRGBO(219, 226, 230, 1),
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(20.0),
         ),
         onPressed: onPressed,
         child: Table(
