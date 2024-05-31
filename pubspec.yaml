@@ -87,6 +87,10 @@ flutter:
     - assets/cover_image.png
     - assets/houses.svg
     - assets/admin.svg
+    - assets/clubhouse.png
+    - assets/swimming_pool.png
+    - assets/tennis_court.png
+    - assets/squash_court.png
     - secrets.env
 
   # An image asset can refer to one or more resolution-specific "variants", see

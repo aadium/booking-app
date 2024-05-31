@@ -32,6 +32,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/clubhouse.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -40,7 +44,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         const SizedBox(height: 20),
                         const Text(
                           'Clubhouse',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1),),
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -70,6 +74,52 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/swimming_pool.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Swimming Pool',
+                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: HomepageOptionButton(
+                                text: 'View all Bookings',
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AdminViewSwimPoolBookings(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13),
+                    color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/tennis_court.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -108,6 +158,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/squash_court.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -130,44 +184,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => AdminViewSquashCourtBookings(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Color.fromRGBO(219, 226, 230, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Swimming Pool',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all Bookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AdminViewSwimPoolBookings(),
                                     ),
                                   );
                                 },
