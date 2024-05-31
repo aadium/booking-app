@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   widthFactor: 0.9,
                   child: PrimaryProfileMenuButton(
                     text: 'Change Password',
-                    icon: (Icons.change_circle_outlined),
+                    icon: (FontAwesomeIcons.key),
                     onPressed: () {
                       showDialog(
                         context: context,
