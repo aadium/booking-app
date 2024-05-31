@@ -43,6 +43,10 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/clubhouse.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -100,6 +104,71 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/swimming_pool.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Swimming Pool',
+                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: HomepageOptionButton(
+                                text: 'Book\nSwimming Pool',
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BookSwimPool(
+                                        villaNum: villaNumber,
+                                        userDataList: userData,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: HomepageOptionButton(
+                                text: 'View all\nBookings',
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SwimPoolCalendarPage(
+                                        villaNum: villaNumber,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13),
+                    color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/tennis_court.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -157,6 +226,10 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(13),
                     color: Color.fromRGBO(219, 226, 230, 1),
+                    image: DecorationImage(
+                      image: AssetImage('assets/squash_court.png'), // replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -196,63 +269,6 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => SquashCourtCalendarPage(
-                                        villaNum: villaNumber,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Color.fromRGBO(219, 226, 230, 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Swimming Pool',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'Book\nSwimming Pool',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BookSwimPool(
-                                        villaNum: villaNumber,
-                                        userDataList: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: HomepageOptionButton(
-                                text: 'View all\nBookings',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SwimPoolCalendarPage(
                                         villaNum: villaNumber,
                                       ),
                                     ),
