@@ -1,4 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "cmake.sourceDirectory": "C:/Users/aadip/OneDrive - University of Waterloo/Projects/booking-app/build/windows/extracted/firebase_cpp_sdk_windows"
+    "cmake.sourceDirectory": "C:/Users/aadip/OneDrive - University of Waterloo/Projects/booking-app/build/windows/extracted/firebase_cpp_sdk_windows",
+    "IDX.aI.enableInlineCompletion": true,
+    "IDX.aI.enableCodebaseIndexing": true
 }
