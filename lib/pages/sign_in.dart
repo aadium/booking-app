@@ -56,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        'Sign In',
+                        'Welcome',
                         style: TextStyle(
                           fontSize: 50,
                           color: Color.fromRGBO(42, 54, 59, 1),
