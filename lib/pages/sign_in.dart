@@ -39,14 +39,13 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(5),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(219, 226, 230, 1),
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
                 child: Column(
@@ -186,6 +185,30 @@ class _SignInPageState extends State<SignInPage> {
                           PrimaryTextButton(
                             text: 'Send Request',
                             onPressed: () async {
+                              if (villaNumController.text.isEmpty ||
+                                  nameController.text.isEmpty ||
+                                  phoneNumberController.text.isEmpty ||
+                                  emailController.text.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text(
+                                          'Please fill in all the fields to proceed.'),
+                                      actions: [
+                                        PrimaryTextButton(
+                                          text: 'OK',
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               await emailFunctions.sendRegistrationRequestEmail(
                                   int.parse(villaNumController.text),
                                   nameController.text,
@@ -223,12 +246,26 @@ class _SignInPageState extends State<SignInPage> {
                     },
                   );
                 },
-                child: const Text(
-                  'New user? Register here',
-                  style: TextStyle(
-                    color: Color.fromRGBO(42, 54, 59, 1),
-                    fontSize: 17,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'New user?',
+                      style: TextStyle(
+                        color: Color.fromRGBO(42, 54, 59, 1),
+                        fontSize: 17,
+                      ),
+                    ),
+                    SizedBox(width: 5.0),
+                    Text(
+                      'Register here',
+                      style: TextStyle(
+                        color: Color.fromRGBO(42, 54, 59, 1),
+                        fontSize: 17,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],
