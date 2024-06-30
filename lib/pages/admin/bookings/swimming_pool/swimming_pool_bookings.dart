@@ -1,5 +1,6 @@
 import 'package:booking_app/functions/swim_pool_booking_functions.dart';
 import 'package:booking_app/pages/admin/bookings/swimming_pool/booking_details.dart';
+import 'package:booking_app/pages/admin/bookings/swimming_pool/calendar_page.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AdminViewSwimPoolBookings extends StatefulWidget {
+  final DateTime selected_date;
+
+  const AdminViewSwimPoolBookings({super.key, required this.selected_date});
 
   @override
   _AdminViewSwimPoolBookingsState createState() => _AdminViewSwimPoolBookingsState();
@@ -26,7 +30,7 @@ class _AdminViewSwimPoolBookingsState extends State<AdminViewSwimPoolBookings> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDate = widget.selected_date;
     _fetchData(selectedDate);
   }
 
@@ -59,12 +63,12 @@ class _AdminViewSwimPoolBookingsState extends State<AdminViewSwimPoolBookings> {
                   child: ViewBookingsDateButton(
                       text: DateFormat('d MMMM yyyy').format(selectedDate),
                       onPressed: () async {
-                        asyncDate = await customDatePicker.selectDate(context);
-                        setState(() {
-                          selectedDate =
-                              asyncDate == null ? selectedDate : asyncDate;
-                        });
-                        _fetchData(selectedDate);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminSwimPoolCalendarPage(),
+                          ),
+                        );
                       }),
                 ),
                 const SizedBox(
