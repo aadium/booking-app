@@ -80,7 +80,7 @@ class ClubhouseBookingMainFunctions {
     BuildContext context,
   ) async {
     Completer<List> completer = Completer<List>();
-    int occupantsInteger = int.tryParse(occupants.text) ?? 1;
+    int occupantsInteger = int.tryParse(occupants.text) ?? 0;
     if (bookingMinorFunctions.checkNullRecords(reason, occupantsInteger)) {
       DateTime startingDateTime = DateTime(
         selectedDate.year,
@@ -96,6 +96,12 @@ class ClubhouseBookingMainFunctions {
         selectedEndingTime.hour,
         selectedEndingTime.minute,
       );
+
+      if (occupantsInteger > 60 || occupantsInteger < 1) {
+        completer.complete([5, null]);
+        debugPrint('5');
+        return completer.future;
+      }
 
       if (bookingMinorFunctions.checkTimeDiffValid(startingDateTime)) {
         final existingBookings = [];

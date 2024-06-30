@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 20),
                         const Text(
                           'Clubhouse',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 20),
                         const Text(
                           'Swimming Pool',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 20),
                         const Text(
                           'Tennis Court',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 20),
                         const Text(
                           'Squash Court',
-                          style: TextStyle(fontSize: 35, color: Color.fromRGBO(42, 54, 59, 1)),
+                          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
                         ),
                         const SizedBox(height: 20),
                         Row(

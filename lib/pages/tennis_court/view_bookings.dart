@@ -1,5 +1,6 @@
 import 'package:booking_app/functions/tennis_court_booking_functions.dart';
 import 'package:booking_app/pages/tennis_court/booking_details.dart';
+import 'package:booking_app/pages/tennis_court/calendar_page.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -63,12 +64,14 @@ class _ViewTennisCourtBookingsState extends State<ViewTennisCourtBookings> {
                   child: ViewBookingsDateButton(
                       text: DateFormat('d MMMM yyyy').format(selectedDate),
                       onPressed: () async {
-                        asyncDate = await customDatePicker.selectDate(context);
-                        setState(() {
-                          selectedDate =
-                              asyncDate == null ? selectedDate : asyncDate;
-                        });
-                        _fetchData(selectedDate);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TennisCourtCalendarPage(
+                              villaNum: widget.villaNum,
+                            ),
+                          ),
+                        );
                       }),
                 ),
                 const SizedBox(
