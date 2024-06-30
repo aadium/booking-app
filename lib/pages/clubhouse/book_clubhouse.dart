@@ -282,6 +282,26 @@ class _BookClubHouse extends State<BookClubHouse> {
                         selectedStartingTime,
                         selectedEndingTime,
                         context);
+                    if (bookingStatus[0] == 5) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Occupancy Limits violated'),
+                            content: const Text(
+                                'The maximum number of occupants allowed is between 1 and 60 people. Please enter a valid number of occupants.'),
+                            actions: [
+                              PrimaryTextButton(
+                                text: 'OK',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                     if (bookingStatus[0] == 1) {
                       showDialog(
                         context: context,
