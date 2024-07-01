@@ -1,17 +1,26 @@
+name: Build APK
+
 on:
   push:
     branches:
       - main
-      
-jobs: 
-  build-and-test: 
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
         channel: stable
-    - run: flutter pub get
-    - run: flutter build apk
+    - name: Clean project
+      run: flutter clean
+    - name: Install dependencies
+      run: flutter pub get
+    - name: Build APK
+      run: flutter build apk --release --no-tree-shake-icons
