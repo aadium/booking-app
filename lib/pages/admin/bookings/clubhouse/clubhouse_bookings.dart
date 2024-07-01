@@ -1,5 +1,6 @@
 import 'package:booking_app/functions/clubhouse_booking_functions.dart';
 import 'package:booking_app/pages/admin/bookings/clubhouse/booking_details.dart';
+import 'package:booking_app/pages/admin/bookings/clubhouse/calendar_page.dart';
 import 'package:booking_app/widgets/buttons/view_bookings_date_button.dart';
 import 'package:booking_app/widgets/buttons/tertiary_button.dart';
 import 'package:booking_app/widgets/datepicker/date_picker.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AdminViewClubhouseBookings extends StatefulWidget {
+  final DateTime selected_date;
+
+  const AdminViewClubhouseBookings({super.key, required this.selected_date});
 
   @override
   _AdminViewClubhouseBookingsState createState() => _AdminViewClubhouseBookingsState();
@@ -26,7 +30,7 @@ class _AdminViewClubhouseBookingsState extends State<AdminViewClubhouseBookings>
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDate = widget.selected_date;
     _fetchData(selectedDate);
   }
 
@@ -59,12 +63,12 @@ class _AdminViewClubhouseBookingsState extends State<AdminViewClubhouseBookings>
                   child: ViewBookingsDateButton(
                       text: DateFormat('d MMMM yyyy').format(selectedDate),
                       onPressed: () async {
-                        asyncDate = await customDatePicker.selectDate(context);
-                        setState(() {
-                          selectedDate =
-                              asyncDate == null ? selectedDate : asyncDate;
-                        });
-                        _fetchData(selectedDate);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminClubhouseCalendarPage(),
+                          ),
+                        );
                       }),
                 ),
                 const SizedBox(

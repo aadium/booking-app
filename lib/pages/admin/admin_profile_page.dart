@@ -1,3 +1,4 @@
+import 'package:booking_app/functions/sign_functions.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
@@ -21,6 +22,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   TextEditingController _currPasswordController = TextEditingController();
   TextEditingController _newPasswordController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
+  SignFunctions signFunctions = SignFunctions();
   String email = '';
   String name = '';
 
@@ -176,17 +178,37 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               FractionallySizedBox(
                 widthFactor: 0.95,
                 child: SecondaryPrimaryProfileMenuButton(
-                  onPressed: () {
-                    auth.signOut();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SignInPage()),
-                      (route) => false,
-                    );
-                  },
-                  text: 'Logout',
-                ),
+                          text: 'Sign Out',
+                          onPressed: () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Sign Out'),
+                                    content: Text(
+                                        'Are you sure you want to sign out?'),
+                                    actions: [
+                                      PrimaryTextButton(
+                                        text: 'Yes',
+                                        onPressed: () async {
+                                          await signFunctions.signOut();
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignInPage()),
+                                            (route) => false,
+                                          );
+                                        },
+                                      ),
+                                      SecondaryTextButton(
+                                        text: 'No',
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ))
               ),
             ],
           ),
