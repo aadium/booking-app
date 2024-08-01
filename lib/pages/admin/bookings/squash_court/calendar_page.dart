@@ -1,6 +1,5 @@
 import 'package:booking_app/functions/squash_court_booking_functions.dart';
 import 'package:booking_app/pages/admin/bookings/squash_court/squash_court_bookings.dart';
-import 'package:booking_app/pages/squash_court/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

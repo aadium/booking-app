@@ -147,12 +147,8 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                           email: email, password: currPassword);
                                   await user!.reauthenticateWithCredential(
                                       credential);
-                                  if (user != null) {
-                                    await user.updatePassword(newPassword);
-                                    print('Password updated successfully');
-                                  } else {
-                                    print('User is not logged in');
-                                  }
+                                  await user.updatePassword(newPassword);
+                                  print('Password updated successfully');
                                 } catch (e) {
                                   print('Error updating password: $e');
                                 }

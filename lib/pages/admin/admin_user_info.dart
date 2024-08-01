@@ -105,7 +105,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                       'role': 'user'
                     };
                     var jwt = await user?.getIdToken();
-                    var response = await http.post(
+                    await http.post(
                         Uri.parse('${adminServerUrl}api/auth/createUser'),
                         headers: {
                           "Content-Type": "application/json",
@@ -185,7 +185,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                   'email': widget.userDataList[index]['email'],
                 };
                 var jwt = await user?.getIdToken();
-                var response = await http.delete(
+                await http.delete(
                     Uri.parse('${adminServerUrl}api/auth/deleteUserByEmail/'),
                     headers: {
                       "Content-Type": "application/json",

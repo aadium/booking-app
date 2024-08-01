@@ -1,6 +1,5 @@
 import 'package:booking_app/functions/swim_pool_booking_functions.dart';
 import 'package:booking_app/pages/admin/bookings/swimming_pool/swimming_pool_bookings.dart';
-import 'package:booking_app/pages/swimming_pool/view_bookings.dart';
 import 'package:booking_app/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
