@@ -22,7 +22,7 @@ class PrimaryProfileMenuButton extends StatelessWidget {
           elevation: 0,
           textStyle: const TextStyle(fontSize: 20),
           backgroundColor: Color.fromRGBO(219, 226, 230, 1),
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(16.0),
         ),
         onPressed: onPressed,
         child: Table(

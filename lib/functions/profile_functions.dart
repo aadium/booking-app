@@ -69,6 +69,29 @@ class ProfileFunctions {
       }
     });
   }
+
+  Future<List<String>> getCurrentUser(int villaNum) async {
+    String email = user!.email!;
+    String currentUserName = '';
+    String currentUserPhoneNum = '';
+    await _firestore
+        .collection(firestoreVillaUsersCollection)
+        .where('Villa_num', isEqualTo: villaNum)
+        .get()
+        .then((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        DocumentSnapshot<Map<String, dynamic>> userDoc = snapshot.docs.first;
+        List<dynamic> userMaps = userDoc['userMaps'];
+        for (var userMap in userMaps) {
+          if (userMap['email'] == email) {
+            currentUserName = userMap['name'];
+            currentUserPhoneNum = userMap['phoneNum'].toString();
+          }
+        }
+      }
+    });
+    return [currentUserName, currentUserPhoneNum, email];
+  }
   
   void showLocation() async {
     final latitude = 25.24225207729788;
