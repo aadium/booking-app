@@ -136,25 +136,36 @@ class EmailFunctions {
       int phoneNumber,
       String email) async {
     final response = await http.get(
-      Uri.parse('${adminServerUrl}api/auth/getAllAdminEmails'));
-    final adminEmails = jsonDecode(response.body);
-    final message = Message()
-      ..from = Address(smtpServerEmail, 'Dana Garden')
-      ..recipients.addAll(adminEmails)
-        ..subject = 'USER REGISTRATION REQUEST (VILLA NUMBER: $villaNumber)'
-      ..html = '''
-        <p>Below are the user details:</p>
-        <ul>
-          <li>Villa Number: $villaNumber
-          <li>Name: $name
-          <li>Phone Number: $phoneNumber
-          <li>Email: $email
-      ''';
+        Uri.parse('${adminServerUrl}api/auth/getAllAdminEmails'));
 
-    try {
-      await send(message, smtpServer);
-    } on MailerException catch (e) {
-      debugPrint('Message not sent: $e');
+    if (response.statusCode == 200) {
+      try {
+        final adminEmails = jsonDecode(response.body);
+        final message = Message()
+          ..from = Address(smtpServerEmail, 'Dana Garden')
+          ..recipients.addAll(adminEmails)
+          ..subject = 'USER REGISTRATION REQUEST (VILLA NUMBER: $villaNumber)'
+          ..html = '''
+            <p>Below are the user details:</p>
+            <ul>
+              <li>Villa Number: $villaNumber</li>
+              <li>Name: $name</li>
+              <li>Phone Number: $phoneNumber</li>
+              <li>Email: $email</li>
+            </ul>
+          ''';
+
+        try {
+          await send(message, smtpServer);
+        } on MailerException catch (e) {
+          debugPrint('Message not sent: $e');
+        }
+      } catch (e) {
+        debugPrint('Failed to decode JSON: $e');
+      }
+    } else {
+      debugPrint('Request failed with status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
     }
   }
 

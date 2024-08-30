@@ -35,21 +35,24 @@ class SignFunctions {
     }
   }
 
-  Future<void> registerRequest(villaNumController, nameController, phoneNumberController, emailController) async {
-    await emailFunctions.sendRegistrationRequestEmail(
-        int.parse(villaNumController.text),
-        nameController.text,
-        int.parse(phoneNumberController.text),
-        emailController.text);
-    await firestore
-        .collection(firestoreRegistrationRequestsCollection)
-        .add({
-          'villa_num': int.parse(villaNumController.text),
-          'name': nameController.text,
-          'email': emailController.text,
-          'phone_number': int.parse(phoneNumberController.text),
-          'created_at': DateTime.now(),
-        });
+  Future<void> registerRequest(TextEditingController villaNumController, TextEditingController nameController, TextEditingController phoneNumberController, TextEditingController emailController) async {
+    try {
+      await firestore
+          .collection(firestoreRegistrationRequestsCollection)
+          .add({
+        'villa_num': int.tryParse(villaNumController.text) ?? 0,
+        'name': nameController.text,
+        'email': emailController.text,
+        'phone_number': int.tryParse(phoneNumberController.text) ?? 0,
+        'created_at': DateTime.now()
+      });
+    } catch (e) {
+      if (e is FirebaseException) {
+        throw Exception('Failed to add request to Firestore: ${e.message}');
+      } else {
+        throw Exception('Failed to send registration request: $e');
+      }
+    }
   }
 
   Future<void> signOut() async {
