@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/constants.dart';
-import '../functions/email_functions.dart';
 import '../home_screen.dart';
 import '../widgets/textboxes/text_box_wcontroller_numeric.dart';
 
@@ -28,11 +27,79 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailIdController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  SignFunctions signFunctions = SignFunctions();
   final auth = FirebaseAuth.instance;
   bool _isLoading = false;
   dynamic signInResult;
-  dynamic signFunctions = SignFunctions();
-  dynamic emailFunctions = EmailFunctions();
+
+  Future<void> sendRegisterRequest(villaNumController, nameController,
+      phoneNumberController, emailController) async {
+    if (villaNumController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        phoneNumberController.text.isEmpty ||
+        emailController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please fill in all the fields to proceed.'),
+            actions: [
+              PrimaryTextButton(
+                text: 'OK',
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+    try {
+      await signFunctions.registerRequest(villaNumController, nameController,
+          phoneNumberController, emailController);
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Request Sent'),
+            content: Text(
+                'Your request has been sent. You will receive an email once your account is created.'),
+            actions: [
+              PrimaryTextButton(
+                text: 'OK',
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      debugPrint('Error: $e');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(e.toString()),
+            actions: [
+              PrimaryTextButton(
+                text: 'OK',
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +138,8 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 20.0, bottom: 20.0),
                       child: CustomPasswordField(
                         controller: _passwordController,
                       ),
@@ -95,21 +163,23 @@ class _SignInPageState extends State<SignInPage> {
                                   Uri.parse(
                                       '${adminServerUrl}api/auth/getUser/${user.uid}'),
                                   headers: {'Authorization': 'Bearer $jwt'});
-                              var userRole =
-                              jsonDecode(apiUserResponse.body)['customClaims']
-                              ['role'];
+                              var userRole = jsonDecode(
+                                  apiUserResponse.body)['customClaims']['role'];
                               if (userRole == 'admin') {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => AdminHomeScreen(
-                                          pageIndex: 0,
-                                        )));
+                                              pageIndex: 0,
+                                            )));
                               } else {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomeScreen(user: user, pageIndex: 0,)));
+                                        builder: (context) => HomeScreen(
+                                              user: user,
+                                              pageIndex: 0,
+                                            )));
                               }
                             } else {
                               showDialog(
@@ -150,10 +220,14 @@ class _SignInPageState extends State<SignInPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      TextEditingController nameController = TextEditingController();
-                      TextEditingController villaNumController = TextEditingController();
-                      TextEditingController phoneNumberController = TextEditingController();
-                      TextEditingController emailController = TextEditingController();
+                      TextEditingController nameController =
+                          TextEditingController();
+                      TextEditingController villaNumController =
+                          TextEditingController();
+                      TextEditingController phoneNumberController =
+                          TextEditingController();
+                      TextEditingController emailController =
+                          TextEditingController();
                       return AlertDialog(
                         title: Text('Enter your details'),
                         content: SingleChildScrollView(
@@ -184,54 +258,11 @@ class _SignInPageState extends State<SignInPage> {
                           PrimaryTextButton(
                             text: 'Send Request',
                             onPressed: () async {
-                              if (villaNumController.text.isEmpty ||
-                                  nameController.text.isEmpty ||
-                                  phoneNumberController.text.isEmpty ||
-                                  emailController.text.isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text(
-                                          'Please fill in all the fields to proceed.'),
-                                      actions: [
-                                        PrimaryTextButton(
-                                          text: 'OK',
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                return;
-                              }
-                              await emailFunctions.sendRegistrationRequestEmail(
-                                  int.parse(villaNumController.text),
-                                  nameController.text,
-                                  int.parse(phoneNumberController.text),
-                                  emailController.text);
-                              Navigator.of(context).pop();
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Request Sent'),
-                                    content: Text(
-                                        'Your request has been sent. You will receive an email once your account is created.'),
-                                    actions: [
-                                      PrimaryTextButton(
-                                        text: 'OK',
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              sendRegisterRequest(
+                                  villaNumController,
+                                  nameController,
+                                  phoneNumberController,
+                                  emailController);
                             },
                           ),
                           SecondaryTextButton(

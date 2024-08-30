@@ -11,6 +11,7 @@ import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textboxes/text_box_wcontroller_numeric.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,6 +36,7 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
   final emailFunctions = EmailFunctions();
   final Authentication authentication = Authentication();
   final double tablePadding = 0;
+  User? user = FirebaseAuth.instance.currentUser;
   void addUserDialog() {
     TextEditingController newNameController = TextEditingController();
     TextEditingController newPhoneNumberController = TextEditingController();
@@ -77,9 +79,9 @@ class _AdminUserInfoPageState extends State<AdminUserInfoPage> {
                 text: 'Add user',
                 onPressed: () async {
                   var addUserResult = await profileFunctions.addUser(
-                      newNameController,
-                      newPhoneNumberController,
-                      newEmailController,
+                      newNameController.text.toString(),
+                      newPhoneNumberController.text.toString(),
+                      newEmailController.text.toString(),
                       widget.villaNumber);
                   if (addUserResult[0] == 1) {
                     showDialog(

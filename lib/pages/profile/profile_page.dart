@@ -5,6 +5,7 @@ import 'package:booking_app/pages/profile/user_info.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
+import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
@@ -41,6 +42,85 @@ class _ProfilePageState extends State<ProfilePage> {
     _setUserProfile();
   }
 
+  Future<void> _changePassword(currentPasswordController,newPasswordController,confirmPasswordController) async {
+    if (newPasswordController.text ==
+        confirmPasswordController.text) {
+      User? user =
+          FirebaseAuth.instance.currentUser;
+      if (user != null && user.email != null) {
+        try {
+          AuthCredential credential =
+          EmailAuthProvider.credential(
+            email: user.email!,
+            password:
+            currentPasswordController.text,
+          );
+          await user.reauthenticateWithCredential(
+              credential);
+          await signFunctions.changePassword(
+              newPasswordController.text);
+          Navigator.of(context).pop();
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Success'),
+                content: Text(
+                    'Password changed successfully'),
+                actions: [
+                  PrimaryTextButton(
+                    text: 'OK',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        } catch (e) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Error'),
+                content: Text(
+                    'An error occured while changing passwords. Please try again later.'),
+                actions: [
+                  PrimaryTextButton(
+                    text: 'OK',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(
+                'Passwords do not match. Please try again.'),
+            actions: [
+              PrimaryTextButton(
+                text: 'OK',
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   Future<void> _setUserProfile() async {
     List<String> userProfile =
         await profileFunctions.getCurrentUser(widget.villaNumber);
@@ -60,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
           future: profileFunctions.getCurrentUser(widget.villaNumber),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(child: Loader1());
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading profile.'));
             } else if (snapshot.hasData) {
@@ -73,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 15),
                   Center(
                     child: Text(
-                        name,
+                        "User: $name",
                         style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
@@ -168,82 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 PrimaryTextButton(
                                   text: ('Change Password'),
                                   onPressed: () async {
-                                    if (newPasswordController.text ==
-                                        confirmPasswordController.text) {
-                                      User? user =
-                                          FirebaseAuth.instance.currentUser;
-                                      if (user != null && user.email != null) {
-                                        try {
-                                          AuthCredential credential =
-                                              EmailAuthProvider.credential(
-                                            email: user.email!,
-                                            password:
-                                                currentPasswordController.text,
-                                          );
-                                          await user.reauthenticateWithCredential(
-                                              credential);
-                                          await signFunctions.changePassword(
-                                              newPasswordController.text);
-                                          Navigator.of(context).pop();
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text('Success'),
-                                                content: Text(
-                                                    'Password changed successfully'),
-                                                actions: [
-                                                  PrimaryTextButton(
-                                                    text: 'OK',
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        } catch (e) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text('Error'),
-                                                content: Text(
-                                                    'An error occured while changing passwords. Please try again later.'),
-                                                actions: [
-                                                  PrimaryTextButton(
-                                                    text: 'OK',
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        }
-                                      }
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text('Error'),
-                                            content: Text(
-                                                'Passwords do not match. Please try again.'),
-                                            actions: [
-                                              PrimaryTextButton(
-                                                text: 'OK',
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
+                                    _changePassword(currentPasswordController, newPasswordController, confirmPasswordController);
                                   },
                                 ),
                                 SecondaryTextButton(

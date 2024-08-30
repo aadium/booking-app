@@ -4,18 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final User? user = FirebaseAuth.instance.currentUser;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
 class ProfileFunctions {
+  User? user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  ProfileFunctions() {
+    FirebaseAuth.instance.authStateChanges().listen((User? newUser) {
+      user = newUser;
+    });
+  }
+
   Future<List> addUser(
-      TextEditingController newNameController,
-      TextEditingController newPhoneNumberController,
-      TextEditingController newEmailController,
+      String newName,
+      String newPhoneNumberStr,
+      String newEmail,
       int villaNum) async {
-    String newName = newNameController.text;
-    String newPhoneNumberStr = newPhoneNumberController.text;
-    String newEmail = newEmailController.text;
     if (newName == '' || newPhoneNumberStr == '' || newEmail == '') {
       return [1, null, null];
     } else {
@@ -48,6 +51,39 @@ class ProfileFunctions {
       } else {
         return [2, newName, null];
       }
+    }
+  }
+
+  Future<List> deleteAcceptedRequest(
+      String newName,
+      String newPhoneNumberStr,
+      String newEmail,
+      int villaNum) async {
+    if (newName == '' || newPhoneNumberStr == '' || newEmail == '') {
+      return [1, 'One or more fields are empty'];
+    }
+
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection(firestoreRegistrationRequestsCollection)
+          .where('name', isEqualTo: newName)
+          .where('phone_number', isEqualTo: int.parse(newPhoneNumberStr))
+          .where('email', isEqualTo: newEmail)
+          .where('villa_num', isEqualTo: villaNum)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        await FirebaseFirestore.instance
+            .collection(firestoreRegistrationRequestsCollection)
+            .doc(snapshot.docs.first.id)
+            .delete();
+        return [0, 'Request accepted and removed'];
+      } else {
+        return [2, 'Request not found'];
+      }
+    } catch (e) {
+      return [3, 'Error: $e'];
     }
   }
 
@@ -92,12 +128,12 @@ class ProfileFunctions {
     });
     return [currentUserName, currentUserPhoneNum, email];
   }
-  
-  void showLocation() async {
-    final latitude = 25.24225207729788;
-    final longitude = 51.55955193548285;
 
-    final url = 'https://maps.google.com/?q=$latitude,$longitude';
+  void showLocation() async {
+    const latitude = 25.24225207729788;
+    const longitude = 51.55955193548285;
+
+    const url = 'https://maps.google.com/?q=$latitude,$longitude';
 
     await launch(url);
   }

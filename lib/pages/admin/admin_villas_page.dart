@@ -4,6 +4,9 @@ import 'package:booking_app/widgets/cards/AdminVillasCard.dart';
 import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'admin_registration_requests.dart';
 
 class AdminVillasPage extends StatefulWidget {
   const AdminVillasPage({super.key});
@@ -17,7 +20,33 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text('Villas'))
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(child: const Text('Villas')),
+            IconButton(
+              icon: const Icon(FontAwesomeIcons.bars),
+              onPressed: () {
+                showMenu(
+                  context: context,
+                  position: RelativeRect.fromLTRB(110, 90, 0, 0),
+                  items: [
+                    PopupMenuItem(
+                      value: 'registration_requests',
+                      child: Text('Registration requests'),
+                    ),
+                  ],
+                ).then((value) {
+                  if (value == 'registration_requests') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AdminRegistrationRequestsPage(),
+                    ));
+                  }
+                });
+              },
+            )
+          ],
+        )
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -44,19 +73,12 @@ class _AdminVillasPageState extends State<AdminVillasPage> {
                         ),
                       ));
                     },
-                    child: Column(
-                      children: [
-                        Text(
-                          'Villa Number',
-                          style: const TextStyle(fontSize: 16, color: Color.fromRGBO(42, 54, 59, 1)),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          data!['Villa_num'].toString(),
-                          style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
-                        ),
-                      ],
-                    ),
+                    child:
+                      Text(
+                        data!['Villa_num'].toString(),
+                        style: const TextStyle(fontSize: 60, fontWeight:
+                        FontWeight.bold, color: Color.fromRGBO(42, 54, 59, 1)),
+                      ),
                   );
                 },
               );
