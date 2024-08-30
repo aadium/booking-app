@@ -5,6 +5,7 @@ import 'package:booking_app/pages/profile/user_info.dart';
 import 'package:booking_app/pages/sign_in.dart';
 import 'package:booking_app/widgets/buttons/primary_profile_menu_button.dart';
 import 'package:booking_app/widgets/buttons/secondary_profile_menu_button.dart';
+import 'package:booking_app/widgets/loaders/loader_1.dart';
 import 'package:booking_app/widgets/textboxes/password_box.dart';
 import 'package:booking_app/widgets/textbuttons/primary_text_button.dart';
 import 'package:booking_app/widgets/textbuttons/secondary_text_button.dart';
@@ -139,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
           future: profileFunctions.getCurrentUser(widget.villaNumber),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(child: Loader1());
             } else if (snapshot.hasError) {
               return const Center(child: Text('Error loading profile.'));
             } else if (snapshot.hasData) {
@@ -152,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 15),
                   Center(
                     child: Text(
-                        name,
+                        "User: $name",
                         style: Theme.of(context).textTheme.headline6,
                     ),
                   ),

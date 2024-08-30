@@ -13,11 +13,10 @@ class AdminVillasCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
           color: Color.fromRGBO(219, 226, 230, 1),
         ),
-        child: Padding(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+        child: Center(
           child: child
         ),
       ),
