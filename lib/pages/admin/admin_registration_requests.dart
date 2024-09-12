@@ -179,8 +179,19 @@ class _AdminRegistrationRequestsPageState extends State<AdminRegistrationRequest
           child: _isLoading
               ? Center(child: Loader1())
               : _registrationRequests.isEmpty
-                  ? const Center(child: Text('No registration requests'))
-                  : Column(
+                  ? const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No registration requests',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ) : Column(
                       children: _registrationRequests.map((request) {
                         final data = request.data() as Map<String, dynamic>;
                         return AdminRegistrationCard(
