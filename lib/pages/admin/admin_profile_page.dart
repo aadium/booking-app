@@ -39,79 +39,106 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       appBar: AppBar(
         title: Center(child: const Text('Profile')),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 10),
-              Text(
-                name,
-                style: TextStyle(fontSize: 30),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    email,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
               ),
-              SizedBox(height: 16),
-              Text(
-                email,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 30),
-              FractionallySizedBox(
-                widthFactor: 0.95,
-                child: PrimaryProfileMenuButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Change Name'),
-                          content: CustomTextFieldWController(
-                            controller: _nameController,
-                            labelText: 'Enter new name',
-                          ),
-                          actions: <Widget>[
-                            PrimaryTextButton(
-                              onPressed: () async {
-                                String newName = _nameController.text;
-                                try {
-                                  User? user =
-                                      FirebaseAuth.instance.currentUser;
-                                  if (user != null) {
-                                    await user.updateDisplayName(newName);
-                                    print('Display name updated successfully');
-                                  } else {
-                                    print('User is not logged in');
-                                  }
-                                } catch (e) {
-                                  print('Error updating display name: $e');
+            ),
+            Divider(
+              color: Color.fromRGBO(151, 169, 175, 1.0),
+            ),
+            SizedBox(height: 10),
+            FractionallySizedBox(
+              widthFactor: 0.95,
+              child: PrimaryProfileMenuButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Change Name'),
+                        content: CustomTextFieldWController(
+                          controller: _nameController,
+                          labelText: 'Enter new name',
+                        ),
+                        actions: <Widget>[
+                          PrimaryTextButton(
+                            onPressed: () async {
+                              String newName = _nameController.text;
+                              if (newName.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text('Name cannot be empty'),
+                                      actions: [
+                                        PrimaryTextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          text: 'OK',
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                return;
+                              }
+                              try {
+                                User? user = FirebaseAuth.instance.currentUser;
+                                if (user != null) {
+                                  await user.updateDisplayName(newName);
+                                  print('Display name updated successfully');
+                                } else {
+                                  print('User is not logged in');
                                 }
-                                setState(() {
-                                  name = auth.currentUser?.displayName ??
-                                      'Name not set';
-                                });
-                                Navigator.of(context).pop();
-                              },
-                              text: 'OK',
-                            ),
-                            SecondaryTextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              text: 'Cancel',
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  text: 'Change Name',
-                  icon: FontAwesomeIcons.a,
-                ),
+                              } catch (e) {
+                                print('Error updating display name: $e');
+                              }
+                              setState(() {
+                                name = auth.currentUser?.displayName ??
+                                    'Name not set';
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            text: 'OK',
+                          ),
+                          SecondaryTextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            text: 'Cancel',
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                text: 'Change Name',
+                icon: FontAwesomeIcons.a,
               ),
-              SizedBox(height: 15),
-              FractionallySizedBox(
-                widthFactor: 0.95,
-                child: PrimaryProfileMenuButton(
+            ),
+            SizedBox(height: 15),
+            FractionallySizedBox(
+              widthFactor: 0.95,
+              child: PrimaryProfileMenuButton(
                   text: 'Change password',
                   onPressed: () {
                     showDialog(
@@ -126,8 +153,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             children: [
                               CustomPasswordField(
                                   controller: _currPasswordController,
-                                  labelText: 'Enter current password'
-                              ),
+                                  labelText: 'Enter current password'),
                               CustomPasswordField(
                                 controller: _newPasswordController,
                                 labelText: 'Enter new password',
@@ -145,8 +171,8 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                                   AuthCredential credential =
                                       EmailAuthProvider.credential(
                                           email: email, password: currPassword);
-                                  await user!.reauthenticateWithCredential(
-                                      credential);
+                                  await user!
+                                      .reauthenticateWithCredential(credential);
                                   await user.updatePassword(newPassword);
                                   print('Password updated successfully');
                                 } catch (e) {
@@ -167,47 +193,42 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                     );
                   },
-                  icon: FontAwesomeIcons.lock
-                ),
-              ),
-              SizedBox(height: 20),
-              FractionallySizedBox(
+                  icon: FontAwesomeIcons.lock),
+            ),
+            SizedBox(height: 20),
+            FractionallySizedBox(
                 widthFactor: 0.95,
                 child: SecondaryPrimaryProfileMenuButton(
-                          text: 'Sign Out',
-                          onPressed: () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Sign Out'),
-                                    content: Text(
-                                        'Are you sure you want to sign out?'),
-                                    actions: [
-                                      PrimaryTextButton(
-                                        text: 'Yes',
-                                        onPressed: () async {
-                                          await signFunctions.signOut();
-                                          Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignInPage()),
-                                            (route) => false,
-                                          );
-                                        },
-                                      ),
-                                      SecondaryTextButton(
-                                        text: 'No',
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ))
-              ),
-            ],
-          ),
+                    text: 'Sign Out',
+                    onPressed: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Sign Out'),
+                              content:
+                                  Text('Are you sure you want to sign out?'),
+                              actions: [
+                                PrimaryTextButton(
+                                  text: 'Yes',
+                                  onPressed: () async {
+                                    await signFunctions.signOut();
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignInPage()),
+                                      (route) => false,
+                                    );
+                                  },
+                                ),
+                                SecondaryTextButton(
+                                  text: 'No',
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ),
+                              ],
+                            );
+                          },
+                        ))),
+          ],
         ),
       ),
     );
