@@ -195,7 +195,11 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   },
                   icon: FontAwesomeIcons.lock),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
+            Divider(
+              color: Color.fromRGBO(151, 169, 175, 1.0),
+            ),
+            SizedBox(height: 10),
             FractionallySizedBox(
                 widthFactor: 0.95,
                 child: SecondaryPrimaryProfileMenuButton(
